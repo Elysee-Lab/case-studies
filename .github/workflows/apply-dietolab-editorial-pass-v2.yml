@@ -1,0 +1,256 @@
+name: Apply DietoLab editorial pass v2
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+
+permissions:
+  contents: write
+
+jobs:
+  rewrite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Apply evidence-led editorial rewrite
+        run: |
+          cat > /tmp/rewrite.py <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+
+          def rep(old,new,expected=1):
+              global s
+              n=s.count(old)
+              if n!=expected:
+                  raise SystemExit(f'Expected {expected}, found {n}: {old[:160]}')
+              s=s.replace(old,new)
+
+          # Shared navigation: make the case-study structure explicit.
+          rep('<a href="#join-network-en">For dietitians</a>','<a href="#join-network-en">Partner network</a>')
+          rep('<a href="#next-en">What next</a>','<a href="#next-en">Next hypotheses</a>')
+          rep('<a href="#join-network-pl">Dla dietetyków</a>','<a href="#join-network-pl">Sieć partnerska</a>')
+          rep('<a href="#next-pl">Co dalej</a>','<a href="#next-pl">Kolejne hipotezy</a>')
+
+          # EN: case-study voice, language cleanup and partner-model framing.
+          rep('With one active public dietitian, this remains a local proof-of-model rather than nationwide scale. The next stage is partner-led replication across Polish cities.',
+              'With one active public dietitian, this remains a local proof-of-model rather than nationwide scale. Based on that validation, I chose partner-network activation as the mechanism for replicating the model across additional Polish cities.')
+          rep('<span class="pill">Baza produkcyjna</span>','<span class="pill">Production database</span>',1)
+          rep('<a class="masterLink" href="#join-network-en"><span class="n">04</span><b>Join the Network</b><span>How the model can create value for an individual dietitian.</span></a>',
+              '<a class="masterLink" href="#join-network-en"><span class="n">04</span><b>Partner Network</b><span>How I designed partner infrastructure, activation and geographic scale.</span></a>')
+          rep("I designed a shared knowledge and decision spine so clinical and AI-enabled tools use consistent sources, rules and quality controls rather than becoming isolated features. The aim is better organised work and more consistent patient support, with professional judgement retained.",
+              "I designed a shared knowledge and decision spine so clinical and AI-enabled tools use consistent sources, rules and quality controls rather than becoming isolated features. This architecture keeps the knowledge and quality-control logic shared while professional judgement remains with the specialist.")
+          rep('<div class="eyebrow">Kontekst biznesowy</div><h2>What is DietoLab building?</h2>',
+              '<div class="eyebrow">Business context</div><h2>What is DietoLab building?</h2>')
+          rep('Capabilities already in place built','Capabilities already in place')
+          rep('Central layer already in place exists','Central layer already exists')
+          rep('The strategic objective is not to present DietoLab as an existing nationwide brand. The objective is to prove the model locally, grow the specialist network and use that network to expand into additional Polish markets.',
+              'I do not present DietoLab as an existing nationwide brand. I treat Warsaw as the proof-of-model market and the partner network as the mechanism for expansion into additional Polish cities.')
+          rep('<div class="segLabel">B2C · Pacjenci</div>','<div class="segLabel">B2C · Patients</div>',1)
+          rep('<div class="segLabel">B2B · Sieć partnerów</div>','<div class="segLabel">B2B · Partner network</div>',1)
+          rep('<div class="segLabel">B2B · Firmy i instytucje</div>','<div class="segLabel">B2B · Companies &amp; institutions</div>',1)
+          rep('12 × oferta wysłana · 5 × nieobecność na rozmowie · 2 × odrzucone · 1 × rozmowa zakończona · 1 × w toku.',
+              '12 × offer sent · 5 × no-show · 2 × rejected · 1 × interview completed · 1 × in progress.',1)
+          rep('<div class="sectionHead"><div><div class="eyebrow">Oś czasu</div><h2>Actions → outcomes</h2></div>',
+              '<div class="sectionHead"><div><div class="eyebrow">Timeline</div><h2>Actions → outcomes</h2></div>',1)
+          rep('measurement punkt odniesienia created','measurement baseline created')
+          rep('<b>punkt odniesienia</b><span>technical base for further growth</span>','<b>baseline</b><span>technical base for further growth</span>')
+          rep('GA client/session IDs + click-ID gotowe schema','GA client/session IDs + click-ID schema')
+          rep('The architecture is largely gotowe.','The architecture is largely in place.')
+          rep('<b>porządkowanie</b><span>technical key events removed from business KPIs</span>','<b>clean-up</b><span>technical key events removed from business KPIs</span>')
+          rep('<b>porządek w pomiarze reklam</b><span>page_view pseudo-conversions removed from business KPIs</span>','<b>ad measurement clean-up</b><span>page_view pseudo-conversions removed from business KPIs</span>')
+          rep('an early directional punkt odniesienia before most changes','an early directional baseline before most changes')
+          rep('<b>gotowe</b><span>first/converting touch + refund reconciliation</span>','<b>ready</b><span>first/converting touch + refund reconciliation</span>')
+          rep('The cost model and campaign/ad-group identifiers are gotowe, but the cost period does not overlap with the attribution v3 period.',
+              'The cost model and campaign/ad-group identifiers are in place, but the cost period does not overlap with the attribution v3 period.')
+          rep('US data, październik 2024–wrzesień 2025; market differences and lead definitions are significant.',
+              'US data, October 2024–September 2025; market differences and lead definitions are significant.')
+          rep('<div class="eyebrow" style="color:#d7eeee">Wniosek główny</div><h2>The biggest outcome of the year: DietoLab is no longer only a service website. It is becoming a measurable growth system for B2C and two B2B paths.</h2>',
+              '<div class="eyebrow" style="color:#d7eeee">Core conclusion</div><h2>The biggest outcome of the year: DietoLab moved beyond a service website and now operates as a measurable growth system for B2C and two B2B paths.</h2>')
+          rep('The next stage is to convert partner recruitment into local capacity in additional cities and scale these paths using clean shared KPIs.',
+              'Based on the current evidence, I shifted the priority to activating partners in additional cities and scaling each path against clean, shared KPIs.')
+          rep('The next constraint is lower-funnel conversion and specialist supply: activating more dietitians so the demand engine can be replicated city by city.',
+              'The current constraint is lower-funnel conversion and specialist supply: activating more dietitians is now the limiting factor for city-by-city replication.')
+
+          # EN: learning section from advice/playbook voice to case-study decisions.
+          rep('After the first system version: establish a baseline','After the first system version, I established a baseline')
+          rep('Learning:</b> once a system exists, the next job is to make it observable. Without a trustworthy baseline, optimisation creates activity, not knowledge.',
+              'Learning:</b> I made the system observable before optimising it further. Without a trustworthy baseline, more activity would not have created better knowledge.')
+          rep('Expand the search surface, then improve its quality','I expanded the search surface, then shifted to quality')
+          rep('Do not give the latest deployment all the credit','I separated timing from causality')
+          rep('Separate broken systems from low sample size','I separated real defects from low sample size')
+          rep('Remove internal behaviour from growth claims','I removed internal behaviour from growth claims')
+
+          # EN: measurement section.
+          rep('<div class="chainTitle">Target decision-grade chain</div>', '<div class="chainTitle">Measurement chain I designed</div>')
+          rep('Once this chain works end to end, CPL, booking CVR, CAC and ROAS can be measured reliably by channel, campaign and landing page. Financial values remain hidden in this external report.',
+              'I designed this model so that, once enough complete journeys exist, source, campaign and landing page can be connected reliably to CPL, booking CVR, CAC and ROAS. Financial values remain hidden in this external report.')
+
+          # EN: partner network section as evidence-led model rather than recruitment promise.
+          rep('<a class="masterLink" href="#join-network-en"><span class="n">04</span><b>Partner Network</b><span>How I designed partner infrastructure, activation and geographic scale.</span></a>',
+              '<a class="masterLink" href="#join-network-en"><span class="n">04</span><b>Partner Network</b><span>How I designed partner infrastructure, activation and geographic scale.</span></a>')
+          rep('<div class="sectionHead"><div><div class="eyebrow">Join the network</div><h2>More than brand and marketing. DietoLab is designed as shared infrastructure for running and growing a practice.</h2></div>',
+              '<div class="sectionHead"><div><div class="eyebrow">Partner network as the scale mechanism</div><h2>I designed DietoLab as shared infrastructure for running and growing a practice.</h2></div>')
+          rep('<article class="partnerPromise"><div class="cap" style="color:#d7eeee">Partnership model</div><h3>Do not join a directory. Join a shared system for care delivery and growth.</h3>',
+              '<article class="partnerPromise"><div class="cap" style="color:#d7eeee">Partnership model</div><h3>The partner model goes beyond a directory of specialists.</h3>')
+          rep('A partner is not buying a single tool or campaign. The model combines several layers that are intended to work together.',
+              'The partner model combines several layers that I designed as one operating system rather than as separate tools or campaigns.')
+          rep('Clinical Brain and Single Spine provide a shared knowledge and rules layer for clinical tools. They are designed to make work more consistent, transparent and auditable without replacing dietitian judgement.',
+              'Clinical Brain and Single Spine provide a shared knowledge and rules layer for clinical tools. The layer standardises sources, rules and quality controls without replacing dietitian judgement.')
+          rep('<div class="synergyBox"><div class="cap" style="color:var(--teal)">The synergy we want to build</div><h3>The operating model is designed so each layer strengthens the others.</h3><p>The central team builds reach and commercial opportunities. The platform makes higher patient volume easier to manage. Clinical Brain, standards and procedures support consistency and quality. Dietitians add expertise, specialisations and local availability. As the network grows, the aim is to create more value for patients, partners and employers at the same time.</p>',
+              '<div class="synergyBox"><div class="cap" style="color:var(--teal)">Network-value hypothesis</div><h3>The model links four layers whose value depends on one another.</h3><p>The central team is responsible for reach and commercial opportunities. The platform organises patient volume. Clinical Brain, standards and procedures create a shared quality layer. Dietitians add expertise, specialisations and local availability. I treat the interaction between these layers as a hypothesis to validate, not as an already proven network effect.</p>')
+          rep('<div class="qualityNote"><b>Important distinction:</b> this is the intended mechanism of the network, not yet a proven network effect. With one active public partner, I do not claim network effects yet; additional partner cohorts are needed before that relationship can be measured credibly.</div>',
+              '<div class="qualityNote"><b>Important distinction:</b> with one active public partner, I do not claim a network effect. The next partner cohorts are designed to test whether the relationship between central infrastructure, specialist supply and commercial outcomes appears in real data.</div>')
+          rep('<article class="rampCard"><div class="day">First 30 days</div><h4>Launch the profile and organise the workflow</h4><p>Profile, offer, specialisations, location, calendar, booking and measurement go live. The dietitian is onboarded to the platform, documentation standard and supporting tools.</p><div class="measure"><b>Measure:</b> time to live, profile completeness, calendar readiness, indexation and first qualified visits.</div></article>',
+              '<article class="rampCard"><div class="day">First 30 days</div><h4>Stage 1: profile launch and workflow setup</h4><p>In the activation model, the first stage covers profile, offer, specialisations, location, calendar, booking, measurement and onboarding to the documentation standard and supporting tools.</p><div class="measure"><b>Metrics:</b> time to live, profile completeness, calendar readiness, indexation and first qualified visits.</div></article>')
+          rep('<article class="rampCard"><div class="day">By about 90 days</div><h4>Test whether interest becomes patients</h4><p>Build the first reliable cohort from landing visit through booking to completed consultation. Compare sources, specialties and local pages.</p><div class="measure"><b>Measure:</b> qualified visits, booking rate, days to first booking and completed consultations.</div></article>',
+              '<article class="rampCard"><div class="day">By about 90 days</div><h4>Stage 2: validate interest-to-patient conversion</h4><p>The second stage builds the first reliable cohort from landing visit through booking to completed consultation and compares sources, specialties and local pages.</p><div class="measure"><b>Metrics:</b> qualified visits, booking rate, days to first booking and completed consultations.</div></article>')
+          rep('<article class="rampCard"><div class="day">By about 180 days</div><h4>Test repeatability and additional sources of value</h4><p>Assess repeat care, utilisation and whether B2B assignments, referrals and network collaboration add incremental value.</p><div class="measure"><b>Measure:</b> follow-up visits, utilisation, active patients, B2B assignments and partner retention.</div></article>',
+              '<article class="rampCard"><div class="day">By about 180 days</div><h4>Stage 3: evaluate repeatability and incremental value</h4><p>The third stage evaluates repeat care, utilisation and whether B2B assignments, referrals and network collaboration add measurable incremental value.</p><div class="measure"><b>Metrics:</b> follow-up visits, utilisation, active patients, B2B assignments and partner retention.</div></article>')
+          rep('<div class="partnerCta"><div><div class="cap" style="color:#d7eeee">For dietitians</div><h3>Want to grow your practice without building every part of the business alone?</h3><p>If you care about quality, responsible patient work and developing your specialisation, explore the DietoLab partnership model. We are looking for specialists who want to help build the network, use shared infrastructure and contribute their own expertise, experience and local presence.</p></div><a class="ctaButton" href="https://dietolab.pl/wspolpraca" rel="noopener" target="_blank">Explore the partnership and apply</a></div>',
+              '<div class="partnerCta"><div><div class="cap" style="color:#d7eeee">Partner activation in practice</div><h3>Partner recruitment is part of the go-to-market system, not an add-on to the product.</h3><p>The public /wspolpraca path feeds the partner pipeline shown in this case study. I keep the live link here as an example of the acquisition and activation system in production.</p></div><a class="ctaButton" href="https://dietolab.pl/wspolpraca" rel="noopener" target="_blank">View the live partner path</a></div>')
+
+          # PL: case-study voice and partner-model framing.
+          rep('Przy jednym aktywnym publicznym dietetyku jest to nadal potwierdzanie modelu lokalnego, a nie skala ogólnopolska. Kolejny etap to powielanie tego modelu w następnych miastach dzięki rozwojowi sieci partnerów.',
+              'Przy jednym aktywnym publicznym dietetyku jest to nadal potwierdzanie modelu lokalnego, a nie skala ogólnopolska. Na podstawie tej walidacji wybrałam rozwój sieci partnerów jako mechanizm powielania modelu w kolejnych miastach.')
+          rep('<a class="masterLink" href="#join-network-pl"><span class="n">04</span><b>Dołącz do sieci</b><span>Jakie zaplecze otrzymuje dietetyk i jak ma działać wspólny efekt synergii.</span></a>',
+              '<a class="masterLink" href="#join-network-pl"><span class="n">04</span><b>Sieć partnerska</b><span>Jak zaprojektowałam zaplecze partnera, model aktywacji i mechanizm skali geograficznej.</span></a>')
+          rep('Określiłam, czym ma być DietoLab, jakie problemy ma wiarygodnie rozwiązywać i jak połączyć ekspercką dietetykę, dostępność i technologię bez sprowadzania opieki do kolejnego katalogu specjalistów.',
+              'Określiłam pozycjonowanie DietoLab: rolę marki, problemy, które może wiarygodnie rozwiązywać, oraz sposób połączenia eksperckiej dietetyki, dostępności i technologii bez sprowadzania opieki do kolejnego katalogu specjalistów.')
+          rep('Przełożyłam różne potrzeby pacjentów, dietetyków, firm i instytucji na osobne propozycje wartości, a następnie na konkretne pakiety, usługi wspierające i elementy dodatkowe, które mają rozwiązywać realny problem danej grupy.',
+              'Przełożyłam różne potrzeby pacjentów, dietetyków, firm i instytucji na osobne propozycje wartości, a następnie na konkretne pakiety, usługi wspierające i elementy dodatkowe odpowiadające na realny problem danej grupy.')
+          rep('Zaprojektowałam wspólną warstwę wiedzy i reguł, aby narzędzia kliniczne i funkcje wykorzystujące AI korzystały ze spójnych źródeł, zasad i kontroli jakości, zamiast działać jako osobne funkcje. Celem jest lepiej zorganizowana praca i bardziej spójna opieka, przy zachowaniu odpowiedzialności specjalisty.',
+              'Zaprojektowałam wspólną warstwę wiedzy i reguł, aby narzędzia kliniczne i funkcje wykorzystujące AI korzystały ze spójnych źródeł, zasad i kontroli jakości, zamiast działać jako osobne funkcje. Ta architektura porządkuje wiedzę i kontrolę jakości, przy zachowaniu odpowiedzialności specjalisty.')
+          rep('Celem nie jest przedstawianie DietoLab jako marki, która już dziś jest ogólnopolska. Celem jest udowodnienie modelu lokalnie, rozwój sieci specjalistów i wykorzystanie tej sieci do wejścia na kolejne rynki w Polsce.',
+              'Nie przedstawiam DietoLab jako marki ogólnopolskiej. Obecny etap to lokalna walidacja w Warszawie, a rozwój sieci specjalistów wybrałam jako mechanizm wejścia do kolejnych miast w Polsce.')
+          rep('Następny etap to przekucie zainteresowania dietetyków we współpracę z aktywnymi partnerami w kolejnych miastach oraz rozwijanie wszystkich ścieżek na podstawie wspólnych, wiarygodnych wskaźników.',
+              'Na podstawie tych danych priorytet przesunęłam na aktywację kolejnych partnerów w nowych miastach oraz rozwijanie wszystkich ścieżek na podstawie wspólnych, wiarygodnych wskaźników.')
+          rep('Najpierw trzeba było zacząć rzetelnie mierzyć ruch i poprawnie opisywać stronę zarówno dla wyszukiwarki, jak i przy udostępnianiu treści w mediach społecznościowych.',
+              'Pierwszą decyzją było uruchomienie rzetelnego pomiaru ruchu i uporządkowanie sposobu opisywania strony dla wyszukiwarki oraz udostępnień w mediach społecznościowych.')
+          rep('Porównanie nie sprowadza się do jednej liczby. Zmienił się sam charakter problemu, który trzeba rozwiązywać.',
+              'Porównanie nie sprowadza się do jednej liczby. Zmienił się sam charakter problemu biznesowego.')
+          rep('Lejek jest zbudowany. Potwierdzone defekty zostały naprawione, a kolejne etapy trzeba sprawdzić na właściwych grupach użytkowników.',
+              'Lejek jest zbudowany. Potwierdzone defekty zostały naprawione, a pozostałe etapy pozostają do potwierdzenia na właściwych kohortach użytkowników.')
+          rep('Orientacyjny benchmark dla sektora zdrowia wynosi: <strong>Lead→MQL 24%, MQL→SQL 38%, SQL→Opportunity 51%, Opportunity→Closed 51%</strong>. W DietoLab najpierw trzeba ujednolicić statusy w CRM firmowym. Dopiero wtedy będzie można sensownie porównywać przejścia między kolejnymi etapami.',
+              'Orientacyjny benchmark dla sektora zdrowia wynosi: <strong>Lead→MQL 24%, MQL→SQL 38%, SQL→Opportunity 51%, Opportunity→Closed 51%</strong>. Nie porównuję jeszcze tych wskaźników 1:1 z DietoLab, ponieważ statusy w CRM firmowym wymagają normalizacji. Dopiero po ujednoliceniu definicji przejść taki benchmark będzie miarodajny.')
+          rep('<div class="sectionHead"><div><div class="eyebrow">Dołącz do sieci</div><h2>Nie tylko marka i marketing. DietoLab ma być wspólnym zapleczem do prowadzenia i rozwijania praktyki.</h2></div>',
+              '<div class="sectionHead"><div><div class="eyebrow">Sieć partnerska jako mechanizm skali</div><h2>DietoLab zaprojektowałam jako wspólne zaplecze do prowadzenia i rozwijania praktyki.</h2></div>')
+          rep('<article class="partnerPromise"><div class="cap" style="color:#d7eeee">Model współpracy</div><h3>Nie dołączasz do katalogu dietetyków. Dołączasz do wspólnego systemu pracy i rozwoju.</h3>',
+              '<article class="partnerPromise"><div class="cap" style="color:#d7eeee">Model współpracy</div><h3>Model partnerski wykracza poza katalog dietetyków.</h3>')
+          rep('Najważniejsze jest to, że partner nie kupuje jednego narzędzia ani pojedynczej kampanii. Korzysta z kilku warstw, które mają działać razem i wzajemnie się wzmacniać.',
+              'Model partnerski łączy kilka warstw, które zaprojektowałam jako jeden system zamiast zestawu osobnych narzędzi i kampanii.')
+          rep('Clinical Brain i Single Spine są wspólną warstwą wiedzy i reguł dla narzędzi klinicznych. Mają pomagać pracować bardziej spójnie, przejrzyście i mierzalnie, ale nie zastępują oceny dietetyka.',
+              'Clinical Brain i Single Spine są wspólną warstwą wiedzy i reguł dla narzędzi klinicznych. Warstwa porządkuje źródła, reguły i kontrolę jakości, ale nie zastępuje oceny dietetyka.')
+          rep('<div class="synergyBox"><div class="cap" style="color:var(--teal)">Efekt synergii, który chcemy zbudować</div><h3>Każda warstwa ma zwiększać wartość pozostałych.</h3><p>Zespół centralny buduje zasięg i możliwości sprzedażowe. Platforma sprawia, że większą liczbę pacjentów można obsługiwać w uporządkowany sposób. Clinical Brain, procedury i standardy pomagają utrzymywać spójność oraz jakość. Dietetycy dodają wiedzę, specjalizacje i dostępność w kolejnych miejscach. W efekcie rozwój sieci ma zwiększać wartość dla pacjentów, partnerów i firm jednocześnie.</p>',
+              '<div class="synergyBox"><div class="cap" style="color:var(--teal)">Hipoteza wartości sieciowej</div><h3>Model łączy cztery warstwy, których wartość zależy od siebie nawzajem.</h3><p>Zespół centralny odpowiada za zasięg i możliwości sprzedażowe. Platforma porządkuje obsługę pacjentów. Clinical Brain, procedury i standardy tworzą wspólną warstwę jakości. Dietetycy dodają wiedzę, specjalizacje i lokalną dostępność. Zależność między tymi elementami traktuję jako hipotezę do walidacji, a nie jako już potwierdzony efekt sieciowy.</p>')
+          rep('<div class="qualityNote"><b>To ważne rozróżnienie:</b> ten mechanizm jest naszym celem i założeniem rozwoju sieci, ale przy jednym aktywnym publicznym partnerze nie możemy jeszcze powiedzieć, że efekt synergii został potwierdzony w danych. Kolejne wdrożenia partnerów mają właśnie pozwolić go zmierzyć.</div>',
+              '<div class="qualityNote"><b>To ważne rozróżnienie:</b> przy jednym aktywnym publicznym partnerze nie deklaruję efektu sieciowego. Kolejne kohorty partnerów mają służyć sprawdzeniu, czy zależność między wspólnym zapleczem, podażą specjalistów i wynikami komercyjnymi rzeczywiście pojawia się w danych.</div>')
+          rep('<article class="rampCard"><div class="day">Pierwsze 30 dni</div><h4>Uruchom profil i uporządkuj pracę</h4><p>Uruchamiamy profil, ofertę, specjalizacje, lokalizację, kalendarz, rezerwacje i pomiar. Dietetyk poznaje platformę, standard dokumentacji i narzędzia wspierające pracę z pacjentem.</p><div class="measure"><b>Mierzymy:</b> czas do uruchomienia, kompletność profilu, gotowość kalendarza, indeksację i pierwsze wartościowe wejścia.</div></article>',
+              '<article class="rampCard"><div class="day">Pierwsze 30 dni</div><h4>Etap 1: uruchomienie profilu i uporządkowanie pracy</h4><p>W modelu aktywacji pierwszy etap obejmuje profil, ofertę, specjalizacje, lokalizację, kalendarz, rezerwacje, pomiar oraz wdrożenie do standardu dokumentacji i narzędzi wspierających pracę z pacjentem.</p><div class="measure"><b>Wskaźniki:</b> czas do uruchomienia, kompletność profilu, gotowość kalendarza, indeksację i pierwsze wartościowe wejścia.</div></article>')
+          rep('<article class="rampCard"><div class="day">Do ok. 90 dni</div><h4>Sprawdź, czy zainteresowanie zamienia się w pacjentów</h4><p>Budujemy pierwszą wiarygodną grupę danych od wejścia na stronę przez rezerwację po zrealizowaną konsultację. Porównujemy źródła ruchu, specjalizacje i strony lokalne.</p><div class="measure"><b>Mierzymy:</b> wartościowe wizyty na stronie, odsetek rezerwacji, czas do pierwszej rezerwacji i liczbę zrealizowanych konsultacji.</div></article>',
+              '<article class="rampCard"><div class="day">Do ok. 90 dni</div><h4>Etap 2: walidacja przejścia od zainteresowania do pacjenta</h4><p>Drugi etap buduje pierwszą wiarygodną kohortę od wejścia na stronę przez rezerwację po zrealizowaną konsultację i porównuje źródła ruchu, specjalizacje oraz strony lokalne.</p><div class="measure"><b>Wskaźniki:</b> wartościowe wizyty na stronie, odsetek rezerwacji, czas do pierwszej rezerwacji i liczbę zrealizowanych konsultacji.</div></article>')
+          rep('<article class="rampCard"><div class="day">Do ok. 180 dni</div><h4>Sprawdź powtarzalność i dodatkowe źródła wartości</h4><p>Oceniamy, ilu pacjentów wraca, jak wykorzystywany jest dostępny czas oraz czy projekty B2B, polecenia i współpraca w sieci tworzą dodatkową wartość.</p><div class="measure"><b>Mierzymy:</b> wizyty kontrolne, wykorzystanie dostępnego czasu, aktywnych pacjentów, zlecenia B2B i utrzymanie współpracy.</div></article>',
+              '<article class="rampCard"><div class="day">Do ok. 180 dni</div><h4>Etap 3: ocena powtarzalności i dodatkowych źródeł wartości</h4><p>Trzeci etap służy ocenie powrotów pacjentów, wykorzystania dostępnego czasu oraz dodatkowej wartości generowanej przez projekty B2B, polecenia i współpracę w sieci.</p><div class="measure"><b>Wskaźniki:</b> wizyty kontrolne, wykorzystanie dostępnego czasu, aktywnych pacjentów, zlecenia B2B i utrzymanie współpracy.</div></article>')
+          rep('Model scenariuszowy dla dietetyka klinicznego wchodzącego do nowego miasta z dwiema priorytetowymi specjalizacjami. Korzysta z publicznych przykładów cen rynkowych, a nie z rzeczywistych przychodów DietoLab. Pokazuje, jakie warunki muszą zostać spełnione, żeby współpraca zaczęła mieć istotne znaczenie ekonomiczne.',
+              'Model scenariuszowy dla dietetyka klinicznego wchodzącego do nowego miasta z dwiema priorytetowymi specjalizacjami. Korzysta z publicznych przykładów cen rynkowych, a nie z rzeczywistych przychodów DietoLab. Pokazuje, przy jakich założeniach współpraca staje się ekonomicznie istotna.')
+          rep('<div class="redTeam"><h3>Co musimy jeszcze udowodnić na kolejnych partnerach</h3>',
+              '<div class="redTeam"><h3>Co pozostaje do potwierdzenia na kolejnych kohortach partnerów</h3>')
+          rep('<div class="partnerCta"><div><div class="cap" style="color:#d7eeee">Dla dietetyków</div><h3>Chcesz rozwijać praktykę, ale nie chcesz budować wszystkiego samodzielnie?</h3><p>Jeśli stawiasz na jakość, odpowiedzialną pracę z pacjentem i rozwój własnej specjalizacji, sprawdź model współpracy z DietoLab. Szukamy osób, które chcą współtworzyć sieć, korzystać ze wspólnego zaplecza i jednocześnie wnosić własną wiedzę, doświadczenie i lokalną obecność.</p></div><a class="ctaButton" href="https://dietolab.pl/wspolpraca" rel="noopener" target="_blank">Sprawdź współpracę i zgłoś się</a></div>',
+              '<div class="partnerCta"><div><div class="cap" style="color:#d7eeee">Aktywacja sieci w praktyce</div><h3>Rekrutacja partnerów jest częścią go-to-market, a nie dodatkiem do produktu.</h3><p>Publiczna ścieżka /wspolpraca zasila pipeline partnerski pokazany w tym case study. Link pozostawiam jako przykład działającego elementu systemu pozyskania i aktywacji.</p></div><a class="ctaButton" href="https://dietolab.pl/wspolpraca" rel="noopener" target="_blank">Zobacz działającą ścieżkę partnerską</a></div>')
+
+          p.write_text(s,encoding='utf-8')
+          PY
+          python /tmp/rewrite.py
+
+      - name: Verify editorial and language requirements
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+          s=Path('index.html').read_text(encoding='utf-8')
+          en_start='<div class="lang-report" data-lang="en" lang="en">'
+          pl_start='<div class="lang-report active" data-lang="pl" lang="pl">'
+          if en_start not in s or pl_start not in s: raise SystemExit('language report boundary missing')
+          en=s.split(en_start,1)[1].split(pl_start,1)[0]
+          pl=pl_start+s.split(pl_start,1)[1]
+
+          required=[
+            'I introduced consistent UTM tagging so channel and campaign performance can be separated.',
+            'Wprowadziłam spójne oznaczanie linków, żeby rozdzielić wyniki poszczególnych kanałów i kampanii.',
+            'Partner network as the scale mechanism',
+            'Sieć partnerska jako mechanizm skali',
+            'Network-value hypothesis',
+            'Hipoteza wartości sieciowej',
+            'Partner recruitment is part of the go-to-market system, not an add-on to the product.',
+            'Rekrutacja partnerów jest częścią go-to-market, a nie dodatkiem do produktu.',
+            'Next hypotheses', 'Kolejne hipotezy',
+            'let navLockUntil=0;', 'menu-polish-2026-09-14', 'venture-builder-layer-2026-09-14'
+          ]
+          missing=[x for x in required if x not in s]
+          if missing: raise SystemExit('Required content missing: '+repr(missing))
+
+          banned_global=[
+            'Linki organiczne powinny zawsze','Organic links should always','source / medium / campaign / content',
+            '<b>Sukces =</b>','<b>Success =</b>',
+            'Dołącz do sieci','Join the Network','The synergy we want to build','Efekt synergii, który chcemy zbudować',
+            'Uruchom profil i uporządkuj pracę','Launch the profile and organise the workflow',
+            'Sprawdź, czy zainteresowanie zamienia się w pacjentów','Test whether interest becomes patients',
+            'Sprawdź powtarzalność i dodatkowe źródła wartości','Test repeatability and additional sources of value',
+            'Co musimy jeszcze udowodnić na kolejnych partnerach',
+            'Want to grow your practice without building every part of the business alone?',
+            'Chcesz rozwijać praktykę, ale nie chcesz budować wszystkiego samodzielnie?',
+            'Najpierw trzeba było zacząć','kolejne etapy trzeba sprawdzić','najpierw trzeba ujednolicić statusy',
+            'The next stage is partner-led replication','The next stage is to convert partner recruitment'
+          ]
+          found=[x for x in banned_global if x in s]
+          if found: raise SystemExit('Banned playbook/promise copy remains: '+repr(found))
+
+          # English report must not contain Polish artefacts. Wrocław is a proper place name and is allowed.
+          en_text=html.unescape(re.sub(r'<[^>]+>',' ',en))
+          en_text=re.sub(r'\s+',' ',en_text)
+          artefacts=[
+            'Baza produkcyjna','Wniosek główny','Kontekst biznesowy','Pacjenci','Sieć partnerów','Firmy i instytucje',
+            'Oś czasu','oferta wysłana','nieobecność na rozmowie','rozmowa zakończona','w toku','porządkowanie',
+            'porządek w pomiarze reklam','punkt odniesienia','gotowe','październik','wrzesień'
+          ]
+          hits=[x for x in artefacts if x.lower() in en_text.lower()]
+          if hits: raise SystemExit('Polish artefacts remain in EN report: '+repr(hits))
+          diacritics=re.findall(r'[ąćęńóśźżĄĆĘŃÓŚŹŻ]',en_text.replace('Wrocław',''))
+          if diacritics: raise SystemExit('Unexpected Polish diacritics remain in EN report: '+repr(sorted(set(diacritics))))
+
+          # No imperative partner-ramp labels remain.
+          for token in ['<b>Measure:</b>','<b>Mierzymy:</b>']:
+              if token in s: raise SystemExit('Instructional metric label remains: '+token)
+
+          # Structural integrity.
+          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1: raise SystemExit('HTML boundary check failed')
+          ids=re.findall(r'\bid="([^"]+)"',s)
+          dup=sorted({x for x in ids if ids.count(x)>1})
+          if dup: raise SystemExit('Duplicate IDs: '+repr(dup[:20]))
+          anchors=re.findall(r'href="#([^"]+)"',s)
+          missing_ids=sorted({a for a in anchors if a not in ids})
+          if missing_ids: raise SystemExit('Internal anchors without targets: '+repr(missing_ids))
+          print('PASS editorial requirements')
+          print('IDs',len(ids),'internal anchors',len(anchors))
+          PY
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          Path('/tmp/case-study.js').write_text('\n'.join(scripts),encoding='utf-8')
+          print('scripts',len(scripts))
+          PY
+          node --check /tmp/case-study.js
+          git diff --check
+
+      - name: Commit editorial pass on safe branch
+        run: |
+          git config user.name case-study-deploy-bot
+          git config user.email case-study-deploy-bot@users.noreply.github.com
+          git add index.html
+          test "$(git diff --cached --name-only)" = "index.html"
+          git commit -m 'edit: make DietoLab narrative case-study led'
+          git push origin HEAD:dietolab-safe-restore
