@@ -1,0 +1,101 @@
+name: Apply DietoLab venture story safely
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-dietolab-venture-story.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-live-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch current working production as the baseline
+        run: |
+          curl --fail --silent --show-error --location \
+            https://dietolab-case-study-eliza-bingul.vercel.app/ \
+            --output index.html
+          test -s index.html
+          grep -Fq 'urgent-ui-fix-2026-09-14' index.html
+          grep -Fq 'Case Study <span class="case-sep">|</span> Eliza Bingul' index.html
+          grep -Fq 'class="jump-nav active"' index.html
+
+      - name: Apply approved venture-building narrative
+        run: python scripts/apply_dietolab_venture_story.py
+
+      - name: Verify structure and safety invariants
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+
+          html = Path('index.html').read_text(encoding='utf-8')
+
+          required = [
+              'Najpierw zbudowałam system. Potem zaczęłam go skalować.',
+              'First I built the system. Then I started scaling it.',
+              'Strategia marki i pozycjonowanie',
+              'Brand strategy &amp; positioning',
+              'Clinical Brain / Single Spine',
+              'Po zbudowaniu fundamentów: mierzyłam, uczyłam się i przebudowywałam.',
+              'After building the foundations: I measured, learned and rebuilt.',
+              'urgent-ui-fix-2026-09-14',
+              'Case Study <span class="case-sep">|</span> Eliza Bingul',
+              'class="jump-nav active"',
+          ]
+          for marker in required:
+              assert marker in html, f'Missing required marker: {marker}'
+
+          assert html.count('class="originCard"') >= 16
+          assert html.count('class="capProof"') >= 24
+          assert '—' not in html, 'Em dash found'
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = []
+                  self.hrefs = []
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if 'id' in attrs:
+                      self.ids.append(attrs['id'])
+                  if tag == 'a' and attrs.get('href', '').startswith('#'):
+                      self.hrefs.append(attrs['href'][1:])
+
+          parser = Parser()
+          parser.feed(html)
+          assert len(parser.ids) == len(set(parser.ids)), 'Duplicate HTML ids detected'
+          missing_targets = [h for h in parser.hrefs if h and h not in set(parser.ids)]
+          assert not missing_targets, f'Missing jump targets: {missing_targets}'
+          assert html.count('class="lang-report') == 2
+          assert html.count('class="lang-btn') == 2
+          print('HTML structure and safety checks passed')
+
+          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, flags=re.S|re.I)
+          assert scripts, 'No inline script found'
+          Path('/tmp/dietolab-inline.js').write_text('\n'.join(scripts), encoding='utf-8')
+          PY
+          node --check /tmp/dietolab-inline.js
+
+      - name: Commit only the verified DietoLab page
+        run: |
+          if git diff --quiet -- index.html; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git config user.name 'case-study-deploy-bot'
+          git config user.email 'case-study-deploy-bot@users.noreply.github.com'
+          git add index.html
+          git diff --cached --check
+          git commit -m 'feat: show DietoLab venture-building scope'
+          git push origin HEAD:main
