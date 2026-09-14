@@ -20,12 +20,36 @@ jobs:
           ref: dietolab-safe-restore
           fetch-depth: 0
 
-      - name: Assemble exact tested artifact
+      - name: Verify transfer chunks and assemble exact tested artifact
         shell: bash
         run: |
           set -euo pipefail
-          cat restore/final/dietolab-v2.part{0,1,2,3,4,5}.b64 > /tmp/dietolab-v2.b64
+
+          test "$(git hash-object restore/final/dietolab-v2.part0.b64)" = "643cb30553443080d71bf23b12f4747ad9dd10ca"
+          test "$(git hash-object restore/final/dietolab-v2.part1.b64)" = "9f8c8dd6d74bc32d1d3df3821f5791f55588a7f1"
+          test "$(git hash-object restore/final/dietolab-v2.part2.b64)" = "5b4a53c119430509072c7d2def68d902e0026311"
+          test "$(git hash-object restore/final/dietolab-v2.part3.b64)" = "e4572b296b1a7d3da4cf8ebf1388d02beab7c549"
+          test "$(git hash-object restore/final/dietolab-v2.part4.b64)" = "a8a4a5bc3cd04ceeedaecdffa938f600d4dafea7"
+          test "$(git hash-object restore/final/dietolab-v2.part5a.b64)" = "894b23db165a381c92b92cab8b6684d407a51557"
+          test "$(git hash-object restore/final/dietolab-v2.part5b.b64)" = "60c3407a4ac910cd0c9fdf710f126a18f1ed0d18"
+          test "$(git hash-object restore/final/dietolab-v2.part6a.b64)" = "799acb23ff91695903435e3c9b6ea9129decdeb8"
+          test "$(git hash-object restore/final/dietolab-v2.part6b.b64)" = "baea9b04c1148e0eb4d60b32a7c5a84d6d1f4910"
+
+          cat \
+            restore/final/dietolab-v2.part0.b64 \
+            restore/final/dietolab-v2.part1.b64 \
+            restore/final/dietolab-v2.part2.b64 \
+            restore/final/dietolab-v2.part3.b64 \
+            restore/final/dietolab-v2.part4.b64 \
+            restore/final/dietolab-v2.part5a.b64 \
+            restore/final/dietolab-v2.part5b.b64 \
+            restore/final/dietolab-v2.part6a.b64 \
+            restore/final/dietolab-v2.part6b.b64 \
+            > /tmp/dietolab-v2.b64
+
+          test "$(wc -c < /tmp/dietolab-v2.b64)" -eq 69636
           base64 --decode /tmp/dietolab-v2.b64 > /tmp/dietolab-v2.html.gz
+          gzip --test /tmp/dietolab-v2.html.gz
           gzip --decompress --stdout /tmp/dietolab-v2.html.gz > index.html
           test "$(sha256sum index.html | awk '{print $1}')" = "07181907f810f83d45d0eb0b5fbf238078d91356b296c29d091e9fdd2fa30d01"
           test "$(wc -c < index.html)" -eq 189488
@@ -49,7 +73,7 @@ jobs:
               'Clinical Brain / Single Spine',
               'urgent-ui-fix-2026-09-14',
               'Case Study <span class="case-sep">|</span> Eliza Bingul',
-              'jump-nav',
+              'class="jump-nav active"',
           ]
           for marker in required:
               assert marker in html, f'Missing required marker: {marker}'
