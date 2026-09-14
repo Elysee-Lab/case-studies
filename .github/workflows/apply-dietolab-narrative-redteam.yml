@@ -1,0 +1,241 @@
+name: Apply DietoLab narrative red-team rewrite
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - '.github/workflows/apply-dietolab-narrative-redteam.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  rewrite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Rewrite playbook-like copy as case-study narrative
+        run: |
+          cat > /tmp/rewrite.py <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+
+          def rep(old,new,expected=1):
+              global s
+              n=s.count(old)
+              if n!=expected:
+                  raise SystemExit(f'Expected {expected} occurrence(s), found {n}: {old[:100]}')
+              s=s.replace(old,new)
+
+          # PL: origin, business model and learning
+          rep('Rozpisałam, co powinno wydarzyć się od pierwszego kontaktu przez kwalifikację, rezerwację lub ofertę, realizację, płatność, dalszą relację, utrzymanie i rozwój.',
+              'Rozpisałam pełny przebieg relacji od pierwszego kontaktu przez kwalifikację, rezerwację lub ofertę, realizację, płatność, dalszą relację, utrzymanie i rozwój.')
+          rep('Te ścieżki stały się podstawą statusów CRM, automatyzacji i odpowiedzialności operacyjnej.',
+              'Na tej mapie oparłam statusy CRM, automatyzacje i odpowiedzialność operacyjną.')
+          rep('Dziś ograniczenie przesunęło się dalej: trzeba lepiej zamieniać zainteresowanie w realne działania oraz zwiększać liczbę aktywnych dietetyków, aby model można było powielać w kolejnych miastach.',
+              'Dziś główne wyzwanie przesunęło się na konwersję rosnącego zainteresowania w realne działania oraz równoległe zwiększanie liczby aktywnych dietetyków. To podaż specjalistów wyznacza tempo, w jakim model może być powielany w kolejnych miastach.')
+          rep('Żeby ocenić wyniki, trzeba rozumieć, że DietoLab nie ma jednego lejka.',
+              'Wyniki interpretuję w kontekście modelu wielostronnego: DietoLab nie ma jednego lejka.')
+          rep('Każda z tych ścieżek prowadzi do innego efektu biznesowego i powinna być oceniana osobno.',
+              'Każda z tych ścieżek prowadzi do innego efektu biznesowego, dlatego mierzę je osobno i przypisuję im inne zdarzenia konwersji.')
+          rep('Dzisiejsze wolumeny pacjentów i rezerwacji trzeba czytać w tym kontekście, a nie jako wynik sieci ogólnopolskiej.',
+              'Dzisiejsze wolumeny pacjentów i rezerwacji traktuję jako wynik lokalnej walidacji w Warszawie, a nie jako rezultat sieci ogólnopolskiej.')
+          rep('* Wrzesień jest niepełny. Miesięcznych słupków nie należy czytać jako dowodu kauzalnego dla pojedynczych wdrożeń; pokazują zmianę skali ekspozycji w czasie.',
+              '* Wrzesień jest niepełny. Słupki pokazują zmianę skali widoczności w czasie; nie używam ich jako dowodu kauzalnego dla pojedynczego wdrożenia.')
+          rep('Najpierw zwiększ liczbę wartościowych wejść z wyszukiwarki, potem poprawiaj ich jakość',
+              'Najpierw zwiększyłam liczbę wartościowych wejść z wyszukiwarki, potem poprawiałam ich jakość')
+          rep('Nie przypisuj ostatniemu wdrożeniu całej zasługi',
+              'Rozdzieliłam korelację od przyczynowości')
+          rep('Dlatego traktujemy SSR jako czynnik wspierający, a nie jedyną przyczynę wzrostu.',
+              'Dlatego w analizie traktuję SSR jako czynnik wspierający, a nie jedyną przyczynę wzrostu.')
+          rep('Wniosek:</b> następstwo w czasie nie oznacza związku przyczynowego. Trzeba sprawdzać, kiedy dokładnie zmienił się trend i co wydarzyło się wcześniej.',
+              'Wniosek:</b> następstwo w czasie nie oznacza związku przyczynowego. Porównałam moment zmiany trendu z harmonogramem wdrożeń, żeby oddzielić korelację od tego, co rzeczywiście mogło wpłynąć na wynik.')
+          rep('Oddziel system zepsuty od systemu z małą próbą',
+              'Oddzieliłam realne defekty od etapów zbyt małych do oceny')
+          rep('Ruch wewnętrzny nie może być przedstawiany jako zainteresowanie klientów',
+              'Oddzieliłam ruch wewnętrzny od rzeczywistego zainteresowania klientów')
+          rep('Wniosek:</b> w modelu wielostronnym popyt i dostępność specjalistów muszą rosnąć równolegle.',
+              'Wniosek:</b> w modelu wielostronnym zwiększanie popytu bez równoległego zwiększania dostępności specjalistów tworzy kolejne wąskie gardło.')
+          rep('Wniosek:</b> kiedy system już istnieje, trzeba uczynić go obserwowalnym.',
+              'Wniosek:</b> po zbudowaniu pierwszej wersji uczyniłam system obserwowalnym.')
+
+          # PL: measurement and attribution as actions/evidence, not implementation instructions
+          rep('Docelowy łańcuch danych do podejmowania decyzji',
+              'Łańcuch danych, który zaprojektowałam do pomiaru wyniku')
+          rep('Po przejściu tego łańcucha można wiarygodnie liczyć CPL, odsetek rezerwacji, CAC i ROAS dla każdego kanału, kampanii i strony docelowej.',
+              'Zaprojektowałam ten model tak, aby po pojawieniu się wystarczającej liczby pełnych ścieżek można było wiarygodnie łączyć źródło, kampanię i stronę docelową z CPL, rezerwacją, CAC i ROAS.')
+          rep('Rejestrowanie ruchu organicznego, bezpośredniego i e-mailowego działa. Schemat v4 obsługuje parametry UTM, identyfikatory GA oraz identyfikatory kliknięć z Google, Meta, Bing i LinkedIn (`li_fat_id`), jeśli użytkownik wyraził zgodę reklamową.',
+              'Zbudowałam jedną warstwę pomiarową dla ruchu organicznego, bezpośredniego, e-mailowego i kampanijnego. Zapisuje źródło wejścia, stronę docelową i sesję, a przy odpowiedniej zgodzie także UTM-y oraz identyfikatory kliknięć z głównych platform reklamowych.')
+          rep('Ocena:</b> naprawione i zwalidowane na produkcji: 8 wcześniejszych punktów kontaktu przypięto do konta; `profile_created` ma `pending = false`, `touch_count = 8`, a pierwszy punkt kontaktu wskazuje wejście z 10.09 09:11 na `/zywienie-dla-szkol-i-przedszkoli`.',
+              'Ocena:</b> po naprawie techniczny przypadek walidacyjny poprawnie połączył osiem wcześniejszych punktów kontaktu z kontem. Ponieważ konto należało do administratora, używam go wyłącznie jako dowodu działania mechanizmu, nie jako wyniku pozyskania klienta.')
+          rep('Wniosek:</b> architektura może działać; potrzebny jest kontrolowany test całej ścieżki oraz naturalny wzrost liczby przypadków.',
+              'Wniosek:</b> nie deklaruję skuteczności tej części lejka na podstawie zbyt małej próby. Zostawiłam ją jako „jeszcze niepotwierdzoną” do czasu pojawienia się kwalifikujących samodzielnych rezerwacji.')
+          rep('Wniosek:</b> brak danych nie oznacza awarii. Ten obszar wymaga kontrolowanego testu całej ścieżki, a następnie potwierdzenia na większej liczbie rzeczywistych przypadków.',
+              'Wniosek:</b> brak danych nie oznacza awarii. Po wdrożeniu nie było jeszcze kwalifikującej płatności, dlatego ten etap pozostawiam jako niepotwierdzony zamiast przypisywać mu wynik bez dowodu.')
+          rep('Wniosek:</b> CAC/ROAS nie powinny być dziś raportowane jako KPI faktyczny; mają być uruchomione przy kolejnym kontrolowanym okresie kampanii płatnych.',
+              'Wniosek:</b> świadomie nie raportuję CAC ani ROAS jako faktycznych KPI, ponieważ dane kosztowe i przychodowe nie obejmują jeszcze tego samego okresu. Model jest przygotowany do ich policzenia, gdy pojawi się porównywalna kohorta.')
+          rep('Ruch organiczny jest rejestrowany, ale do oceny poszczególnych kampanii potrzebujemy konsekwentnego stosowania UTM.',
+              'Wprowadziłam spójne oznaczanie linków, żeby rozdzielić wyniki poszczególnych kanałów i kampanii.')
+          rep('W analizowanym okresie produkcyjnym nie było potwierdzonego ruchu z odsyłaczy społecznościowych ani aktywnych wydatków na płatne kampanie społecznościowe. Nie możemy więc jeszcze ocenić ich atrybucji. Linki organiczne powinny zawsze zawierać `source / medium / campaign / content`.',
+              'W linkach dystrybucyjnych wykorzystuję UTM-y, dzięki czemu ruch z social media, newslettera, kampanii i innych aktywacji może być analizowany osobno zamiast zlewać się w direct lub unknown. W analizowanym okresie nie było jeszcze wystarczającej liczby potwierdzonych wejść z social ani aktywnego płatnego social, więc nie przypisuję temu kanałowi wyniku, którego dane jeszcze nie potwierdzają.')
+          rep('Meta Pixel/CAPI działa na poziomie platformy, a LinkedIn CAPI jest zaimplementowane. Wersja v4 zapisuje identyfikator kliknięcia LinkedIn (`li_fat_id`) przy zgodzie reklamowej, sprawdza jego format, usuwa duplikaty i potrafi korzystać ze starszych wersji funkcji, jeśli jest to potrzebne. Wszystkie 56 testów atrybucji przechodzi poprawnie.',
+              'Po stronie platformy połączyłam pomiar z Meta oraz LinkedIn z tą samą logiką zgód, walidacji i deduplikacji. Warstwa atrybucji przeszła 56 testów regresyjnych; pełny efekt biznesowy kampanii płatnych pozostaje jednak do oceny na kolejnej rzeczywistej kohorcie.')
+          rep('<b>Cel:</b> post / rolka / reklama płatna → oznaczona strona docelowa → kontakt / zgłoszenie / rezerwacja, z osobnym planem pomiaru dla B2C i B2B.',
+              '<b>Model pomiaru:</b> post / rolka / reklama płatna → oznaczona strona docelowa → kontakt / zgłoszenie / rezerwacja, z osobnym sposobem oceny B2C i B2B.')
+          rep('To sugeruje, że warto poprawić temat wiadomości i pierwsze zdania, ale nie ma potrzeby przebudowywać samej infrastruktury wysyłkowej.',
+              'Na tej podstawie kolejne iteracje skoncentrowałam na tematach wiadomości i pierwszych zdaniach, zamiast przebudowywać działającą infrastrukturę wysyłkową.')
+          rep('Logika kolejki została naprawiona; kolejnym krokiem jest kontrolowany test z pełną zgodą użytkownika.',
+              'Naprawiłam logikę kolejki. Pozostałym dowodem do zebrania jest kontrolowany przypadek z pełną zgodą użytkownika, który potwierdzi dostarczenie całej ścieżki po stronie serwera.')
+          rep('Kiedy uznamy lejek DietoLab za domknięty',
+              'Tak zdefiniowałam domknięty lejek DietoLab')
+          rep('Dopiero wtedy CPL, CAC i ROAS powinny być liczone osobno dla każdej ścieżki, a nie jako jeden wspólny wskaźnik.',
+              'CPL, CAC i ROAS zaprojektowałam jako osobne wskaźniki dla każdej ścieżki, ponieważ jeden wspólny wynik zaciera różnice między B2C, siecią dietetyków i B2B.')
+
+          # PL: roadmap reframed as evidence-led choices, not promises
+          rep('Co dalej - według ścieżki biznesowej',
+              'Jakie hipotezy wybrałam do kolejnej walidacji')
+          rep('Nie ma jednej wspólnej listy zadań marketingowych dla wszystkich segmentów. Każda ścieżka ma własną definicję wartości i własny kolejny test.',
+              'Nie kończę case study listą ogólnych „dobrych praktyk”. Z danych wynikają cztery konkretne hipotezy, które wybrałam do dalszej walidacji, każda z własnym kryterium wyniku.')
+          rep('Oba potwierdzone defekty zostały naprawione. Teraz trzeba przeprowadzić kontrolowaną rejestrację na tym samym i drugim urządzeniu, jedną samodzielną rezerwację wizyty oraz jedno zdarzenie po stronie serwera przy pełnej zgodzie, aby sprawdzić całą ścieżkę bez regresji.',
+              'Po naprawieniu dwóch potwierdzonych defektów zdefiniowałam mały zestaw testów regresyjnych: rejestrację na tym samym i drugim urządzeniu, samodzielną rezerwację oraz zdarzenie po stronie serwera przy pełnej zgodzie. Ich zadaniem jest sprawdzenie pełnej ścieżki bez mylenia testu technicznego z wynikiem biznesowym.')
+          rep('<b>Sukces =</b> first/converting touch pozostaje poprawny w nowych rejestracjach, `li_fat_id` zapisuje się przy ruchu LinkedIn Ads, a server-side queue dostarcza prawidłowy event przy pełnej zgodzie.',
+              '<b>Kryterium walidacji:</b> poprawne zachowanie first/converting touch w nowych rejestracjach, zapis identyfikatora kliknięcia dla LinkedIn Ads i dostarczenie prawidłowego zdarzenia po stronie serwera przy pełnej zgodzie.')
+          rep('Skupić się na stronach z dużą liczbą wyświetleń, poprawić ich CTR, ujednolicić wezwania do działania, oznaczać linki z mediów społecznościowych i newslettera oraz prowadzić użytkownika jedną jasną ścieżką: treść → zaufanie → rezerwacja.',
+              'Dla B2C priorytet ustawiłam na stronach z dużą liczbą wyświetleń: poprawie CTR, spójniejszych wezwaniach do działania, oznaczaniu linków z social i newslettera oraz jednej jasnej ścieżce treść → zaufanie → rezerwacja.')
+          rep('<b>Sukces =</b> rośnie odsetek kwalifikowanych samodzielnych rezerwacji, a atrybucja obejmuje całą ścieżkę bez traktowania ręcznie umawianych wizyt jako zamiennika.',
+              '<b>Kryterium walidacji:</b> wzrost odsetka kwalifikowanych samodzielnych rezerwacji oraz pełna atrybucja ścieżki bez traktowania ręcznie umawianych wizyt jako zamiennika.')
+          rep('Uruchomić trzy różne pilotaże partnerskie i mierzyć cały proces: oferta → wdrożenie → uruchomiony profil → pierwsza rezerwacja → kolejne wizyty → udział zleceń B2B. Celem jest zastąpienie obecnych założeń rzeczywistymi wynikami kolejnych grup partnerów.',
+              'Dla sieci partnerskiej zaprojektowałam trzy kontrastujące pilotaże i pełny pomiar procesu: oferta → wdrożenie → uruchomiony profil → pierwsza rezerwacja → kolejne wizyty → udział zleceń B2B. Chcę w ten sposób zastąpić scenariusze rzeczywistymi medianami kolejnych kohort partnerów.')
+          rep('<b>Sukces =</b> raportowalne mediany czas do uruchomienia, czas do pierwszej rezerwacji, liczba nowych pacjentów w 90 dni, wykorzystanie dostępnego czasu i odsetek pacjentów wracających na kolejne wizyty.',
+              '<b>Kryterium walidacji:</b> raportowalne mediany czasu do uruchomienia, czasu do pierwszej rezerwacji, liczby nowych pacjentów w 90 dni, wykorzystania dostępnego czasu i odsetka pacjentów wracających.')
+          rep('Ujednolicić ścieżkę firmową: kontakt → kwalifikacja → badanie / Dzień Zdrowia / oferta → wygrana → realizacja. Badania i Dni Zdrowia mierzyć jako odrębne produkty, które mogą prowadzić do dłuższej współpracy.',
+              'Dla B2B kolejną hipotezę zdefiniowałam wokół jednej spójnej ścieżki: kontakt → kwalifikacja → badanie / Dzień Zdrowia / oferta → wygrana → realizacja. Badania i Dni Zdrowia traktuję jako odrębne produkty wejściowe, które mogą prowadzić do dłuższej współpracy.')
+          rep('<b>Sukces =</b> konwersja między etapami i tempo przechodzenia przez proces są widoczne według źródła i produktu, a badanie ankietowe generuje zarówno wniosek, jak i kolejny krok sprzedażowy.',
+              '<b>Kryterium walidacji:</b> widoczna konwersja i tempo przechodzenia między etapami według źródła i produktu oraz potwierdzenie, że badanie ankietowe generuje zarówno insight, jak i kolejny krok sprzedażowy.')
+
+          # EN: remove generic advice / promises and mirror the case-study voice
+          rep('I defined what DietoLab should stand for, which problems it should credibly solve and how a specialist nutrition brand could combine clinical quality, accessibility and technology without reducing care to a generic marketplace.',
+              "I defined DietoLab's positioning: what the brand would stand for, which problems it could credibly solve, and how specialist nutrition care could combine clinical quality, accessibility and technology without becoming a generic marketplace.")
+          rep('I mapped what should happen from first contact through qualification, booking or offer, delivery, payment, follow-up, retention and expansion.',
+              'I mapped the full relationship from first contact through qualification, booking or offer, delivery, payment, follow-up, retention and expansion.')
+          rep('Each path has a different conversion event and should not be assessed with one metric.',
+              'Each path has a different conversion event, so I measure them separately rather than collapsing them into one metric.')
+          rep('Current patient and booking volumes should be read in that context, not as the output of a nationwide network.',
+              'I treat current patient and booking volumes as Warsaw-market validation, not as the output of a nationwide network.')
+          rep('Monthly bars should not be treated as causal proof for individual deployments; they show the change in visibility scale over time.',
+              'The monthly bars show how visibility changed over time; I do not use them as causal proof for an individual deployment.')
+          rep('Learning:</b> in a multi-sided model, acquisition and supply must scale together.',
+              'Learning:</b> the data exposed a structural constraint: demand growth without specialist capacity simply creates the next bottleneck.')
+          rep('Conclusion:</b> the architecture may work; a controlled journey and natural volume growth are needed for validation.',
+              'Conclusion:</b> I deliberately left this stage labelled “not yet proven” until eligible self-booking journeys appear in the production cohort.')
+          rep('This area needs a test journey and later validation at scale.',
+              'I kept this area unproven because no eligible paid journey appeared after deployment; the absence of evidence is not treated as evidence of failure.')
+          rep('Conclusion:</b> CAC/ROAS should not be reported as actual KPIs yet; they should be activated in the next paid test window.',
+              'Conclusion:</b> I deliberately did not report CAC or ROAS as actual KPIs because the cost and revenue windows do not overlap yet. The model is ready to calculate them once a comparable paid cohort exists.')
+          rep('Organic capture exists, but campaign-level measurement requires UTM discipline.',
+              'I introduced consistent UTM tagging so channel and campaign performance can be separated.')
+          rep('Organic links should always carry `source / medium / campaign / content`.',
+              'Distribution links use UTM parameters so social, email, campaign and other activation traffic can be analysed separately instead of blending into direct or unknown traffic.')
+          rep('Meta Pixel/CAPI works as a platform layer; LinkedIn CAPI is implemented. Capture v4 now records LinkedIn click ID (`li_fat_id`) when ad consent is granted, with UUID validation, deduplication and fallback to older RPC versions. All 56 attribution tests pass.',
+              'I connected Meta and LinkedIn measurement to the same consent-aware attribution layer, with validation and deduplication built in. The attribution layer passes all 56 regression tests; paid-social business impact remains deliberately unclaimed until a real overlapping campaign cohort exists.')
+          rep('Queue logic has been fixed; the next step is a controlled event with full consent.',
+              'I fixed the queue logic; the remaining evidence gap is a controlled full-consent event that proves the complete server-side delivery path.')
+          rep('Only then should CPL/CAC/ROAS be calculated separately for each path, not as one shared metric.',
+              'I designed CPL, CAC and ROAS as path-specific metrics because one blended number would hide the differences between B2C, partner supply and B2B demand.')
+          rep('Each layer should increase the value of the others.',
+              'The operating model is designed so each layer strengthens the others.')
+          rep('With one active public partner, DietoLab still needs additional partner cohorts to measure whether these benefits reinforce one another in practice.',
+              'With one active public partner, I do not claim network effects yet; additional partner cohorts are needed before that relationship can be measured credibly.')
+          rep('It uses public market price examples rather than DietoLab actual revenue and shows what would need to be true for the partnership to become economically meaningful.',
+              'It uses public market price examples rather than DietoLab actual revenue and makes the economic assumptions explicit instead of presenting scenario outputs as achieved results.')
+          rep('What still needs to be proven with the next partners',
+              'Evidence I deliberately leave open for future partner cohorts')
+          rep('DietoLab first needs normalised CRM stages for companies; only then should stage-to-stage conversion be benchmarked.',
+              'I chose not to benchmark company stage conversion until the CRM stages are normalised, because otherwise the comparison would mix different definitions of progress.')
+          rep('The goal is to replace scenario assumptions with partner cohort medians.',
+              'The next measurement step is to replace scenario assumptions with partner-cohort medians.')
+
+          # EN: roadmap as chosen experiments
+          rep('What next - by business path',
+              'The next hypotheses I chose to validate')
+          rep('Priorities are not one marketing backlog. Each segment has its own definition of value and its own next test.',
+              'I do not end the case study with a generic marketing backlog. The evidence points to four specific hypotheses, each with its own validation criterion.')
+          rep('Both confirmed defects are fixed. Now run a controlled same-device / second-device signup, one self-booking and one server-side event with full consent to validate the full journey without regression.',
+              'After fixing the two confirmed defects, I defined a small regression set: same-device and second-device signup, one self-booking, and one full-consent server-side event. The point is to validate the complete path without mistaking a technical test for a business outcome.')
+          rep('<b>Success =</b> first/converting touch stays correct for new signups, `li_fat_id` is recorded for LinkedIn Ads traffic, and the server-side queue delivers a valid event when full consent is present.',
+              '<b>Validation criterion:</b> first/converting touch remains correct for new signups, the LinkedIn click identifier is captured for eligible Ads traffic, and the server-side queue delivers a valid full-consent event.')
+          rep('Run a CTR sprint on high-exposure pages, use consistent CTAs, tagged social/newsletter links and one clear content → trust → self-booking path.',
+              'For B2C I prioritised high-exposure pages: improving CTR, making CTAs more consistent, tagging social/newsletter links and keeping one clear content → trust → self-booking path.')
+          rep('<b>Success =</b> qualified self-booking rate grows; attribution covers the full journey without using manual booking as a substitute.',
+              '<b>Validation criterion:</b> qualified self-booking rate grows and attribution covers the full journey without using manual bookings as a substitute.')
+          rep('Run three contrasting partner pilots and measure offer → onboarding → profile live → first booking → repeat care → B2B contribution. The goal is to replace scenario assumptions with partner cohort medians.',
+              'For the partner network I designed three contrasting pilots and an end-to-end measurement path: offer → onboarding → profile live → first booking → repeat care → B2B contribution. This is how I intend to replace scenario assumptions with real partner-cohort medians.')
+          rep('<b>Success =</b> median time-to-live, days-to-first-booking, 90-day new patients, utilisation and repeat-care rate become reportable.',
+              '<b>Validation criterion:</b> median time-to-live, days-to-first-booking, 90-day new patients, utilisation and repeat-care rate become reportable.')
+          rep('Standardise the company journey: lead → qualification → survey / Health Day / offer → won → delivery. Measure research and Health Days as separate entry products into a contract.',
+              'For B2B I defined the next hypothesis around one consistent company journey: lead → qualification → survey / Health Day / offer → won → delivery, with research and Health Days measured as distinct entry products into a longer commercial relationship.')
+          rep('<b>Success =</b> stage-to-stage conversion and velocity are visible by source/product, and the survey generates both insight and a clear next sales step.',
+              '<b>Validation criterion:</b> stage-to-stage conversion and velocity are visible by source and product, and the survey produces both business insight and a clear next sales step.')
+
+          # EN language-cleanup artefacts left by an earlier translation pass
+          for old,new in [
+              ('algotowe','already in place'),('mała próba','small sample'),('rozwiązane','resolved'),
+              ('lokalnym SEO','local SEO'),('Media społecznościowe','Social media'),
+              ('Reklama / post / e-mail','Ad / post / email'),('Działania / wdrożenie','Work / implementation'),
+              ('Efekt / stan obecny','Outcome / current state')]:
+              s=s.replace(old,new)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+          python /tmp/rewrite.py
+
+      - name: Red-team verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          banned=[
+            'Linki organiczne powinny zawsze','Organic links should always','source / medium / campaign / content',
+            'Każda z tych ścieżek prowadzi do innego efektu biznesowego i powinna być oceniana osobno',
+            'Current patient and booking volumes should be read in that context',
+            'CAC/ROAS should not be reported','Only then should CPL/CAC/ROAS',
+            'Skupić się na stronach z dużą liczbą wyświetleń','Ujednolicić ścieżkę firmową:',
+            '<b>Sukces =</b>','<b>Success =</b>','Now run a controlled same-device',
+            'Run a CTR sprint on high-exposure pages','Standardise the company journey:',
+            'I defined what DietoLab should stand for','I mapped what should happen',
+            'algotowe','mała próba','lokalnym SEO','Media społecznościowe Organic capture'
+          ]
+          found=[x for x in banned if x in s]
+          if found: raise SystemExit('Red-team banned copy still present: '+repr(found))
+          required=[
+            'Wprowadziłam spójne oznaczanie linków, żeby rozdzielić wyniki poszczególnych kanałów i kampanii.',
+            'I introduced consistent UTM tagging so channel and campaign performance can be separated.',
+            'Jakie hipotezy wybrałam do kolejnej walidacji','The next hypotheses I chose to validate',
+            'let navLockUntil=0;','menu-polish-2026-09-14','venture-builder-layer-2026-09-14'
+          ]
+          missing=[x for x in required if x not in s]
+          if missing: raise SystemExit('Required narrative or nav markers missing: '+repr(missing))
+          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1:
+              raise SystemExit('HTML boundary check failed')
+          print('PASS narrative red-team checks')
+          PY
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          Path('/tmp/case-study.js').write_text('\n'.join(scripts),encoding='utf-8')
+          print('scripts',len(scripts))
+          PY
+          node --check /tmp/case-study.js
+      - name: Commit reviewed narrative on safe branch
+        run: |
+          git config user.name case-study-deploy-bot
+          git config user.email case-study-deploy-bot@users.noreply.github.com
+          git add index.html
+          git diff --cached --check
+          git commit -m 'edit: rewrite DietoLab case study as evidence-led narrative'
+          git push origin HEAD:dietolab-safe-restore

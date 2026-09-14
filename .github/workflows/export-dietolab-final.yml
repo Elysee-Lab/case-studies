@@ -1,0 +1,74 @@
+name: Export final DietoLab HTML
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - '.github/workflows/export-dietolab-final.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out final main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Verify final HTML before export
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          grep -Fq 'Najpierw zbudowałam system. Potem zaczęłam go skalować.' index.html
+          grep -Fq 'Wprowadziłam spójne oznaczanie linków' index.html
+          grep -Fq 'First I built the system. Then I started scaling it.' index.html
+          grep -Fq 'navLockUntil' index.html
+          grep -Fq 'menu-polish-2026-09-14' index.html
+          grep -Fq 'Case Study <span class="case-sep">|</span> Eliza Bingul' index.html
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re, hashlib
+
+          html = Path('index.html').read_text(encoding='utf-8')
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.ids=[]; self.hrefs=[]
+              def handle_starttag(self, tag, attrs):
+                  attrs=dict(attrs)
+                  if attrs.get('id'): self.ids.append(attrs['id'])
+                  href=attrs.get('href','')
+                  if tag=='a' and href.startswith('#'): self.hrefs.append(href[1:])
+          p=Parser(); p.feed(html)
+          assert len(p.ids)==len(set(p.ids)), 'Duplicate IDs'
+          missing=[h for h in p.hrefs if h and h not in set(p.ids)]
+          assert not missing, f'Missing anchors: {missing}'
+          assert html.count('class="lang-report')==2
+          assert html.count('class="lang-btn')==2
+          scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, flags=re.S|re.I)
+          assert scripts, 'No inline JS'
+          Path('/tmp/dietolab-inline.js').write_text('\n'.join(scripts), encoding='utf-8')
+          raw=Path('index.html').read_bytes()
+          print('bytes=',len(raw))
+          print('sha256=',hashlib.sha256(raw).hexdigest())
+          PY
+          node --check /tmp/dietolab-inline.js
+
+      - name: Prepare clean upload folder
+        run: |
+          mkdir -p /tmp/dietolab-case-study
+          cp index.html /tmp/dietolab-case-study/index.html
+
+      - name: Upload ready-to-deploy artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dietolab-case-study-final
+          path: /tmp/dietolab-case-study/index.html
+          if-no-files-found: error
+          retention-days: 7

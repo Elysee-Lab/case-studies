@@ -1,0 +1,69 @@
+name: Red-team DietoLab narrative
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - '.github/workflows/redteam-dietolab-narrative.yml'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Audit visible case-study copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+          from html.parser import HTMLParser
+
+          src=Path('index.html').read_text(encoding='utf-8')
+
+          class TextExtractor(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.parts=[]
+              def handle_data(self,data):
+                  t=' '.join(data.split())
+                  if t: self.parts.append(t)
+
+          def visible(fragment):
+              p=TextExtractor(); p.feed(fragment); return html.unescape(' '.join(p.parts))
+
+          pl_start=src.find('<div class="lang-report active" data-lang="pl"')
+          en_start=src.find('<div class="lang-report" data-lang="en"')
+          if pl_start < 0 or en_start < 0: raise SystemExit('Language blocks not found')
+          pl=visible(src[pl_start:en_start])
+          en=visible(src[en_start:])
+
+          trigger_pl=re.compile(r'\b(powin\w*|trzeba|należy|musz\w*|warto|potrzeb\w*|celem jest|kolejnym krokiem|docelowy|mają być|ma być)\b',re.I)
+          trigger_en=re.compile(r'\b(should|must|need(?:s|ed)?|requires?|have to|has to|goal is|target is|next step|should always|needs to)\b',re.I)
+          tech=re.compile(r'(`[^`]+`|\b(?:RPC|UUID|schema v\d+|pending\s*=|touch_count|gclid|fbclid|li_fat_id|CAPI|payment_completed|source\s*/\s*medium)\b)',re.I)
+
+          def sentences(text):
+              return [x.strip() for x in re.split(r'(?<=[.!?])\s+(?=[A-ZĄĆĘŁŃÓŚŹŻ0-9])',text) if len(x.strip())>15]
+
+          for lang,text,trig in [('PL',pl,trigger_pl),('EN',en,trigger_en)]:
+              print('\n###',lang,'PRESCRIPTIVE / PLAYBOOK-LIKE COPY')
+              hits=[]
+              for s in sentences(text):
+                  if trig.search(s): hits.append(s)
+              for i,s in enumerate(hits,1): print(f'{i:02d}. {s}')
+              print('COUNT',len(hits))
+
+              print('\n###',lang,'TECHNICAL-DENSITY COPY')
+              th=[]
+              for s in sentences(text):
+                  if tech.search(s): th.append(s)
+              for i,s in enumerate(th,1): print(f'{i:02d}. {s}')
+              print('COUNT',len(th))
+
+          print('\n### RED TEAM QUESTIONS')
+          print('A. Does each section primarily describe an action Eliza took, a decision, evidence, or a learning?')
+          print('B. Does any copy read like generic advice, an implementation checklist, or a future promise?')
+          print('C. Are technical identifiers earning their space by proving a capability or result?')
+          print('D. Could a senior business reader explain the business problem, intervention and outcome without knowing the stack?')
+          print('E. Are unproven states framed as evidence limits rather than product promises?')
+          PY

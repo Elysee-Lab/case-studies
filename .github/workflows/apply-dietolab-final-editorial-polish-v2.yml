@@ -1,0 +1,176 @@
+name: Apply DietoLab final editorial polish v2
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+
+      - name: Apply final exact copy corrections
+        run: |
+          cat > /tmp/final_polish.py <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+
+          def rep(old,new,expected=1):
+              global s
+              n=s.count(old)
+              if n!=expected:
+                  raise SystemExit(f'Expected {expected}, found {n}: {old[:180]}')
+              s=s.replace(old,new)
+
+          pairs=[
+            ('DietoLab develops the brand and shared demand channels so the dietitian does not have to build every commercial capability alone.',
+             'In the central layer I grouped brand, marketing, local SEO, B2B sales and offer development as shared network capabilities rather than capabilities rebuilt by each partner.'),
+            ('DietoLab rozwija markę i wspólne kanały dotarcia, żeby dietetyk nie musiał samodzielnie budować całego zaplecza biznesowego.',
+             'W warstwie centralnej połączyłam markę, marketing, lokalne SEO, sprzedaż B2B i rozwój oferty jako wspólne kompetencje sieci, zamiast odtwarzać je osobno dla każdego partnera.'),
+            ('The next partner cohorts are designed to test whether the relationship between central infrastructure, specialist supply and commercial outcomes appears in real data.',
+             'I use the next partner cohorts to test whether the relationship between central infrastructure, specialist supply and commercial outcomes appears in real data.'),
+            ('Kolejne kohorty partnerów mają służyć sprawdzeniu, czy zależność między wspólnym zapleczem, podażą specjalistów i wynikami komercyjnymi rzeczywiście pojawia się w danych.',
+             'Kolejne kohorty partnerów wykorzystuję do sprawdzenia, czy zależność między wspólnym zapleczem, podażą specjalistów i wynikami komercyjnymi rzeczywiście pojawia się w danych.'),
+            ('This is how I intend to replace scenario assumptions with real partner-cohort medians.',
+             'I designed the pilots so scenario assumptions can be replaced with real partner-cohort medians.'),
+            ('Chcę w ten sposób zastąpić scenariusze rzeczywistymi medianami kolejnych kohort partnerów.',
+             'Pilotaże zaprojektowałam tak, aby scenariusze można było zastąpić rzeczywistymi medianami kolejnych kohort partnerów.'),
+            ('`attribution_punkty kontaktu`','`attribution_touchpoints`'),
+            ('Open rate is treated as a supporting metric because of privacy/image prefetch. Clicks and downstream conversion matter more.',
+             'I treat open rate as a supporting metric because privacy mechanisms and image prefetch can distort it. Clicks and downstream conversion matter more.'),
+            ('Współczynnik otwarć traktujemy pomocniczo, ponieważ mechanizmy ochrony prywatności i automatyczne pobieranie obrazów mogą go zniekształcać. Ważniejsze są kliknięcia i dalsze konwersje.',
+             'Współczynnik otwarć traktuję pomocniczo, ponieważ mechanizmy ochrony prywatności i automatyczne pobieranie obrazów mogą go zniekształcać. Ważniejsze są kliknięcia i dalsze konwersje.')
+          ]
+          for old,new in pairs:
+              rep(old,new)
+          p.write_text(s,encoding='utf-8')
+          PY
+          python /tmp/final_polish.py
+
+      - name: Fresh red-team verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+
+          s=Path('index.html').read_text(encoding='utf-8')
+          en_start='<div class="lang-report" data-lang="en" lang="en">'
+          pl_start='<div class="lang-report active" data-lang="pl" lang="pl">'
+          if en_start not in s or pl_start not in s:
+              raise SystemExit('Language report boundary missing')
+          en=s.split(en_start,1)[1].split(pl_start,1)[0]
+          pl=pl_start+s.split(pl_start,1)[1]
+
+          required=[
+            'I introduced consistent UTM tagging so channel and campaign performance can be separated.',
+            'Wprowadziłam spójne oznaczanie linków, żeby rozdzielić wyniki poszczególnych kanałów i kampanii.',
+            'In the central layer I grouped brand, marketing, local SEO, B2B sales and offer development as shared network capabilities',
+            'W warstwie centralnej połączyłam markę, marketing, lokalne SEO, sprzedaż B2B i rozwój oferty jako wspólne kompetencje sieci',
+            'I use the next partner cohorts to test whether',
+            'Kolejne kohorty partnerów wykorzystuję do sprawdzenia',
+            'I designed the pilots so scenario assumptions can be replaced with real partner-cohort medians.',
+            'Pilotaże zaprojektowałam tak, aby scenariusze można było zastąpić rzeczywistymi medianami kolejnych kohort partnerów.',
+            '`attribution_touchpoints`',
+            'I treat open rate as a supporting metric',
+            'Współczynnik otwarć traktuję pomocniczo',
+            'Partner network as the scale mechanism','Sieć partnerska jako mechanizm skali',
+            'Network-value hypothesis','Hipoteza wartości sieciowej',
+            'Next hypotheses','Kolejne hipotezy',
+            'let navLockUntil=0;','menu-polish-2026-09-14','venture-builder-layer-2026-09-14'
+          ]
+          missing=[x for x in required if x not in s]
+          if missing:
+              raise SystemExit('Required final-copy markers missing: '+repr(missing))
+
+          banned=[
+            'Linki organiczne powinny zawsze','Organic links should always','source / medium / campaign / content',
+            '<b>Sukces =</b>','<b>Success =</b>','Dołącz do sieci','Join the Network',
+            'The synergy we want to build','Efekt synergii, który chcemy zbudować',
+            'Uruchom profil i uporządkuj pracę','Launch the profile and organise the workflow',
+            'Sprawdź, czy zainteresowanie zamienia się w pacjentów','Test whether interest becomes patients',
+            'Sprawdź powtarzalność i dodatkowe źródła wartości','Test repeatability and additional sources of value',
+            'Co musimy jeszcze udowodnić na kolejnych partnerach',
+            'Najpierw trzeba było zacząć','kolejne etapy trzeba sprawdzić','najpierw trzeba ujednolicić statusy',
+            'does not have to build every commercial capability alone',
+            'żeby dietetyk nie musiał samodzielnie budować całego zaplecza biznesowego',
+            'The next partner cohorts are designed to test',
+            'Kolejne kohorty partnerów mają służyć sprawdzeniu',
+            'This is how I intend to replace scenario assumptions',
+            'Chcę w ten sposób zastąpić scenariusze',
+            'Współczynnik otwarć traktujemy pomocniczo',
+            'attribution_punkty kontaktu'
+          ]
+          found=[x for x in banned if x in s]
+          if found:
+              raise SystemExit('Residual playbook/promise/corruption copy remains: '+repr(found))
+
+          pl_text=html.unescape(re.sub(r'<[^>]+>',' ',pl)); pl_text=re.sub(r'\s+',' ',pl_text)
+          en_text=html.unescape(re.sub(r'<[^>]+>',' ',en)); en_text=re.sub(r'\s+',' ',en_text)
+
+          # Strong prescriptive language only. "należy do" is grammatical possession, not an instruction.
+          strong_pl=[r'\bpowin\w*\b',r'\btrzeba\b',r'\bmusimy\b',r'\bwarto\b',r'\bCelem\b',r'\bma być\b',r'\bnależy\s+(?!do\b)']
+          strong_en=[r'\bshould\b',r'\bmust\b',r'\bthe aim is\b',r'\bwe need to\b',r'\bwe should\b']
+          pl_hits=[]
+          for pat in strong_pl:
+              for m in re.finditer(pat,pl_text,re.I):
+                  pl_hits.append(pl_text[max(0,m.start()-100):m.end()+100])
+          en_hits=[]
+          for pat in strong_en:
+              for m in re.finditer(pat,en_text,re.I):
+                  en_hits.append(en_text[max(0,m.start()-100):m.end()+100])
+          if pl_hits:
+              raise SystemExit('Strong PL prescriptive wording remains: '+repr(pl_hits[:10]))
+          if en_hits:
+              raise SystemExit('Strong EN prescriptive wording remains: '+repr(en_hits[:10]))
+
+          artefacts=['Baza produkcyjna','Wniosek główny','Kontekst biznesowy','Pacjenci','Sieć partnerów','Firmy i instytucje','Oś czasu','oferta wysłana','nieobecność na rozmowie','rozmowa zakończona','w toku','porządkowanie','porządek w pomiarze reklam','punkt odniesienia','gotowe','październik','wrzesień']
+          hits=[x for x in artefacts if x.lower() in en_text.lower()]
+          if hits:
+              raise SystemExit('Polish artefacts remain in EN report: '+repr(hits))
+          diacritics=re.findall(r'[ąćęńóśźżĄĆĘŃÓŚŹŻ]',en_text.replace('Wrocław',''))
+          if diacritics:
+              raise SystemExit('Unexpected Polish diacritics remain in EN report: '+repr(sorted(set(diacritics))))
+
+          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1:
+              raise SystemExit('HTML boundary check failed')
+          ids=re.findall(r'\bid="([^"]+)"',s)
+          dup=sorted({x for x in ids if ids.count(x)>1})
+          if dup:
+              raise SystemExit('Duplicate IDs: '+repr(dup[:20]))
+          anchors=re.findall(r'href="#([^"]+)"',s)
+          missing_ids=sorted({a for a in anchors if a not in ids})
+          if missing_ids:
+              raise SystemExit('Internal anchors without targets: '+repr(missing_ids))
+
+          print('PASS final narrative red-team')
+          print('PL strong-prescriptive hits: 0')
+          print('EN strong-prescriptive hits: 0')
+          print('IDs',len(ids),'internal anchors',len(anchors))
+          PY
+
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          Path('/tmp/case-study.js').write_text('\n'.join(scripts),encoding='utf-8')
+          print('scripts',len(scripts))
+          PY
+          node --check /tmp/case-study.js
+          git diff --check
+
+      - name: Commit only the polished case study
+        run: |
+          git config user.name case-study-deploy-bot
+          git config user.email case-study-deploy-bot@users.noreply.github.com
+          git add index.html
+          test "$(git diff --cached --name-only)" = "index.html"
+          git commit -m 'edit: final polish of DietoLab case-study narrative'
+          git push origin HEAD:dietolab-safe-restore

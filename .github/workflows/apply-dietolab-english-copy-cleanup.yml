@@ -1,0 +1,95 @@
+name: Apply DietoLab English copy cleanup
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - '.github/workflows/apply-dietolab-english-copy-cleanup.yml'
+      - 'scripts/clean_dietolab_english_copy.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean-test-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out safe branch
+        uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+          fetch-depth: 0
+
+      - name: Snapshot Polish report before cleanup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          h=Path('index.html').read_text(encoding='utf-8')
+          marker='<div class="lang-report active" data-lang="pl"'
+          pl=h[h.index(marker):]
+          Path('/tmp/pl_before.sha').write_text(hashlib.sha256(pl.encode()).hexdigest())
+          PY
+
+      - name: Apply guarded English-only cleanup
+        run: python scripts/clean_dietolab_english_copy.py
+
+      - name: Run English copy regression test
+        run: python scripts/test_dietolab_english_copy.py
+
+      - name: Verify Polish report untouched and page invariants intact
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import hashlib, re
+
+          h=Path('index.html').read_text(encoding='utf-8')
+          marker='<div class="lang-report active" data-lang="pl"'
+          pl=h[h.index(marker):]
+          before=Path('/tmp/pl_before.sha').read_text().strip()
+          after=hashlib.sha256(pl.encode()).hexdigest()
+          assert before == after, 'Polish report changed during English-only cleanup'
+
+          required=[
+              'First I built the system. Then I started scaling it.',
+              'Najpierw zbudowałam system. Potem zaczęłam go skalować.',
+              'Clinical Brain / Single Spine',
+              'urgent-ui-fix-2026-09-14',
+              'Case Study <span class="case-sep">|</span> Eliza Bingul',
+              'class="jump-nav active"',
+          ]
+          for x in required:
+              assert x in h, f'Missing invariant: {x}'
+          assert '—' not in h, 'Em dash found'
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.ids=[]; self.hrefs=[]
+              def handle_starttag(self, tag, attrs):
+                  a=dict(attrs)
+                  if a.get('id'): self.ids.append(a['id'])
+                  if tag == 'a' and a.get('href','').startswith('#'): self.hrefs.append(a['href'][1:])
+          p=P(); p.feed(h)
+          assert len(p.ids)==len(set(p.ids)), 'Duplicate IDs'
+          missing=[x for x in p.hrefs if x and x not in set(p.ids)]
+          assert not missing, f'Missing anchors: {missing}'
+          assert h.count('class="lang-report') == 2
+          assert h.count('class="lang-btn') == 2
+          scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', h, flags=re.S|re.I)
+          assert scripts
+          Path('/tmp/dietolab-inline.js').write_text('\n'.join(scripts), encoding='utf-8')
+          print('English cleanup structural verification: PASS')
+          PY
+          node --check /tmp/dietolab-inline.js
+          git diff --check -- index.html
+
+      - name: Commit only verified page
+        run: |
+          git config user.name 'case-study-deploy-bot'
+          git config user.email 'case-study-deploy-bot@users.noreply.github.com'
+          git add index.html
+          git diff --cached --check
+          git commit -m 'fix: clean English copy in DietoLab case study'
+          git push origin HEAD:dietolab-safe-restore

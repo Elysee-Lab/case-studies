@@ -1,0 +1,23 @@
+name: Test DietoLab English copy
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - '.github/workflows/test-dietolab-english-copy.yml'
+      - 'scripts/test_dietolab_english_copy.py'
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  english-copy-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Verify English report contains no mixed Polish copy
+        run: python scripts/test_dietolab_english_copy.py

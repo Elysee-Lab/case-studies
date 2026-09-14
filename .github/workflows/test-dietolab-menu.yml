@@ -1,0 +1,18 @@
+name: Test DietoLab menu
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - 'index.html'
+      - 'scripts/test_dietolab_menu_css.py'
+      - '.github/workflows/test-dietolab-menu.yml'
+
+jobs:
+  menu-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+      - name: Verify menu CSS contract
+        run: python scripts/test_dietolab_menu_css.py
