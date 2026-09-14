@@ -1,0 +1,1 @@
+Do not deploy restore files directly. The live page is updated only after verification.
