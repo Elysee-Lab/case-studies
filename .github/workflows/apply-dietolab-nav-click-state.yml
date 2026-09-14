@@ -20,109 +20,79 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re, textwrap
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          old1="""  let currentLang='pl';
+          new1=textwrap.dedent("""\
+            let currentLang='pl';
+            let navLockUntil=0;
 
-  function updateActiveJump(){
-    const nav=document.querySelector('.jump-nav.active');
-    if(!nav) return;
-    const links=[...nav.querySelectorAll('a[href^=\"#\"]')];
-    const y=window.scrollY+165;
-    let active=links[0];
-    links.forEach(link=>{
-      const el=document.querySelector(link.getAttribute('href'));
-      if(el && el.offsetTop<=y) active=link;
-    });
-    links.forEach(a=>a.classList.toggle('active',a===active));
-  }
-"""
-          new1="""  let currentLang='pl';
-  let navLockUntil=0;
+            function setActiveJumpLink(nav,active){
+              if(!nav || !active) return;
+              nav.querySelectorAll('a[href^="#"]').forEach(link=>link.classList.toggle('active',link===active));
+            }
 
-  function setActiveJumpLink(nav,active){
-    if(!nav || !active) return;
-    nav.querySelectorAll('a[href^=\"#\"]').forEach(link=>link.classList.toggle('active',link===active));
-  }
+            function activateHashTarget(){
+              const nav=document.querySelector('.jump-nav.active');
+              if(!nav || !window.location.hash) return false;
+              const active=[...nav.querySelectorAll('a[href^="#"]')].find(link=>link.getAttribute('href')===window.location.hash);
+              if(!active) return false;
+              setActiveJumpLink(nav,active);
+              return true;
+            }
 
-  function activateHashTarget(){
-    const nav=document.querySelector('.jump-nav.active');
-    if(!nav || !window.location.hash) return false;
-    const active=[...nav.querySelectorAll('a[href^=\"#\"]')].find(link=>link.getAttribute('href')===window.location.hash);
-    if(!active) return false;
-    setActiveJumpLink(nav,active);
-    return true;
-  }
-
-  function updateActiveJump(){
-    if(Date.now()<navLockUntil) return;
-    const nav=document.querySelector('.jump-nav.active');
-    if(!nav) return;
-    const links=[...nav.querySelectorAll('a[href^=\"#\"]')];
-    const headerBottom=document.querySelector('.top')?.getBoundingClientRect().bottom||0;
-    const threshold=headerBottom+24;
-    let active=links[0];
-    links.forEach(link=>{
-      const el=document.querySelector(link.getAttribute('href'));
-      if(el && el.getBoundingClientRect().top<=threshold) active=link;
-    });
-    setActiveJumpLink(nav,active);
-  }
-"""
-          old2="""  document.addEventListener('click',e=>{
-    const a=e.target.closest('.jump-nav a');
-    if(a) requestAnimationFrame(()=>setTimeout(updateActiveJump,80));
-  });
-  window.addEventListener('scroll',updateActiveJump,{passive:true});
-  window.addEventListener('resize',updateActiveJump);
-"""
-          new2="""  document.addEventListener('click',e=>{
-    const a=e.target.closest('.jump-nav a');
-    if(!a) return;
-    const clickedNav=a.closest('.jump-nav');
-    setActiveJumpLink(clickedNav,a);
-    navLockUntil=Date.now()+900;
-    setTimeout(()=>{navLockUntil=0;updateActiveJump();},950);
-  });
-  window.addEventListener('hashchange',()=>{
-    if(activateHashTarget()){
-      navLockUntil=Date.now()+900;
-      setTimeout(()=>{navLockUntil=0;updateActiveJump();},950);
-    }
-  });
-  window.addEventListener('scrollend',()=>{navLockUntil=0;updateActiveJump();});
-  window.addEventListener('scroll',updateActiveJump,{passive:true});
-  window.addEventListener('resize',updateActiveJump);
-"""
-          if s.count(old1)!=1:
-              raise SystemExit(f'Expected exactly one updateActiveJump block, found {s.count(old1)}')
-          if s.count(old2)!=1:
-              raise SystemExit(f'Expected exactly one click/scroll block, found {s.count(old2)}')
-          s=s.replace(old1,new1).replace(old2,new2)
-          p.write_text(s,encoding='utf-8')
+            function updateActiveJump(){
+              if(Date.now()<navLockUntil) return;
+              const nav=document.querySelector('.jump-nav.active');
+              if(!nav) return;
+              const links=[...nav.querySelectorAll('a[href^="#"]')];
+              const headerBottom=document.querySelector('.top')?.getBoundingClientRect().bottom||0;
+              const threshold=headerBottom+24;
+              let active=links[0];
+              links.forEach(link=>{
+                const el=document.querySelector(link.getAttribute('href'));
+                if(el && el.getBoundingClientRect().top<=threshold) active=link;
+              });
+              setActiveJumpLink(nav,active);
+            }
+          """)
+          new2=textwrap.dedent("""\
+            document.addEventListener('click',e=>{
+              const a=e.target.closest('.jump-nav a');
+              if(!a) return;
+              const clickedNav=a.closest('.jump-nav');
+              setActiveJumpLink(clickedNav,a);
+              navLockUntil=Date.now()+900;
+              setTimeout(()=>{navLockUntil=0;updateActiveJump();},950);
+            });
+            window.addEventListener('hashchange',()=>{
+              if(activateHashTarget()){
+                navLockUntil=Date.now()+900;
+                setTimeout(()=>{navLockUntil=0;updateActiveJump();},950);
+              }
+            });
+            window.addEventListener('scrollend',()=>{navLockUntil=0;updateActiveJump();});
+            window.addEventListener('scroll',updateActiveJump,{passive:true});
+            window.addEventListener('resize',updateActiveJump);
+          """)
+          pat1=r"  let currentLang='pl';\n\n  function updateActiveJump\(\)\{.*?\n  \}\n\n  function setLang"
+          repl1=new1+"\n  function setLang"
+          s2,n1=re.subn(pat1,repl1,s,count=1,flags=re.S)
+          if n1!=1: raise SystemExit(f'Expected one updateActiveJump region, replaced {n1}')
+          pat2=r"  document\.addEventListener\('click',e=>\{.*?window\.addEventListener\('resize',updateActiveJump\);"
+          s3,n2=re.subn(pat2,new2.rstrip(),s2,count=1,flags=re.S)
+          if n2!=1: raise SystemExit(f'Expected one click/scroll region, replaced {n2}')
+          p.write_text(s3,encoding='utf-8')
           PY
       - name: Verify targeted fix and report integrity
         run: |
           python - <<'PY'
           from pathlib import Path
           s=Path('index.html').read_text(encoding='utf-8')
-          required=[
-            'let navLockUntil=0;',
-            'navLockUntil=Date.now()+900;',
-            "window.addEventListener('scrollend'",
-            "const clickedNav=a.closest('.jump-nav');",
-            'function activateHashTarget()',
-            'id="progress-pl"',
-            'id="progress-en"',
-            'id="learning-path-pl"',
-            'id="learning-path-en"',
-            'menu-polish-2026-09-14',
-            'venture-builder-layer-2026-09-14',
-          ]
+          required=['let navLockUntil=0;','navLockUntil=Date.now()+900;',"window.addEventListener('scrollend'","const clickedNav=a.closest('.jump-nav');",'function activateHashTarget()','id="progress-pl"','id="progress-en"','id="learning-path-pl"','id="learning-path-en"','menu-polish-2026-09-14','venture-builder-layer-2026-09-14']
           missing=[x for x in required if x not in s]
           if missing: raise SystemExit('Missing required markers: '+repr(missing))
-          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1:
-              raise SystemExit('HTML document boundary check failed')
+          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1: raise SystemExit('HTML document boundary check failed')
           print('PASS targeted nav state fix + integrity checks')
           PY
       - name: Commit fix on safe branch
