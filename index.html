@@ -766,20 +766,37 @@ body{font-size:17px!important;line-height:1.72!important}
   const reports=[...document.querySelectorAll('.lang-report')];
   const jumpNavs=[...document.querySelectorAll('.jump-nav')];
   const note=document.querySelector('.topnote');
-  let currentLang='pl';
+let currentLang='pl';
+let navLockUntil=0;
 
-  function updateActiveJump(){
-    const nav=document.querySelector('.jump-nav.active');
-    if(!nav) return;
-    const links=[...nav.querySelectorAll('a[href^="#"]')];
-    const y=window.scrollY+165;
-    let active=links[0];
-    links.forEach(link=>{
-      const el=document.querySelector(link.getAttribute('href'));
-      if(el && el.offsetTop<=y) active=link;
-    });
-    links.forEach(a=>a.classList.toggle('active',a===active));
-  }
+function setActiveJumpLink(nav,active){
+  if(!nav || !active) return;
+  nav.querySelectorAll('a[href^="#"]').forEach(link=>link.classList.toggle('active',link===active));
+}
+
+function activateHashTarget(){
+  const nav=document.querySelector('.jump-nav.active');
+  if(!nav || !window.location.hash) return false;
+  const active=[...nav.querySelectorAll('a[href^="#"]')].find(link=>link.getAttribute('href')===window.location.hash);
+  if(!active) return false;
+  setActiveJumpLink(nav,active);
+  return true;
+}
+
+function updateActiveJump(){
+  if(Date.now()<navLockUntil) return;
+  const nav=document.querySelector('.jump-nav.active');
+  if(!nav) return;
+  const links=[...nav.querySelectorAll('a[href^="#"]')];
+  const headerBottom=document.querySelector('.top')?.getBoundingClientRect().bottom||0;
+  const threshold=headerBottom+24;
+  let active=links[0];
+  links.forEach(link=>{
+    const el=document.querySelector(link.getAttribute('href'));
+    if(el && el.getBoundingClientRect().top<=threshold) active=link;
+  });
+  setActiveJumpLink(nav,active);
+}
 
   function setLang(lang){
     currentLang=lang;
@@ -797,12 +814,23 @@ body{font-size:17px!important;line-height:1.72!important}
   }
 
   buttons.forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
-  document.addEventListener('click',e=>{
-    const a=e.target.closest('.jump-nav a');
-    if(a) requestAnimationFrame(()=>setTimeout(updateActiveJump,80));
-  });
-  window.addEventListener('scroll',updateActiveJump,{passive:true});
-  window.addEventListener('resize',updateActiveJump);
+document.addEventListener('click',e=>{
+  const a=e.target.closest('.jump-nav a');
+  if(!a) return;
+  const clickedNav=a.closest('.jump-nav');
+  setActiveJumpLink(clickedNav,a);
+  navLockUntil=Date.now()+900;
+  setTimeout(()=>{navLockUntil=0;updateActiveJump();},950);
+});
+window.addEventListener('hashchange',()=>{
+  if(activateHashTarget()){
+    navLockUntil=Date.now()+900;
+    setTimeout(()=>{navLockUntil=0;updateActiveJump();},950);
+  }
+});
+window.addEventListener('scrollend',()=>{navLockUntil=0;updateActiveJump();});
+window.addEventListener('scroll',updateActiveJump,{passive:true});
+window.addEventListener('resize',updateActiveJump);
   setLang('pl');
 })();
 </script></body>
