@@ -1,0 +1,38 @@
+name: Build clean DietoLab narrative preview
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+
+permissions:
+  contents: write
+
+jobs:
+  preview-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+          fetch-depth: 0
+      - name: Create clean preview branch from main with only final index
+        run: |
+          set -euo pipefail
+          cp index.html /tmp/dietolab-final-index.html
+          git fetch origin main
+          git checkout -B dietolab-narrative-preview origin/main
+          cp /tmp/dietolab-final-index.html index.html
+          git config user.name case-study-deploy-bot
+          git config user.email case-study-deploy-bot@users.noreply.github.com
+          git add index.html
+          test "$(git diff --cached --name-only)" = "index.html"
+          git diff --cached --check
+          git commit -m 'preview: DietoLab evidence-led case study narrative'
+          git push --force-with-lease origin HEAD:dietolab-narrative-preview
+      - name: Verify preview branch differs from main only in index.html
+        run: |
+          set -euo pipefail
+          git fetch origin main dietolab-narrative-preview
+          files="$(git diff --name-only origin/main..origin/dietolab-narrative-preview)"
+          printf '%s\n' "$files"
+          test "$files" = "index.html"
