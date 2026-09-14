@@ -1,0 +1,80 @@
+name: Apply DietoLab narrative red-team rewrite v4
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - '.github/workflows/apply-dietolab-narrative-redteam-v4.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  rewrite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Apply reviewed rewrite set
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, textwrap
+          src=Path('.github/workflows/apply-dietolab-narrative-redteam-v2.yml').read_text(encoding='utf-8')
+          m=re.search(r"cat > /tmp/rewrite\.py <<'PY'\n(.*?)\n          PY\n          python /tmp/rewrite\.py",src,re.S)
+          if not m: raise SystemExit('Could not extract reviewed rewrite script')
+          script=textwrap.dedent(m.group(1))
+          script,n=re.subn(r"(?m)^\s*rep\('The goal is to replace scenario assumptions with partner cohort medians\.'.*\n",'',script,count=1)
+          if n!=1: raise SystemExit(f'Expected to remove one overlapping rule, removed {n}')
+          Path('/tmp/rewrite.py').write_text(script,encoding='utf-8')
+          PY
+          python /tmp/rewrite.py
+      - name: Red-team verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          marker='<div class="lang-report active" data-lang="pl"'
+          if marker not in s: raise SystemExit('PL report marker missing')
+          en,pl=s.split(marker,1)
+          banned_global=['Linki organiczne powinny zawsze','Organic links should always','source / medium / campaign / content','powinna być oceniana osobno','Current patient and booking volumes should be read','CAC/ROAS should not be reported','Only then should CPL/CAC/ROAS','Skupić się na stronach z dużą liczbą wyświetleń','Ujednolicić ścieżkę firmową:','<b>Sukces =</b>','<b>Success =</b>','Now run a controlled same-device','Run a CTR sprint on high-exposure pages','Standardise the company journey:','I defined what DietoLab should stand for','I mapped what should happen','Media społecznościowe Organic capture']
+          banned_en=['algotowe','mała próba','rozwiązane','lokalnym SEO','Reklama / post / e-mail','Działania / wdrożenie','Efekt / stan obecny','brak nakładania się okresów']
+          found=[x for x in banned_global if x in s]+[f'EN:{x}' for x in banned_en if x in en]
+          if found: raise SystemExit('Red-team banned copy still present: '+repr(found))
+          required=['Wprowadziłam spójne oznaczanie linków, żeby rozdzielić wyniki poszczególnych kanałów i kampanii.','I introduced consistent UTM tagging so channel and campaign performance can be separated.','Jakie hipotezy wybrałam do kolejnej walidacji','The next hypotheses I chose to validate','let navLockUntil=0;','menu-polish-2026-09-14','venture-builder-layer-2026-09-14']
+          missing=[x for x in required if x not in s]
+          if missing: raise SystemExit('Required markers missing: '+repr(missing))
+          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1: raise SystemExit('HTML boundary check failed')
+          print('PASS narrative red-team checks')
+          PY
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          Path('/tmp/case-study.js').write_text('\n'.join(scripts),encoding='utf-8')
+          print('scripts',len(scripts))
+          PY
+          node --check /tmp/case-study.js
+      - name: Post-red-team scan
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          marker='<div class="lang-report active" data-lang="pl"'
+          en,pl=s.split(marker,1)
+          print('PL residual prescriptive tokens:', sorted(set(re.findall(r'\b(?:powin\w*|trzeba|należy|musz\w*|warto)\b',pl,re.I))))
+          print('EN residual prescriptive tokens:', sorted(set(re.findall(r'\b(?:should|must|need(?:s|ed)?|have to|has to)\b',en,re.I))))
+          print('NOTE: residual tokens are review flags, not automatic errors; context determines whether they describe evidence or advice.')
+          PY
+      - name: Commit reviewed narrative on safe branch
+        run: |
+          git config user.name case-study-deploy-bot
+          git config user.email case-study-deploy-bot@users.noreply.github.com
+          git add index.html
+          git diff --cached --check
+          test "$(git diff --cached --name-only)" = "index.html"
+          git commit -m 'edit: rewrite DietoLab case study as evidence-led narrative'
+          git push origin HEAD:dietolab-safe-restore
