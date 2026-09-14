@@ -1,0 +1,61 @@
+name: Apply DietoLab menu polish
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - 'scripts/apply_dietolab_menu_polish.py'
+      - '.github/workflows/apply-dietolab-menu-polish.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out safe branch
+        uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Capture protected content hashes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, re
+          s=Path('index.html').read_text(encoding='utf-8')
+          pl=re.search(r'<div class="lang-report active" data-lang="pl" lang="pl">(.*)</div></main>', s, re.S)
+          assert pl, 'PL report wrapper missing'
+          Path('/tmp/pl_before.sha').write_text(hashlib.sha256(pl.group(1).encode()).hexdigest())
+          PY
+      - name: Apply menu-only CSS patch
+        run: python scripts/apply_dietolab_menu_polish.py
+      - name: Verify menu contract
+        run: python scripts/test_dietolab_menu_css.py
+      - name: Verify protected content and structure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, re
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert '<!DOCTYPE html>' in s
+          assert 'Case Study <span class="case-sep">|</span> Eliza Bingul' in s
+          assert 'class="jump-nav active" data-lang="pl"' in s
+          assert 'class="jump-nav" data-lang="en"' in s
+          assert 'id="learning-path-en"' in s and 'id="learning-path-pl"' in s
+          assert 'id="menu-polish-2026-09-14"' in s
+          pl=re.search(r'<div class="lang-report active" data-lang="pl" lang="pl">(.*)</div></main>', s, re.S)
+          assert pl, 'PL report wrapper missing after patch'
+          before=Path('/tmp/pl_before.sha').read_text().strip()
+          after=hashlib.sha256(pl.group(1).encode()).hexdigest()
+          assert before == after, 'PL report content changed; patch must be CSS-only outside report body'
+          print('structure and protected-content checks passed')
+          PY
+      - name: Commit verified index only
+        run: |
+          git config user.name 'case-study-deploy-bot'
+          git config user.email 'case-study-deploy-bot@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix: polish DietoLab case study navigation'
+          git push origin HEAD:dietolab-safe-restore
