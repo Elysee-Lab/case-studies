@@ -1,0 +1,95 @@
+name: Audit DietoLab narrative v2
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Narrative and language audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+
+          s=Path('index.html').read_text(encoding='utf-8')
+          marker='<div class="lang-report active" data-lang="pl"'
+          if marker not in s:
+              raise SystemExit('PL marker missing')
+          en_html, pl_tail=s.split(marker,1)
+          pl_html=marker+pl_tail
+
+          def textify(x):
+              x=re.sub(r'<script.*?</script>',' ',x,flags=re.S|re.I)
+              x=re.sub(r'<style.*?</style>',' ',x,flags=re.S|re.I)
+              x=re.sub(r'<[^>]+>',' ',x)
+              x=html.unescape(x)
+              return re.sub(r'\s+',' ',x).strip()
+
+          en=textify(en_html)
+          pl=textify(pl_html)
+
+          def snippets(text, pattern, flags=re.I, width=120):
+              out=[]
+              for m in re.finditer(pattern,text,flags):
+                  a=max(0,m.start()-width); b=min(len(text),m.end()+width)
+                  out.append(text[a:b])
+              return out
+
+          print('=== EN: possible Polish artefacts ===')
+          patterns=[
+              r'[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]',
+              r'\b(?:punkt odniesienia|oferta wysłana|nieobecność|rozmowa|w toku|zakwalifikowanych|pozyskana współpraca|wyświetlenia|kliknięć|rezerwacja|rezerwacji|dietetyk|brak|gotowe|rozwiązane)\b'
+          ]
+          seen=[]
+          for p in patterns:
+              for sn in snippets(en,p):
+                  if sn not in seen:
+                      seen.append(sn); print('EN_ARTEFACT:',sn)
+          print('EN artefact snippets:',len(seen))
+
+          print('\n=== PL: prescriptive / plan-like flags ===')
+          pl_patterns=[
+              r'\bpowin\w*\b', r'\btrzeba\b', r'\bnależy\b', r'\bmusz\w*\b', r'\bwarto\b',
+              r'\bCelem\b', r'\bCel:\b', r'\bma być\b', r'\bmają\b', r'\bchcemy\b',
+              r'\bUruchom\b', r'\bSprawdź\b', r'\bMierzymy\b', r'\bSzukamy\b', r'\bkolejnym krokiem\b'
+          ]
+          for p in pl_patterns:
+              hits=snippets(pl,p)
+              if hits:
+                  print('\nPATTERN',p,'COUNT',len(hits))
+                  for sn in hits: print(' ',sn)
+
+          print('\n=== EN: prescriptive / plan-like flags ===')
+          en_patterns=[
+              r'\bshould\b', r'\bmust\b', r'\bneed(?:s|ed)? to\b', r'\bhave to\b',
+              r'\bthe aim is\b', r'\bwe want to\b', r'\bI want to\b', r'\bdesigned to\b',
+              r'\bLaunch the profile\b', r'\bTest whether\b', r'\bMeasure:\b', r'\bnext step\b',
+              r'\bThe synergy we want to build\b'
+          ]
+          for p in en_patterns:
+              hits=snippets(en,p)
+              if hits:
+                  print('\nPATTERN',p,'COUNT',len(hits))
+                  for sn in hits: print(' ',sn)
+
+          print('\n=== Structural checks ===')
+          checks={
+              'PL default': '<div class="lang-report active" data-lang="pl"' in s,
+              'Case Study byline': 'Case Study DietoLab · Eliza Bingul' in s,
+              'UTM case-study phrasing PL': 'Wprowadziłam spójne oznaczanie linków' in s,
+              'UTM case-study phrasing EN': 'I introduced consistent UTM tagging' in s,
+              'menu fix': 'menu-polish-2026-09-14' in s,
+              'venture layer': 'venture-builder-layer-2026-09-14' in s,
+          }
+          for k,v in checks.items(): print(k, 'PASS' if v else 'FAIL')
+          if not all(checks.values()): raise SystemExit('Structural check failed')
+          PY
