@@ -1,0 +1,116 @@
+name: Apply DietoLab editorial pass v4
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+
+permissions:
+  contents: write
+
+jobs:
+  rewrite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dietolab-safe-restore
+      - name: Apply reviewed rewrite with language-scoped replacements
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, textwrap
+          src=Path('.github/workflows/apply-dietolab-editorial-pass-v2.yml').read_text(encoding='utf-8')
+          m=re.search(r"cat > /tmp/rewrite\.py <<'PY'\n(.*?)\n          PY\n          python /tmp/rewrite\.py",src,re.S)
+          if not m: raise SystemExit('Could not extract reviewed rewrite script')
+          script=textwrap.dedent(m.group(1))
+
+          scoped={
+            "rep('<span class=\"pill\">Baza produkcyjna</span>','<span class=\"pill\">Production database</span>',1)":
+            "rep_en('<span class=\"pill\">Baza produkcyjna</span>','<span class=\"pill\">Production database</span>')",
+            "rep('<div class=\"segLabel\">B2C · Pacjenci</div>','<div class=\"segLabel\">B2C · Patients</div>',1)":
+            "rep_en('<div class=\"segLabel\">B2C · Pacjenci</div>','<div class=\"segLabel\">B2C · Patients</div>')",
+            "rep('<div class=\"segLabel\">B2B · Sieć partnerów</div>','<div class=\"segLabel\">B2B · Partner network</div>',1)":
+            "rep_en('<div class=\"segLabel\">B2B · Sieć partnerów</div>','<div class=\"segLabel\">B2B · Partner network</div>')",
+            "rep('<div class=\"segLabel\">B2B · Firmy i instytucje</div>','<div class=\"segLabel\">B2B · Companies &amp; institutions</div>',1)":
+            "rep_en('<div class=\"segLabel\">B2B · Firmy i instytucje</div>','<div class=\"segLabel\">B2B · Companies &amp; institutions</div>')",
+            "rep('12 × oferta wysłana · 5 × nieobecność na rozmowie · 2 × odrzucone · 1 × rozmowa zakończona · 1 × w toku.',\n    '12 × offer sent · 5 × no-show · 2 × rejected · 1 × interview completed · 1 × in progress.',1)":
+            "rep_en('12 × oferta wysłana · 5 × nieobecność na rozmowie · 2 × odrzucone · 1 × rozmowa zakończona · 1 × w toku.',\n       '12 × offer sent · 5 × no-show · 2 × rejected · 1 × interview completed · 1 × in progress.')",
+          }
+
+          helper='''\ndef rep_en(old,new,expected=1):\n    global s\n    marker='<div class="lang-report active" data-lang="pl" lang="pl">'\n    if marker not in s:\n        raise SystemExit('PL boundary missing for EN-scoped replacement')\n    en,pl=s.split(marker,1)\n    n=en.count(old)\n    if n!=expected:\n        raise SystemExit(f'Expected {expected} EN occurrence(s), found {n}: {old[:160]}')\n    en=en.replace(old,new)\n    s=en+marker+pl\n'''
+          needle="def rep(old,new,expected=1):\n    global s\n    n=s.count(old)\n    if n!=expected:\n        raise SystemExit(f'Expected {expected}, found {n}: {old[:160]}')\n    s=s.replace(old,new)\n"
+          if needle not in script: raise SystemExit('rep helper block missing')
+          script=script.replace(needle,needle+helper,1)
+          for old,new in scoped.items():
+              if old not in script: raise SystemExit('Scoped rule missing: '+old[:100])
+              script=script.replace(old,new,1)
+          Path('/tmp/rewrite.py').write_text(script,encoding='utf-8')
+          PY
+          python /tmp/rewrite.py
+      - name: Verify editorial and language requirements
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+          s=Path('index.html').read_text(encoding='utf-8')
+          en_start='<div class="lang-report" data-lang="en" lang="en">'
+          pl_start='<div class="lang-report active" data-lang="pl" lang="pl">'
+          if en_start not in s or pl_start not in s: raise SystemExit('language report boundary missing')
+          en=s.split(en_start,1)[1].split(pl_start,1)[0]
+          required=[
+            'I introduced consistent UTM tagging so channel and campaign performance can be separated.',
+            'Wprowadziłam spójne oznaczanie linków, żeby rozdzielić wyniki poszczególnych kanałów i kampanii.',
+            'Partner network as the scale mechanism','Sieć partnerska jako mechanizm skali',
+            'Network-value hypothesis','Hipoteza wartości sieciowej',
+            'Partner recruitment is part of the go-to-market system, not an add-on to the product.',
+            'Rekrutacja partnerów jest częścią go-to-market, a nie dodatkiem do produktu.',
+            'Next hypotheses','Kolejne hipotezy','let navLockUntil=0;','menu-polish-2026-09-14','venture-builder-layer-2026-09-14'
+          ]
+          missing=[x for x in required if x not in s]
+          if missing: raise SystemExit('Required content missing: '+repr(missing))
+          banned=[
+            'Linki organiczne powinny zawsze','Organic links should always','source / medium / campaign / content',
+            '<b>Sukces =</b>','<b>Success =</b>','Dołącz do sieci','Join the Network','The synergy we want to build','Efekt synergii, który chcemy zbudować',
+            'Uruchom profil i uporządkuj pracę','Launch the profile and organise the workflow','Sprawdź, czy zainteresowanie zamienia się w pacjentów','Test whether interest becomes patients',
+            'Sprawdź powtarzalność i dodatkowe źródła wartości','Test repeatability and additional sources of value','Co musimy jeszcze udowodnić na kolejnych partnerach',
+            'Want to grow your practice without building every part of the business alone?','Chcesz rozwijać praktykę, ale nie chcesz budować wszystkiego samodzielnie?',
+            'Najpierw trzeba było zacząć','kolejne etapy trzeba sprawdzić','najpierw trzeba ujednolicić statusy','The next stage is partner-led replication','The next stage is to convert partner recruitment'
+          ]
+          found=[x for x in banned if x in s]
+          if found: raise SystemExit('Banned playbook/promise copy remains: '+repr(found))
+          en_text=html.unescape(re.sub(r'<[^>]+>',' ',en)); en_text=re.sub(r'\s+',' ',en_text)
+          artefacts=['Baza produkcyjna','Wniosek główny','Kontekst biznesowy','Pacjenci','Sieć partnerów','Firmy i instytucje','Oś czasu','oferta wysłana','nieobecność na rozmowie','rozmowa zakończona','w toku','porządkowanie','porządek w pomiarze reklam','punkt odniesienia','gotowe','październik','wrzesień']
+          hits=[x for x in artefacts if x.lower() in en_text.lower()]
+          if hits: raise SystemExit('Polish artefacts remain in EN report: '+repr(hits))
+          diacritics=re.findall(r'[ąćęńóśźżĄĆĘŃÓŚŹŻ]',en_text.replace('Wrocław',''))
+          if diacritics: raise SystemExit('Unexpected Polish diacritics remain in EN report: '+repr(sorted(set(diacritics))))
+          for token in ['<b>Measure:</b>','<b>Mierzymy:</b>']:
+              if token in s: raise SystemExit('Instructional metric label remains: '+token)
+          if s.count('<!DOCTYPE html>')!=1 or s.count('</html>')!=1: raise SystemExit('HTML boundary check failed')
+          ids=re.findall(r'\bid="([^"]+)"',s)
+          dup=sorted({x for x in ids if ids.count(x)>1})
+          if dup: raise SystemExit('Duplicate IDs: '+repr(dup[:20]))
+          anchors=re.findall(r'href="#([^"]+)"',s)
+          missing_ids=sorted({a for a in anchors if a not in ids})
+          if missing_ids: raise SystemExit('Internal anchors without targets: '+repr(missing_ids))
+          print('PASS editorial requirements')
+          print('IDs',len(ids),'internal anchors',len(anchors))
+          PY
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          Path('/tmp/case-study.js').write_text('\n'.join(scripts),encoding='utf-8')
+          print('scripts',len(scripts))
+          PY
+          node --check /tmp/case-study.js
+          git diff --check
+      - name: Commit editorial pass on safe branch
+        run: |
+          git config user.name case-study-deploy-bot
+          git config user.email case-study-deploy-bot@users.noreply.github.com
+          git add index.html
+          test "$(git diff --cached --name-only)" = "index.html"
+          git commit -m 'edit: make DietoLab narrative case-study led'
+          git push origin HEAD:dietolab-safe-restore
