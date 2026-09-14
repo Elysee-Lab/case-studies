@@ -1,0 +1,30 @@
+name: Test DietoLab nav click state
+
+on:
+  push:
+    branches: [dietolab-safe-restore]
+    paths:
+      - 'index.html'
+      - '.github/workflows/test-dietolab-nav-click-state.yml'
+
+jobs:
+  test-nav-click-state:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert click-state lock exists
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path('index.html').read_text(encoding='utf-8')
+          required = [
+              'let navLockUntil=0;',
+              "navLockUntil=Date.now()+900;",
+              "window.addEventListener('scrollend'",
+              "const clickedNav=a.closest('.jump-nav');",
+          ]
+          missing = [x for x in required if x not in s]
+          if missing:
+              raise SystemExit('FAIL expected before fix: missing click-state protection: ' + repr(missing))
+          print('PASS click-state protection present')
+          PY
