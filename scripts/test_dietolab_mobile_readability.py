@@ -21,3 +21,5 @@ assert '6. SSR / crawler rendering: strengthening crawlability' not in s
 assert '6. SSR i renderowanie dla robotów: ułatwienie indeksowania' not in s
 
 print('DietoLab mobile readability, timeline and SSR copy contract passed')
+
+# Verification trigger after the production patch commit.
