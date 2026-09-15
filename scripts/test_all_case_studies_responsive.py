@@ -1,5 +1,6 @@
 from pathlib import Path
 
+# Portfolio-wide responsive regression contract: every published case study must remain mobile-safe.
 TARGETS = {
     Path('index.html'): {
         'marker': 'global-responsive-contract-2026-09-15',
