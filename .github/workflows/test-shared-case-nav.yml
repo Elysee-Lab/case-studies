@@ -1,0 +1,25 @@
+name: Test shared case-study navigation
+
+on:
+  push:
+    branches: [case-study-nav-align]
+    paths:
+      - 'intelevent/index.html'
+      - 'mission-control-room/index.html'
+      - 'scripts/test_shared_case_nav.py'
+      - '.github/workflows/test-shared-case-nav.yml'
+  pull_request:
+    paths:
+      - 'intelevent/index.html'
+      - 'mission-control-room/index.html'
+      - 'scripts/test_shared_case_nav.py'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_shared_case_nav.py

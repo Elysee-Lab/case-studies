@@ -1,0 +1,40 @@
+name: Apply shared case-study navigation
+
+on:
+  push:
+    branches: [case-study-nav-align]
+    paths:
+      - 'scripts/apply_shared_case_nav.py'
+      - '.github/workflows/apply-shared-case-nav.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: case-study-nav-align
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply navigation patch
+        run: python scripts/apply_shared_case_nav.py
+      - name: Verify shared navigation
+        run: python scripts/test_shared_case_nav.py
+      - name: Check diff
+        run: git diff --check
+      - name: Commit generated HTML
+        run: |
+          if git diff --quiet -- intelevent/index.html mission-control-room/index.html; then
+            echo "No HTML changes to commit"
+            exit 0
+          fi
+          git config user.name "case-study-deploy-bot"
+          git config user.email "case-study-deploy-bot@users.noreply.github.com"
+          git add intelevent/index.html mission-control-room/index.html
+          git commit -m "fix: align IntelEvent and Mission Control navigation"
+          git push origin HEAD:case-study-nav-align
