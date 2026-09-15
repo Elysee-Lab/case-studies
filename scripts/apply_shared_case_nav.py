@@ -1,5 +1,6 @@
 from pathlib import Path
 
+# Re-run after aligning the regression contract with the existing wrap class.
 TARGETS = [
     Path("intelevent/index.html"),
     Path("mission-control-room/index.html"),
