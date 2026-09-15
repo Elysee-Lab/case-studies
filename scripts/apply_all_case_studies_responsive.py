@@ -121,3 +121,5 @@ for path, css in TARGETS.items():
         raise RuntimeError(f'{path}: </head> not found')
     path.write_text(html.replace('</head>', css + '</head>', 1), encoding='utf-8')
     print(f'{path}: responsive contract applied')
+
+# Keep this script idempotent; the workflow can be safely re-run.
