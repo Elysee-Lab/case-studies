@@ -25,7 +25,7 @@ TARGETS = {
             'overflow-x:hidden',
             '.heroVisual{min-height:0',
             '.panel{position:relative',
-            '.panel.main{inset:auto',
+            '.panel.main{order:2;inset:auto',
             '.nav{grid-column:1/-1',
         ],
     },
