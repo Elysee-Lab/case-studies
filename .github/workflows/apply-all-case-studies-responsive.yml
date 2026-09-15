@@ -1,0 +1,33 @@
+name: Apply responsive layouts to all case studies
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/apply_all_case_studies_responsive.py'
+      - '.github/workflows/apply-all-case-studies-responsive.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/apply_all_case_studies_responsive.py
+      - run: python scripts/test_all_case_studies_responsive.py
+      - name: Commit responsive fixes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "case-study-responsive-bot"
+          git config user.email "case-study-responsive-bot@users.noreply.github.com"
+          git add index.html intelevent/index.html mission-control-room/index.html
+          git commit -m "fix: make all case studies responsive"
+          git push
