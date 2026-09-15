@@ -1,0 +1,27 @@
+name: Test all case studies responsive
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'intelevent/index.html'
+      - 'mission-control-room/index.html'
+      - 'scripts/test_all_case_studies_responsive.py'
+      - '.github/workflows/test-all-case-studies-responsive.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'intelevent/index.html'
+      - 'mission-control-room/index.html'
+      - 'scripts/test_all_case_studies_responsive.py'
+
+jobs:
+  responsive-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_all_case_studies_responsive.py
