@@ -1,0 +1,17 @@
+name: Test DietoLab mobile readability
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'scripts/test_dietolab_mobile_readability.py'
+      - '.github/workflows/test-dietolab-mobile-readability.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test mobile readability and timeline contract
+        run: python scripts/test_dietolab_mobile_readability.py
