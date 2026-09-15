@@ -1,0 +1,28 @@
+name: Publish responsive HTML
+
+on:
+  push:
+    branches: [responsive-production-publish]
+    paths:
+      - '.github/workflows/publish-responsive-html.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  touch-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add production publish marker to case-study HTML
+        run: |
+          printf '\n<!-- responsive-production-publish-2026-09-15 -->\n' >> index.html
+          printf '\n<!-- responsive-production-publish-2026-09-15 -->\n' >> intelevent/index.html
+          printf '\n<!-- responsive-production-publish-2026-09-15 -->\n' >> mission-control-room/index.html
+      - name: Commit HTML changes on publish branch
+        run: |
+          git config user.name "case-study-responsive-bot"
+          git config user.email "case-study-responsive-bot@users.noreply.github.com"
+          git add index.html intelevent/index.html mission-control-room/index.html
+          git commit -m "deploy: publish responsive case-study HTML"
+          git push
