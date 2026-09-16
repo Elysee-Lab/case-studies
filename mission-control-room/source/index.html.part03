@@ -1,0 +1,87 @@
+      <div class="section-intro">
+        <div class="lang-en"><h2>The operating model made the signal actionable.</h2><p>Automation could not fix ambiguous ownership. The real transformation clarified qualification, routing, follow-up, escalation and accountability.</p></div>
+        <div class="lang-pl"><h2>Model operacyjny zamienił sygnał w działanie.</h2><p>Automatyzacja nie mogła naprawić niejasnej odpowiedzialności. Prawdziwa transformacja uporządkowała kwalifikację, routing, follow-up, eskalację i accountability.</p></div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="state">
+        <p class="section-no"><span class="lang-en inline">Before</span><span class="lang-pl inline">Przed</span></p>
+        <h3><span class="lang-en inline">Attention spread across everything.</span><span class="lang-pl inline">Uwaga rozproszona na wszystko.</span></h3>
+        <ul>
+          <li><span class="lang-en inline">All inquiries competed for manual attention.</span><span class="lang-pl inline">Wszystkie zapytania konkurowały o ręczną uwagę.</span></li>
+          <li><span class="lang-en inline">Ownership and follow-up could be inconsistent.</span><span class="lang-pl inline">Odpowiedzialność i follow-up mogły być niespójne.</span></li>
+          <li><span class="lang-en inline">Attribution was difficult to reconstruct later.</span><span class="lang-pl inline">Atrybucję trudno było odtworzyć po czasie.</span></li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="state target">
+        <p class="section-no"><span class="lang-en inline">Target</span><span class="lang-pl inline">Cel</span></p>
+        <h3><span class="lang-en inline">Human attention focused on what mattered.</span><span class="lang-pl inline">Ludzka uwaga skupiona na tym, co ważne.</span></h3>
+        <ul>
+          <li><span class="lang-en inline">Inquiry → triage → owner → follow-up.</span><span class="lang-pl inline">Zapytanie → triage → owner → follow-up.</span></li>
+          <li><span class="lang-en inline">SLA and escalation principles became explicit.</span><span class="lang-pl inline">Zasady SLA i eskalacji stały się jawne.</span></li>
+          <li><span class="lang-en inline">Opportunity and outcome evidence fed measurement.</span><span class="lang-pl inline">Dowody dotyczące szans i wyników wracały do pomiaru.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="principles" style="margin-top:18px">
+      <div class="principle"><div class="icon">01</div><h3><span class="lang-en inline">Clear ownership</span><span class="lang-pl inline">Jasna odpowiedzialność</span></h3><p><span class="lang-en inline">A valuable inquiry needs a named next action, not a queue.</span><span class="lang-pl inline">Wartościowe zapytanie potrzebuje konkretnego kolejnego działania, nie kolejki.</span></p></div>
+      <div class="principle"><div class="icon">02</div><h3><span class="lang-en inline">Consistent qualification</span><span class="lang-pl inline">Spójna kwalifikacja</span></h3><p><span class="lang-en inline">Shared principles improve comparability across teams and markets.</span><span class="lang-pl inline">Wspólne zasady poprawiają porównywalność między zespołami i rynkami.</span></p></div>
+      <div class="principle"><div class="icon">03</div><h3><span class="lang-en inline">Feedback loop</span><span class="lang-pl inline">Pętla feedbacku</span></h3><p><span class="lang-en inline">Human outcomes become inputs for future decisions.</span><span class="lang-pl inline">Rezultaty pracy ludzi stają się wejściem dla kolejnych decyzji.</span></p></div>
+      <div class="principle"><div class="icon">04</div><h3><span class="lang-en inline">Behaviour matters</span><span class="lang-pl inline">Zachowanie ma znaczenie</span></h3><p><span class="lang-en inline">Not every data gap is solved by another API.</span><span class="lang-pl inline">Nie każdą lukę danych rozwiązuje kolejny API.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mcr">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">05</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Mission Control Room: a parallel intelligence layer.</h2><p>A separate experimentation and decision-support layer made it possible to learn quickly without destabilising core enterprise workflows.</p></div>
+        <div class="lang-pl"><h2>Mission Control Room: równoległa warstwa inteligencji.</h2><p>Oddzielna warstwa eksperymentowania i wsparcia decyzji pozwalała uczyć się szybko bez destabilizowania głównych procesów korporacyjnych.</p></div>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <div class="diagram-title"><span class="lang-en inline">Fragmented systems → Mission Control Room → business evidence</span><span class="lang-pl inline">Rozproszone systemy → Mission Control Room → dowody biznesowe</span></div>
+      <div class="arch">
+        <div class="stack">
+          <div class="node"><b>CRM / marketing automation</b><small><span class="lang-en inline">Inquiry, account, campaign and relationship context.</span><span class="lang-pl inline">Kontekst zapytania, konta, kampanii i relacji.</span></small></div>
+          <div class="node"><b>Website / forms / email</b><small><span class="lang-en inline">Direct incoming demand and source context.</span><span class="lang-pl inline">Bezpośredni popyt i kontekst źródła.</span></small></div>
+          <div class="node"><b>Spreadsheets / local processes</b><small><span class="lang-en inline">Operational evidence and local knowledge.</span><span class="lang-pl inline">Dowody operacyjne i wiedza lokalna.</span></small></div>
+        </div>
+
+        <div class="core">
+          <div class="section-no">Mission Control Room</div>
+          <h3><span class="lang-en inline">Parallel intelligence & experimentation layer</span><span class="lang-pl inline">Równoległa warstwa inteligencji i eksperymentowania</span></h3>
+          <div class="core-flow">
+            <span>Capture</span><span>Prepare</span><span>Enrich</span><span>Interpret</span><span>Qualify</span><span>Review</span><span>Route</span><span>Learn</span>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="node"><b><span class="lang-en inline">Human decision</span><span class="lang-pl inline">Decyzja człowieka</span></b><small><span class="lang-en inline">Approve, override, add context, link records.</span><span class="lang-pl inline">Zatwierdzenie, override, kontekst, łączenie rekordów.</span></small></div>
+          <div class="node"><b><span class="lang-en inline">Approved output</span><span class="lang-pl inline">Zatwierdzony output</span></b><small><span class="lang-en inline">CRM, BI, workflow or marketing destinations.</span><span class="lang-pl inline">CRM, BI, workflow lub marketing automation.</span></small></div>
+          <div class="node"><b><span class="lang-en inline">Evidence chain</span><span class="lang-pl inline">Łańcuch dowodów</span></b><small>Inquiry → Qualification → Owner → Opportunity → Outcome</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="human-ai">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">06</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>AI prepares and recommends. Humans retain authority.</h2><p>The architecture separates specialist tasks and keeps consequential decisions under human control.</p></div>
+        <div class="lang-pl"><h2>AI przygotowuje i rekomenduje. Ludzie zachowują kontrolę.</h2><p>Architektura rozdziela wyspecjalizowane zadania i pozostawia decyzje o znaczeniu biznesowym pod kontrolą człowieka.</p></div>
+      </div>
+    </div>
+
+    <div class="control-grid">
+      <div class="human-ai-balance" aria-label="Human and AI collaboration visual">
+        <div class="balance-side human-side">
