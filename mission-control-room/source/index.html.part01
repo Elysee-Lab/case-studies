@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Mission Control Room — From Noise to Measurable Revenue. Case Study by Eliza Bingul.">
+<title>Mission Control Room | Case Study | Eliza Bingul</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-lang="en">
+<div class="progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap top-main">
+    <div class="brand">
+      <strong>Mission Control Room</strong>
+      <span>Case Study | Eliza Bingul</span>
+    </div>
+    <div class="lang-switch" aria-label="Language">
+      <button class="active" data-lang-btn="en" aria-pressed="true">EN</button>
+      <button data-lang-btn="pl" aria-pressed="false">PL</button>
+    </div>
+  </div>
+  <div class="nav-row">
+    <nav class="wrap nav" aria-label="Case study sections">
+      <a href="#challenge"><span class="lang-en inline">01 Challenge</span><span class="lang-pl inline">01 Wyzwanie</span></a>
+      <a href="#human"><span class="lang-en inline">02 Human prototype</span><span class="lang-pl inline">02 Prototyp ludzki</span></a>
+      <a href="#measurement"><span class="lang-en inline">03 Measurement</span><span class="lang-pl inline">03 Pomiar</span></a>
+      <a href="#operating"><span class="lang-en inline">04 Operating model</span><span class="lang-pl inline">04 Model operacyjny</span></a>
+      <a href="#mcr">05 Mission Control Room</a>
+      <a href="#human-ai"><span class="lang-en inline">06 Human + AI</span><span class="lang-pl inline">06 Człowiek + AI</span></a>
+      <a href="#results"><span class="lang-en inline">07 Results</span><span class="lang-pl inline">07 Wyniki</span></a>
+      <a href="#learnings"><span class="lang-en inline">08 Learnings</span><span class="lang-pl inline">08 Wnioski</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">People × Data × AI × Commercial impact</div>
+        <div class="lang-en">
+          <h1>From Noise to Measurable Revenue.</h1>
+          <p class="hero-lead">Building a B2B inquiry-to-revenue operating system.</p>
+          <p class="hero-copy">Mission Control Room did not start as an AI project. It started with a business question: were valuable opportunities disappearing because the organisation could not reliably distinguish signal from noise, assign ownership, close the loop and measure commercial outcomes?</p>
+        </div>
+        <div class="lang-pl">
+          <h1>Od szumu do mierzalnego przychodu.</h1>
+          <p class="hero-lead">Budowa systemu operacyjnego od zapytania B2B do wyniku biznesowego.</p>
+          <p class="hero-copy">Mission Control Room nie zaczynał się jako projekt AI. Zaczynał się od pytania biznesowego: czy wartościowe szanse znikają, ponieważ organizacja nie potrafi niezawodnie odróżnić sygnału od szumu, przypisać odpowiedzialności, domknąć procesu i zmierzyć efektu komercyjnego?</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#challenge"><span class="lang-en inline">Explore the story ↓</span><span class="lang-pl inline">Zobacz historię ↓</span></a>
+          <a class="btn" href="#mcr">Mission Control Room</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Signal to value visual">
+        <div class="signal-board">
+          <div class="signal-tag">Inquiry → Evidence → Action</div>
+          <div class="signal-title"><span class="lang-en inline">A clearer path from fragmented signals to measurable outcomes.</span><span class="lang-pl inline">Czytelna droga od rozproszonych sygnałów do mierzalnych wyników.</span></div>
+          <div class="flow-mini">
+            <div class="row"><div class="icon">01</div><div class="flow-copy"><b><span class="lang-en inline">Capture</span><span class="lang-pl inline">Zbieranie</span></b><small><span class="lang-en inline">Bring fragmented inquiries into one view.</span><span class="lang-pl inline">Zbierz rozproszone zapytania w jednym widoku.</span></small></div><span class="signal-tag">signal</span></div>
+            <div class="row"><div class="icon">02</div><div class="flow-copy"><b><span class="lang-en inline">Qualify</span><span class="lang-pl inline">Kwalifikacja</span></b><small><span class="lang-en inline">Assess relevance, context and potential.</span><span class="lang-pl inline">Oceń trafność, kontekst i potencjał.</span></small></div><span class="signal-tag">context</span></div>
+            <div class="row"><div class="icon">03</div><div class="flow-copy"><b><span class="lang-en inline">Route</span><span class="lang-pl inline">Przekazanie</span></b><small><span class="lang-en inline">Get the right opportunity to the right owner.</span><span class="lang-pl inline">Przekaż właściwą szansę do właściwej osoby.</span></small></div><span class="signal-tag">action</span></div>
+            <div class="row"><div class="icon">04</div><div class="flow-copy"><b><span class="lang-en inline">Measure</span><span class="lang-pl inline">Pomiar</span></b><small><span class="lang-en inline">Link outcomes back to the original inquiry.</span><span class="lang-pl inline">Połącz wynik z pierwotnym zapytaniem.</span></small></div><span class="signal-tag">evidence</span></div>
+          </div>
+        </div>
+        <div class="hero-note"><span class="lang-en inline">AI was the accelerator, not the starting point.</span><span class="lang-pl inline">AI było akceleratorem, nie punktem startowym.</span></div>
+      </div>
+    </div>
+
+    <div class="evidence-strip">
+      <div class="evidence-item"><b><span class="lang-en inline">Multi-market</span><span class="lang-pl inline">Wiele rynków</span></b><span><span class="lang-en inline">A regional operating problem, not a single-channel campaign.</span><span class="lang-pl inline">Regionalny problem operacyjny, nie pojedyncza kampania.</span></span></div>
+      <div class="evidence-item"><b><span class="lang-en inline">Seven-figure evidence</span><span class="lang-pl inline">Dowody siedmiocyfrowej wartości</span></b><span><span class="lang-en inline">Executive case studies connected marketing-generated inquiries with material commercial outcomes.</span><span class="lang-pl inline">Case studies dla kadry zarządzającej połączyły zapytania marketingowe z istotnymi wynikami komercyjnymi.</span></span></div>
+      <div class="evidence-item"><b>Human-in-the-loop</b><span><span class="lang-en inline">AI supports consequential decisions; people retain authority.</span><span class="lang-pl inline">AI wspiera decyzje o znaczeniu biznesowym; ludzie zachowują kontrolę.</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="challenge">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">01</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>The problem existed long before AI.</h2><p>The organisation already had powerful technology. The problem was the gap between systems, ownership, decisions and outcomes.</p></div>
+        <div class="lang-pl"><h2>Problem istniał dużo wcześniej niż AI.</h2><p>Organizacja miała już zaawansowane technologie. Problemem była luka pomiędzy systemami, odpowiedzialnością, decyzjami i wynikami.</p></div>
+      </div>
+    </div>
+
+    <div class="editorial-grid">
+      <div class="editorial-card">
+        <p class="section-no"><span class="lang-en inline">The challenge</span><span class="lang-pl inline">Wyzwanie</span></p>
