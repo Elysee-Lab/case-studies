@@ -1,0 +1,46 @@
+        <tr><td><span class="status intended"><span class="lang-en inline">Intended outcome</span><span class="lang-pl inline">Planowany rezultat</span></span></td><td><span class="lang-en inline">Future enterprise effect; not presented as already realised.</span><span class="lang-pl inline">Przyszły efekt enterprise; nie jest przedstawiany jako już osiągnięty.</span></td><td><span class="lang-en inline">Shorter end-to-end SLA, less operational noise, broader production integration and sustained closed-loop attribution.</span><span class="lang-pl inline">Krótsze end-to-end SLA, mniej szumu operacyjnego, szersza integracja produkcyjna i trwała closed-loop attribution.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section alt" id="learnings">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">08</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>What the transformation taught me.</h2><p>The enduring value is not only the software. It is validated process knowledge that makes future change safer and faster.</p></div>
+        <div class="lang-pl"><h2>Czego nauczyła mnie ta transformacja.</h2><p>Trwałą wartością nie jest tylko software. To zweryfikowana wiedza procesowa, dzięki której kolejne zmiany mogą być szybsze i bezpieczniejsze.</p></div>
+      </div>
+    </div>
+
+    <div class="learning-grid">
+      <div class="learning"><div class="icon">01</div><h3><span class="lang-en inline">Start with the operating model</span><span class="lang-pl inline">Zacznij od modelu operacyjnego</span></h3><p><span class="lang-en inline">Lead qualification is an operating-model problem before it is an AI problem.</span><span class="lang-pl inline">Kwalifikacja leadów jest najpierw problemem modelu operacyjnego, dopiero potem AI.</span></p></div>
+      <div class="learning"><div class="icon">02</div><h3><span class="lang-en inline">Design attribution in</span><span class="lang-pl inline">Projektuj atrybucję od początku</span></h3><p><span class="lang-en inline">Attribution works better when it is part of the process, not an afterthought.</span><span class="lang-pl inline">Atrybucja działa lepiej, gdy jest częścią procesu, a nie dodatkiem po fakcie.</span></p></div>
+      <div class="learning"><div class="icon">03</div><h3><span class="lang-en inline">Protect human authority</span><span class="lang-pl inline">Chroń kontrolę człowieka</span></h3><p><span class="lang-en inline">Reviewers need reasoning, confidence and context, not just a score.</span><span class="lang-pl inline">Reviewer potrzebuje uzasadnienia, confidence i kontekstu, nie tylko score.</span></p></div>
+      <div class="learning"><div class="icon">04</div><h3><span class="lang-en inline">Experiments create reusable knowledge</span><span class="lang-pl inline">Eksperymenty tworzą wiedzę wielokrotnego użytku</span></h3><p><span class="lang-en inline">Even if the final platform changes, validated rules, exceptions and workflow requirements remain valuable.</span><span class="lang-pl inline">Nawet jeśli końcowa platforma się zmieni, zweryfikowane reguły, wyjątki i wymagania workflow pozostają wartościowe.</span></p></div>
+    </div>
+
+    <div class="capabilities">
+      <span>Business transformation</span><span>AI / GenAI opportunity discovery</span><span>Revenue Operations</span><span>Attribution design</span><span>CRM / MarTech architecture</span><span>Human-in-the-loop AI</span><span>Agentic workflows</span><span>Data & signal modelling</span><span>Change management</span><span>Power BI</span><span>Integration strategy</span><span>Governance & auditability</span><span>Hands-on delivery</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="section-no">Mission Control Room · Case Study | Eliza Bingul</div>
+      <div class="lang-en"><h2>The most important part was not the AI pipeline.</h2><p>It was learning how to make an invisible commercial process visible, measurable and improvable. Once the operating model became clear, AI could accelerate it.</p></div>
+      <div class="lang-pl"><h2>Najważniejsza część nie była pipeline'em AI.</h2><p>Najważniejsze było nauczenie się, jak niewidoczny proces komercyjny uczynić widocznym, mierzalnym i możliwym do ulepszania. Kiedy model operacyjny stał się jasny, AI mogło go przyspieszyć.</p></div>
+    </div>
+    <div>
+      <a class="btn" href="#top"><span class="lang-en inline">Back to top ↑</span><span class="lang-pl inline">Do góry ↑</span></a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+          <div class="lang-en">
+            <div class="balance-kicker">Human layer</div>
+            <h3>Reviewers & market knowledge</h3>
+            <ul><li>Industry expertise</li><li>Customer and market context</li><li>Nuanced judgement</li><li>Relationship insight</li><li>Strategic fit assessment</li></ul>
+          </div>
+          <div class="lang-pl">
+            <div class="balance-kicker">Warstwa ludzka</div>
+            <h3>Reviewerzy i wiedza rynkowa</h3>
+            <ul><li>Ekspertyza branżowa</li><li>Kontekst klienta i rynku</li><li>Ocena niuansów</li><li>Wiedza o relacjach</li><li>Ocena dopasowania strategicznego</li></ul>
+          </div>
+        </div>
+        <div class="control-core" aria-label="Human control actions"><span>Validate</span><span>Interpret</span><span>Decide</span></div>
+        <div class="balance-side ai-side">
+          <div class="lang-en">
+            <div class="balance-kicker">AI layer</div>
+            <h3>AI assistance & structured workflows</h3>
+            <ul><li>Summarise and structure inquiries</li><li>Classify and enrich context</li><li>Prioritise opportunities</li><li>Recommend routing</li><li>Surface confidence and gaps</li></ul>
+          </div>
+          <div class="lang-pl">
+            <div class="balance-kicker">Warstwa AI</div>
+            <h3>Wsparcie AI i uporządkowane workflow</h3>
+            <ul><li>Podsumowanie i strukturyzacja zapytań</li><li>Klasyfikacja i wzbogacanie kontekstu</li><li>Priorytetyzacja szans</li><li>Rekomendacja routingu</li><li>Pokazanie confidence i luk</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="governance">
+        <p class="section-no"><span class="lang-en inline">Human Control Room</span><span class="lang-pl inline">Human Control Room</span></p>
+        <div class="gov-row"><div class="icon">✓</div><div><b><span class="lang-en inline">Explain the inference</span><span class="lang-pl inline">Wyjaśnij wniosek</span></b><p><span class="lang-en inline">Reasoning, confidence, signal visibility and missing information.</span><span class="lang-pl inline">Uzasadnienie, confidence, widoczność sygnałów i brakujące informacje.</span></p></div></div>
+        <div class="gov-row"><div class="icon">↺</div><div><b><span class="lang-en inline">Approve or override</span><span class="lang-pl inline">Zatwierdź lub nadpisz</span></b><p><span class="lang-en inline">The reviewer can accept, correct or add market context.</span><span class="lang-pl inline">Reviewer może zaakceptować, poprawić lub dodać kontekst rynkowy.</span></p></div></div>
+        <div class="gov-row"><div class="icon">!</div><div><b><span class="lang-en inline">Surface discrepancies</span><span class="lang-pl inline">Pokaż rozbieżności</span></b><p><span class="lang-en inline">Edge cases and uncertainty are visible rather than hidden.</span><span class="lang-pl inline">Przypadki brzegowe i niepewność są widoczne zamiast ukryte.</span></p></div></div>
+        <div class="gov-row"><div class="icon">◎</div><div><b><span class="lang-en inline">Close the loop</span><span class="lang-pl inline">Domknij pętlę</span></b><p><span class="lang-en inline">Outcome and conversion evidence can inform future decisions.</span><span class="lang-pl inline">Wynik i dane konwersji mogą zasilać kolejne decyzje.</span></p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">07</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Separate demonstrated outcomes from system capability and future intent.</h2><p>The case is strongest when evidence is explicit about what was historically demonstrated, what Mission Control already supports and what remains an intended enterprise outcome.</p></div>
+        <div class="lang-pl"><h2>Rozdzielamy wyniki udowodnione, możliwości systemu i przyszłe cele.</h2><p>Case study jest najmocniejsze wtedy, gdy jasno pokazuje co zostało historycznie udowodnione, co Mission Control już potrafi, a co pozostaje planowanym rezultatem enterprise.</p></div>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result"><div class="icon">↗</div><h3><span class="lang-en inline">Commercial evidence</span><span class="lang-pl inline">Dowody komercyjne</span></h3><p><span class="lang-en inline">Executive examples connected inquiries to material, seven-figure commercial outcomes.</span><span class="lang-pl inline">Przykłady dla kadry zarządzającej połączyły zapytania z istotnymi, siedmiocyfrowymi wynikami komercyjnymi.</span></p></div>
+      <div class="result"><div class="icon">◎</div><h3><span class="lang-en inline">Clearer ownership</span><span class="lang-pl inline">Jaśniejsza odpowiedzialność</span></h3><p><span class="lang-en inline">Qualification, routing, follow-up and escalation became explicit operating concerns.</span><span class="lang-pl inline">Kwalifikacja, routing, follow-up i eskalacja stały się jawnymi elementami modelu operacyjnego.</span></p></div>
+      <div class="result"><div class="icon">◍</div><h3><span class="lang-en inline">Reusable logic</span><span class="lang-pl inline">Logika wielokrotnego użytku</span></h3><p><span class="lang-en inline">Process maps, taxonomies, routing rules and edge cases remain valuable even if the final platform changes.</span><span class="lang-pl inline">Mapy procesu, taksonomie, reguły routingu i edge cases zachowują wartość nawet jeśli końcowa platforma się zmieni.</span></p></div>
+      <div class="result"><div class="icon">AI</div><h3><span class="lang-en inline">Safer experimentation</span><span class="lang-pl inline">Bezpieczniejsze eksperymentowanie</span></h3><p><span class="lang-en inline">The parallel layer supports learning without requiring immediate changes to the core production stack.</span><span class="lang-pl inline">Równoległa warstwa wspiera naukę bez konieczności natychmiastowych zmian w produkcyjnym stacku.</span></p></div>
+    </div>
+
+    <table class="status-table">
+      <thead><tr><th>Status</th><th><span class="lang-en inline">What it means</span><span class="lang-pl inline">Co to oznacza</span></th><th><span class="lang-en inline">Examples in this case</span><span class="lang-pl inline">Przykłady w tym case</span></th></tr></thead>
+      <tbody>
+        <tr><td><span class="status demo"><span class="lang-en inline">Demonstrated</span><span class="lang-pl inline">Udowodnione</span></span></td><td><span class="lang-en inline">Historical evidence exists.</span><span class="lang-pl inline">Istnieją historyczne dowody.</span></td><td><span class="lang-en inline">Inquiry quality measurement, business-outcome case studies, operating capability and attribution evidence.</span><span class="lang-pl inline">Pomiar jakości zapytań, case studies wyników biznesowych, capability operacyjne i dowody atrybucji.</span></td></tr>
+        <tr><td><span class="status built"><span class="lang-en inline">Built capability</span><span class="lang-pl inline">Zbudowana capability</span></span></td><td><span class="lang-en inline">Mission Control supports the workflow as a decision-support layer.</span><span class="lang-pl inline">Mission Control wspiera workflow jako warstwa decision support.</span></td><td><span class="lang-en inline">Ingestion, preparation, enrichment, interpretation, qualification, human review, outputs, learning and analytics.</span><span class="lang-pl inline">Ingestion, przygotowanie, enrichment, interpretacja, kwalifikacja, human review, outputy, uczenie i analytics.</span></td></tr>

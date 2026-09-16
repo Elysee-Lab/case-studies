@@ -1,0 +1,40 @@
+name: Apply MCR editorial rebuild
+
+on:
+  push:
+    branches: [mcr-figma-makeover]
+    paths:
+      - 'mission-control-room/source/**'
+      - 'scripts/build_mcr_case.py'
+      - 'scripts/test_mcr_case.py'
+      - '.github/workflows/apply-mcr-editorial-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-test-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out MCR branch
+        uses: actions/checkout@v4
+        with:
+          ref: mcr-figma-makeover
+
+      - name: Build case-study files
+        run: python scripts/build_mcr_case.py
+
+      - name: Run static UI regression contract
+        run: python scripts/test_mcr_case.py
+
+      - name: Check generated diff
+        run: git diff --check
+
+      - name: Commit generated case study
+        run: |
+          git config user.name 'case-study-deploy-bot'
+          git config user.email 'case-study-deploy-bot@users.noreply.github.com'
+          git add mission-control-room/index.html mission-control-room/styles.css mission-control-room/app.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'fix: rebuild Mission Control Room editorial UI [skip ci]'
+          git push origin HEAD:mcr-figma-makeover

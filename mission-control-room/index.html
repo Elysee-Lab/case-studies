@@ -1,162 +1,355 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="From Noise to Measurable Revenue — Mission Control Room case study by Eliza Bingul."><title>From Noise to Measurable Revenue | Eliza Bingul</title><style>:root{--paper:#f4f1e9;--paper2:#fbfaf6;--ink:#101a24;--muted:#5e6b78;--line:#d7d9d6;--blue:#245dff;--teal:#0f8f85;--lime:#d9ff63;--coral:#ff6b58;--white:#fff;--shadow:0 18px 60px rgba(20,31,45,.09);--max:1220px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 18% 4%,rgba(36,93,255,.08),transparent 28%),radial-gradient(circle at 88% 13%,rgba(15,143,133,.08),transparent 22%),var(--paper);color:var(--ink);font:16px/1.62 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}button{font:inherit}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--teal),var(--lime));width:0;z-index:100}.top{position:sticky;top:0;z-index:40;background:rgba(244,241,233,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(16,26,36,.08)}.topbar{min-height:72px;display:flex;align-items:center;gap:18px}.brand{font-weight:900;letter-spacing:-.02em;white-space:nowrap}.brand small{display:block;color:var(--muted);font-size:.72rem;font-weight:650}.nav{display:flex;gap:4px;overflow:auto;scrollbar-width:none;flex:1}.nav a{text-decoration:none;white-space:nowrap;padding:8px 10px;border-radius:999px;color:#55616e;font-size:.78rem;font-weight:800}.nav a:hover,.nav a.active{background:var(--ink);color:var(--white)}.lang{display:flex;gap:4px;padding:4px;border:1px solid #cfd2ce;border-radius:999px;background:rgba(255,255,255,.5)}.lang button{border:0;background:transparent;color:#68737d;padding:6px 9px;border-radius:999px;font-weight:850;cursor:pointer}.lang button.active{background:var(--blue);color:white}.hero,.section{scroll-margin-top:110px}.hero{padding:88px 0 82px}.heroGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:52px;align-items:center}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--blue);font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;font-weight:900}.eyebrow:before{content:"";width:28px;height:2px;background:currentColor}h1,h2,h3{margin:0;line-height:1.04;letter-spacing:-.045em}h1{font-size:clamp(3.8rem,8.2vw,7.7rem)}h1 .mark{position:relative;display:inline-block}h1 .mark:after{content:"";position:absolute;left:-.02em;right:-.03em;bottom:.08em;height:.18em;background:var(--lime);z-index:-1;transform:rotate(-1deg)}h2{font-size:clamp(2.35rem,5vw,4.8rem);max-width:920px}h3{font-size:1.35rem}.lead{font-size:clamp(1.15rem,2vw,1.45rem);max-width:850px;color:#3f4d5a}.heroCopy{display:grid;gap:24px}.meta{display:flex;gap:8px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 11px;border:1px solid #cfd4d7;background:rgba(255,255,255,.62);font-size:.78rem;font-weight:800}.dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}.heroVisual{min-height:520px;position:relative}.panel{position:absolute;border:1px solid #d5d9d8;background:rgba(255,255,255,.9);border-radius:28px;box-shadow:var(--shadow)}.panel.main{inset:18px 6px 54px 34px;padding:28px}.panel.note{width:240px;right:-12px;bottom:10px;padding:18px;transform:rotate(2deg);background:#fff}.panel.label{width:220px;left:0;top:0;padding:16px;transform:rotate(-2deg);background:var(--lime);border-color:#bad73f;box-shadow:none}.panel label{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:900;color:#47515a}.systemFlow{display:grid;gap:11px;margin-top:24px}.flowRow{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:14px 12px;border-top:1px solid #e1e3df}.flowRow:first-child{border-top:0}.num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#eef1f5;color:var(--blue);font-weight:900;font-size:.78rem}.flowRow b{font-size:.92rem}.flowRow span{color:var(--muted);font-size:.78rem}.signal{font-size:.74rem!important;font-weight:900;color:var(--teal)!important}.section{padding:86px 0;border-top:1px solid rgba(16,26,36,.08)}.head{display:grid;grid-template-columns:.65fr 1.35fr;gap:38px;align-items:start;margin-bottom:38px}.head p{margin:14px 0 0;color:var(--muted);font-size:1.04rem;max-width:800px}.kicker{font-size:.73rem;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--teal)}.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.card{background:rgba(255,255,255,.72);border:1px solid #d8dbd8;border-radius:24px;padding:24px}.card p{color:var(--muted);margin:.7rem 0 0}.card .mini{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;font-weight:900;color:var(--blue);margin-bottom:12px}.bigStatement{padding:42px;border-radius:30px;background:var(--ink);color:#fff;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:end}.bigStatement p{color:#cad2d9;font-size:1.08rem;margin:14px 0 0}.bigStatement .proof{background:var(--lime);color:var(--ink);padding:20px;border-radius:20px;font-weight:900}.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stage{position:relative;padding:22px 18px 24px;border:1px solid #d6d9d6;background:rgba(255,255,255,.64);border-radius:22px;min-height:220px}.stage:after{content:"→";position:absolute;right:-13px;top:45%;font-weight:1000;color:var(--blue);z-index:3}.stage:last-child:after{display:none}.stage .year{font-weight:950;font-size:2rem;color:var(--blue);letter-spacing:-.06em}.stage .cap{font-size:.71rem;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:var(--muted);margin:8px 0}.stage p{font-size:.9rem;color:#5b6670}.compare{display:grid;grid-template-columns:1fr 64px 1fr;gap:14px;align-items:stretch}.state{border-radius:26px;padding:28px;border:1px solid #d5d8d6;background:#fff}.state.target{border-color:#9ccfc9;background:#effaf7}.state h3{margin-bottom:16px}.arrow{display:grid;place-items:center;color:var(--blue);font-size:2.2rem;font-weight:950}.list{list-style:none;padding:0;margin:0;display:grid;gap:9px}.list li{position:relative;padding-left:21px;color:#4f5b66}.list li:before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--teal)}.chain{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.chain .node{position:relative;padding:16px 10px;border-radius:17px;border:1px solid #d7dbd9;background:#fff;text-align:center;min-height:104px;display:grid;place-content:center}.chain .node b{font-size:.84rem}.chain .node small{color:var(--muted)}.chain .node:not(:last-child):after{content:"→";position:absolute;right:-12px;top:38%;font-weight:1000;color:var(--blue);z-index:2}.layers{display:grid;gap:10px}.layer{display:grid;grid-template-columns:180px 1fr auto;gap:18px;align-items:center;padding:17px 18px;border:1px solid #d5d9d7;background:rgba(255,255,255,.72);border-radius:18px}.layer .label{font-weight:900}.layer .desc{color:var(--muted)}.badge{display:inline-flex;white-space:nowrap;padding:6px 9px;border-radius:999px;font-size:.69rem;letter-spacing:.08em;text-transform:uppercase;font-weight:950}.badge.built{background:#e5f6f3;color:#08766f}.badge.hist{background:#edf2ff;color:#244fd0}.badge.next{background:#fff4da;color:#946000}.control{background:#fff;border:1px solid #d6dad7;border-radius:30px;padding:28px;box-shadow:var(--shadow)}.controlGrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px}.controlScreen{border-radius:24px;background:#101c29;color:#fff;padding:24px;min-height:320px}.controlScreen .row{padding:14px 0;border-top:1px solid #ffffff18}.controlScreen .row:first-child{border-top:0}.controlScreen small{color:#9fb0bf}.controlScreen b{display:block;margin-top:4px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.action{padding:9px 12px;border-radius:999px;background:#ffffff12;border:1px solid #ffffff1f;font-size:.78rem;font-weight:850}.action.primary{background:var(--lime);color:var(--ink);border-color:var(--lime)}.redteam{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.challenge{padding:20px;border-radius:20px;border:1px solid #d7d9d6;background:rgba(255,255,255,.72)}.challenge .role{font-size:.7rem;font-weight:950;text-transform:uppercase;letter-spacing:.1em;color:var(--coral)}.challenge h3{font-size:1.08rem;margin:8px 0}.challenge p{font-size:.9rem;color:var(--muted)}.claims{display:grid;gap:10px}.claim{display:grid;grid-template-columns:160px 1fr;gap:18px;padding:18px 20px;border-radius:18px;border:1px solid #d5d8d6;background:rgba(255,255,255,.68)}.claim p{margin:0;color:var(--muted)}.skills{display:flex;gap:9px;flex-wrap:wrap}.skill{padding:10px 13px;border:1px solid #d2d6d3;border-radius:999px;background:#fff;font-weight:800;font-size:.83rem}.footer{padding:86px 0 100px;border-top:1px solid rgba(16,26,36,.1)}.foot{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:end}.cta{display:inline-flex;justify-content:center;text-decoration:none;padding:13px 18px;background:var(--blue);color:#fff;border-radius:999px;font-weight:900}.pl{display:none}body[data-lang=pl] .en{display:none!important}body[data-lang=pl] .pl{display:block}body[data-lang=pl] .pl.inline{display:inline}body[data-lang=en] .en.inline{display:inline}.pl.inline{display:none}@media(max-width:1060px){.heroGrid,.head,.bigStatement,.controlGrid,.foot{grid-template-columns:1fr}.heroVisual{min-height:470px}.timeline{grid-template-columns:repeat(2,1fr)}.stage:after{display:none}.chain{grid-template-columns:repeat(4,1fr)}.redteam,.g4{grid-template-columns:repeat(2,1fr)}.topbar{flex-wrap:wrap;padding:9px 0}.nav{order:3;flex-basis:100%}.lang{margin-left:auto}}@media(max-width:720px){.wrap{width:min(var(--max),calc(100% - 26px))}.hero{padding:56px 0 66px}.section{padding:62px 0}h1{font-size:clamp(3rem,18vw,5rem)}h2{font-size:clamp(2.1rem,11vw,3.4rem)}.heroVisual{min-height:430px}.panel.main{inset:28px 0 62px 14px}.panel.note{right:0;width:200px}.panel.label{width:180px}.g2,.g3,.g4,.timeline,.redteam,.chain{grid-template-columns:1fr}.chain .node:not(:last-child):after{content:"↓";right:auto;left:49%;top:auto;bottom:-16px}.compare{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.layer,.claim{grid-template-columns:1fr}.layer .badge{justify-self:start}.bigStatement{padding:28px}.brand small{display:none}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}</style><style id="global-responsive-contract-2026-09-15">
-html,body{max-width:100%;overflow-x:hidden}
-img,svg,video,canvas{max-width:100%;height:auto}
-*,*:before,*:after{min-width:0}
-@media(max-width:760px){
-  .wrap{width:calc(100% - 28px);max-width:100%;margin-inline:auto}
-  .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:10px 0;align-items:center}
-  .brand{white-space:normal;font-size:1.14rem;line-height:1.12;overflow-wrap:anywhere}
-  .brand small{display:block;font-size:.68rem;margin-top:4px}
-  .lang{margin-left:0;justify-self:end;align-self:start}
-  .nav{grid-column:1/-1;order:3;width:100%;max-width:100%;display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding:3px 0 5px}
-  .nav::-webkit-scrollbar{display:none}
-  .nav a{flex:0 0 auto;font-size:.82rem;padding:8px 10px}
-  .hero{padding:42px 0 48px}
-  .heroGrid{grid-template-columns:1fr;gap:26px}
-  .heroCopy{gap:18px}
-  h1{font-size:clamp(2.7rem,13vw,4.25rem);line-height:.98;letter-spacing:-.05em}
-  h2{font-size:clamp(2rem,9vw,3.15rem);line-height:1.02}
-  .lead{font-size:1.04rem;line-height:1.58}
-  .heroVisual{min-height:0;position:relative;display:grid;gap:12px;padding:0}
-  .panel{position:relative;max-width:100%;transform:none!important;box-shadow:0 10px 28px rgba(20,31,45,.08)}
-  .panel.label{order:1;width:100%;left:auto;right:auto;top:auto;bottom:auto;padding:15px;border-radius:18px}
-  .panel.main{order:2;inset:auto;width:100%;padding:18px;border-radius:22px}
-  .panel.note{order:3;width:100%;left:auto;right:auto;top:auto;bottom:auto;padding:16px;border-radius:18px}
-  .systemFlow{margin-top:16px;gap:6px}
-  .flowRow{grid-template-columns:28px minmax(0,1fr);gap:9px;padding:12px 8px}
-  .flowRow .signal{grid-column:2;justify-self:start}
-  .section{padding:52px 0}
-  .head{grid-template-columns:1fr;gap:12px;margin-bottom:26px}
-  .head p{font-size:1rem;line-height:1.6}
-  .bigStatement{grid-template-columns:1fr;padding:24px;border-radius:22px}
-  .timeline,.chain,.redteam,.g2,.g3,.g4{grid-template-columns:1fr}
-  .stage{min-height:auto;padding:18px}
-  .stage:after{display:none}
-  .chain .node{min-height:auto;padding:16px}
-  .chain .node:not(:last-child):after{content:"↓";display:block;right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:-17px}
-  .compare{grid-template-columns:1fr}
-  .arrow{transform:rotate(90deg)}
-  .layer,.claim{grid-template-columns:1fr;gap:8px}
-  .layer .badge{justify-self:start}
-  .control{padding:18px;border-radius:22px}
-  .controlGrid{grid-template-columns:1fr;gap:18px}
-  .controlScreen{min-height:0;padding:18px;border-radius:18px}
-  .card,.stage,.state,.layer,.control,.controlScreen,.challenge,.claim{max-width:100%;min-width:0}
-  .foot{grid-template-columns:1fr}
-  .footer{padding:56px 0 72px}
-}
-</style>
-<style id="shared-case-nav-2026-09-15">
-/* Shared two-row case-study navigation, aligned with the DietoLab case-study pattern. */
-.shared-case-topbar{
-  display:grid!important;
-  grid-template-columns:minmax(0,1fr) auto!important;
-  grid-template-rows:auto auto!important;
-  column-gap:18px!important;
-  row-gap:0!important;
-  align-items:center!important;
-  min-height:0!important;
-  padding:12px 0 0!important;
-}
-.shared-case-topbar>.brand{
-  grid-column:1!important;
-  grid-row:1!important;
-  align-self:center!important;
-  padding:0 0 12px!important;
-  white-space:normal!important;
-  line-height:1.12!important;
-}
-.shared-case-topbar>.brand small{
-  display:block!important;
-  margin-top:5px!important;
-  font-size:.72rem!important;
-  line-height:1.2!important;
-}
-.shared-case-lang{
-  grid-column:2!important;
-  grid-row:1!important;
-  justify-self:end!important;
-  align-self:center!important;
-  margin:0 0 12px!important;
-}
-.shared-case-nav{
-  grid-column:1/-1!important;
-  grid-row:2!important;
-  width:100%!important;
-  min-height:52px!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:2px!important;
-  padding:6px 0!important;
-  margin:0!important;
-  border-top:1px solid rgba(90,100,105,.10)!important;
-  overflow-x:auto!important;
-  overflow-y:hidden!important;
-  white-space:nowrap!important;
-  scrollbar-width:none!important;
-  -webkit-overflow-scrolling:touch!important;
-  overscroll-behavior-x:contain!important;
-}
-.shared-case-nav::-webkit-scrollbar{display:none!important}
-.shared-case-nav a{
-  position:relative!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  flex:0 0 auto!important;
-  padding:9px 11px 11px!important;
-  border-radius:8px!important;
-  background:transparent!important;
-  color:var(--muted)!important;
-  font-size:13px!important;
-  font-weight:750!important;
-  line-height:1.15!important;
-  text-decoration:none!important;
-  box-shadow:none!important;
-  transition:color .16s ease,background-color .16s ease!important;
-}
-.shared-case-nav a:hover{
-  color:var(--blue)!important;
-  background:rgba(36,93,255,.07)!important;
-}
-.shared-case-nav a.active{
-  color:var(--blue)!important;
-  background:transparent!important;
-  font-weight:900!important;
-  box-shadow:none!important;
-}
-.shared-case-nav a.active:after{
-  content:""!important;
-  position:absolute!important;
-  left:16%!important;
-  right:16%!important;
-  bottom:3px!important;
-  height:3px!important;
-  border-radius:999px!important;
-  background:var(--blue)!important;
-}
-@media(max-width:1060px){
-  .shared-case-topbar{padding-top:10px!important}
-  .shared-case-nav{justify-content:flex-start!important}
-}
-@media(max-width:760px){
-  .shared-case-topbar{
-    grid-template-columns:minmax(0,1fr) auto!important;
-    gap:0 10px!important;
-    padding:10px 0 0!important;
-  }
-  .shared-case-topbar>.brand{padding-bottom:10px!important;font-size:1.05rem!important}
-  .shared-case-topbar>.brand small{font-size:.68rem!important}
-  .shared-case-lang{margin-bottom:10px!important}
-  .shared-case-nav{
-    min-height:50px!important;
-    justify-content:flex-start!important;
-    padding:5px 0!important;
-  }
-  .shared-case-nav a{font-size:12.25px!important;padding:8px 10px 10px!important}
-}
-</style>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Mission Control Room — From Noise to Measurable Revenue. Case Study by Eliza Bingul.">
+<title>Mission Control Room | Case Study | Eliza Bingul</title>
 
-</head><body data-lang="en"><div class="progress" id="progress"></div><header class="top"><div class="wrap topbar shared-case-topbar"><div class="brand">Mission Control Room<small>Case Study | Eliza Bingul</small></div><nav class="nav shared-case-nav" aria-label="Case study sections"><a href="#origin" data-section="origin"><span class="en inline">Origin</span><span class="pl inline">Początek</span></a><a href="#evolution" data-section="evolution"><span class="en inline">Evolution</span><span class="pl inline">Ewolucja</span></a><a href="#measurement" data-section="measurement"><span class="en inline">Measurement</span><span class="pl inline">Pomiar</span></a><a href="#operating" data-section="operating"><span class="en inline">Operating model</span><span class="pl inline">Model</span></a><a href="#product" data-section="product"><span class="en inline">System</span><span class="pl inline">System</span></a><a href="#control" data-section="control"><span class="en inline">Human control</span><span class="pl inline">Kontrola</span></a><a href="#attribution" data-section="attribution"><span class="en inline">Attribution</span><span class="pl inline">Atrybucja</span></a><a href="#proof" data-section="proof"><span class="en inline">Proof</span><span class="pl inline">Dowód</span></a></nav><div class="lang shared-case-lang"><button id="enBtn" class="active" aria-pressed="true">EN</button><button id="plBtn" aria-pressed="false">PL</button></div></div></header><main><section class="hero"><div class="wrap heroGrid"><div class="heroCopy"><div class="eyebrow">Mission Control Room · Case Study | Eliza Bingul</div><div class="en"><h1>From Noise to <span class="mark">Measurable Revenue</span></h1><p class="lead">Building a B2B inquiry-to-revenue operating system across process, data, ownership, attribution and AI.</p><p class="lead"><strong>This was not an AI project that later found a business problem.</strong> It was a multi-year transformation that first made an invisible commercial process visible, measurable and governable. AI came later, when the operating model was understood well enough to accelerate it.</p></div><div class="pl"><h1>Od szumu do <span class="mark">mierzalnego przychodu</span></h1><p class="lead">Budowa systemu inquiry-to-revenue obejmującego proces, dane, odpowiedzialność, atrybucję i AI.</p><p class="lead"><strong>To nie był projekt AI, do którego później znaleziono problem biznesowy.</strong> Najpierw powstał wieloletni model działania, który uczynił niewidoczny proces komercyjny widocznym, mierzalnym i możliwym do zarządzania. AI pojawiło się później, gdy proces był już wystarczająco dobrze zrozumiany.</p></div><div class="meta"><span class="pill"><span class="dot"></span>Operating model</span><span class="pill"><span class="dot"></span>Revenue Operations</span><span class="pill"><span class="dot"></span>Salesforce + SFMC</span><span class="pill"><span class="dot"></span>Power BI</span><span class="pill"><span class="dot"></span>Human-in-the-loop AI</span></div></div><div class="heroVisual" aria-hidden="true"><div class="panel label"><label>Core principle</label><strong>AI was the accelerator.<br>The operating model came first.</strong></div><div class="panel main"><label>Commercial evidence chain</label><div class="systemFlow"><div class="flowRow"><span class="num">01</span><b>Inquiry</b><span class="signal">raw signal</span></div><div class="flowRow"><span class="num">02</span><b>Qualification</b><span>signal vs noise</span></div><div class="flowRow"><span class="num">03</span><b>Owner + SLA</b><span>accountability</span></div><div class="flowRow"><span class="num">04</span><b>Follow-up</b><span>human action</span></div><div class="flowRow"><span class="num">05</span><b>Opportunity</b><span>commercial state</span></div><div class="flowRow"><span class="num">06</span><b>Outcome</b><span>evidence</span></div></div></div><div class="panel note"><label>Design objective</label><strong>Transform without destabilising the core.</strong></div></div></div></section><section class="section" id="origin"><div class="wrap"><div class="head"><div><div class="kicker">01 · Origin</div></div><div class="en"><h2>The problem existed long before AI.</h2><p>In a large multinational environment, the commercial stack already included powerful enterprise platforms. The friction lived between systems, teams, local ownership, response behaviour and the ability to prove what happened after an inquiry entered the organisation.</p></div><div class="pl"><h2>Problem istniał na długo przed AI.</h2><p>W dużej organizacji międzynarodowej istniały już rozbudowane systemy enterprise. Tarcie pojawiało się pomiędzy systemami, zespołami, lokalną odpowiedzialnością, sposobem reakcji oraz możliwością udowodnienia, co wydarzyło się po wpłynięciu zapytania.</p></div></div><div class="g4"><article class="card"><div class="mini">Signal</div><h3 class="en">High-value inquiries were hidden inside volume</h3><h3 class="pl">Wartościowe zapytania ginęły w wolumenie</h3><p class="en">A noisy channel can look worthless when judged by average quality. The strategic shift was to hunt for rare commercial signal instead.</p><p class="pl">Kanał z dużą ilością szumu łatwo uznać za bezwartościowy, jeśli ocenia się średnią jakość. Zamiast tego trzeba było szukać rzadkich sygnałów biznesowych.</p></article><article class="card"><div class="mini">Ownership</div><h3 class="en">No single team owned the whole journey</h3><h3 class="pl">Nikt nie posiadał całej ścieżki</h3><p class="en">Intake, qualification, CRM, automation, reporting and follow-up lived across different responsibilities.</p><p class="pl">Przyjęcie zapytania, kwalifikacja, CRM, automatyzacja, raportowanie i follow-up należały do różnych obszarów.</p></article><article class="card"><div class="mini">Evidence</div><h3 class="en">The outcome lived elsewhere</h3><h3 class="pl">Rezultat żył w innym miejscu</h3><p class="en">Source evidence could start in marketing systems while opportunity knowledge emerged later in CRM or with local commercial teams.</p><p class="pl">Źródło mogło powstać w systemie marketingowym, a wiedza o szansie biznesowej dużo później w CRM lub lokalnym zespole sprzedaży.</p></article><article class="card"><div class="mini">Change</div><h3 class="en">Even sensible changes could be slow</h3><h3 class="pl">Nawet rozsądne zmiany trwały długo</h3><p class="en">Multiple owners, release cycles, dependencies and existing automation made experimentation inside the core stack expensive.</p><p class="pl">Wielu właścicieli, cykle wydań, zależności i istniejące automatyzacje sprawiały, że eksperymentowanie w systemach core było kosztowne.</p></article></div></div></section><section class="section" id="evolution"><div class="wrap"><div class="head"><div><div class="kicker">02 · Evolution</div></div><div class="en"><h2>I did not start by automating. I started by learning the process manually.</h2><p>The manual operating layer was the prototype. It revealed which signals mattered, where ownership broke, what needed escalation and which evidence could prove commercial value.</p></div><div class="pl"><h2>Nie zaczęłam od automatyzacji. Najpierw ręcznie poznałam proces.</h2><p>Manualna warstwa działania była prototypem. Pokazała, które sygnały mają znaczenie, gdzie załamuje się odpowiedzialność, co wymaga eskalacji i jakie dowody potwierdzają wartość biznesową.</p></div></div><div class="timeline"><div class="stage"><div class="year">01</div><div class="cap">Human prototype</div><h3 class="en">Manual qualification</h3><h3 class="pl">Manualna kwalifikacja</h3><p class="en">Review, surface valuable cases, nudge owners, follow up, collect evidence.</p><p class="pl">Przegląd, wyłapywanie wartościowych spraw, przypominanie, follow-up i zbieranie dowodów.</p></div><div class="stage"><div class="year">02</div><div class="cap">Capability</div><h3 class="en">Regional operating model</h3><h3 class="pl">Regionalny model działania</h3><p class="en">Formalise ownership, routing, qualification and collaboration in a matrix environment.</p><p class="pl">Formalizacja odpowiedzialności, routingu, kwalifikacji i współpracy w strukturze matrycowej.</p></div><div class="stage"><div class="year">03</div><div class="cap">Measurement</div><h3 class="en">Power BI + outcome evidence</h3><h3 class="pl">Power BI + dowody rezultatów</h3><p class="en">Move from volume to quality, handling state, conversion and business outcome where evidence existed.</p><p class="pl">Przejście od wolumenu do jakości, statusu obsługi, konwersji i wyniku biznesowego tam, gdzie istniał dowód.</p></div><div class="stage"><div class="year">04</div><div class="cap">Scale</div><h3 class="en">Automation + feedback</h3><h3 class="pl">Automatyzacja + feedback</h3><p class="en">Reduce repetitive work, preserve human judgement and make attribution part of the operating model.</p><p class="pl">Redukcja powtarzalnej pracy, zachowanie ludzkiej oceny i włączenie atrybucji do modelu działania.</p></div><div class="stage"><div class="year">05</div><div class="cap">Experimentation layer</div><h3>Mission Control Room</h3><p class="en">A separate intelligence layer to test, learn and translate validated process knowledge into future core-system requirements.</p><p class="pl">Równoległa warstwa intelligence do testowania, uczenia się i przekładania zweryfikowanej wiedzy o procesie na wymagania dla systemów core.</p></div></div></div></section><section class="section" id="measurement"><div class="wrap"><div class="bigStatement"><div><div class="kicker" style="color:#9fb8ff">03 · Measurement changed the conversation</div><div class="en"><h2>Once revenue evidence became visible, inquiry quality stopped being a marketing side topic.</h2><p>Reporting moved from “how many inquiries arrived?” to “which signals mattered, who acted, what happened next and can we connect the outcome back to source?”</p></div><div class="pl"><h2>Gdy pojawił się dowód wartości biznesowej, jakość zapytań przestała być pobocznym tematem marketingowym.</h2><p>Raportowanie przesunęło się z pytania „ile zapytań wpłynęło?” na „które sygnały miały znaczenie, kto zareagował, co wydarzyło się dalej i czy umiemy połączyć wynik ze źródłem?”.</p></div></div><div class="proof"><span class="badge hist">Historical evidence</span><p class="en" style="margin:12px 0 0;color:var(--ink)">Executive case studies connected marketing-generated inquiries to seven-figure commercial outcomes, demonstrating that a noisy channel could still contain material business value.</p><p class="pl" style="margin:12px 0 0;color:var(--ink)">Case studies dla kadry zarządzającej połączyły zapytania marketingowe z siedmiocyfrowymi rezultatami biznesowymi, pokazując że głośny kanał może nadal zawierać istotną wartość.</p></div></div></div></section><section class="section" id="operating"><div class="wrap"><div class="head"><div><div class="kicker">04 · Operating model</div></div><div class="en"><h2>The transformation target was not “more automation”. It was less operational noise.</h2><p>The design objective was to protect human attention: surface valuable signal faster, make ownership explicit, shorten the path to action and create an evidence chain that survives system boundaries.</p></div><div class="pl"><h2>Celem transformacji nie było „więcej automatyzacji”. Celem było mniej szumu operacyjnego.</h2><p>Projekt miał chronić uwagę ludzi: szybciej wyłapywać wartościowy sygnał, jasno przypisywać odpowiedzialność, skracać drogę do działania i budować łańcuch dowodowy ponad granicami systemów.</p></div></div><div class="compare"><div class="state"><span class="badge hist">Before</span><h3 class="en">Attention spent on everything</h3><h3 class="pl">Uwaga zużywana na wszystko</h3><ul class="list en"><li>All inquiries compete for manual attention</li><li>Noise obscures valuable cases</li><li>Ownership can be unclear</li><li>Follow-up quality varies</li><li>Outcome knowledge is fragmented</li></ul><ul class="list pl"><li>Wszystkie zapytania konkurują o uwagę</li><li>Szum ukrywa wartościowe przypadki</li><li>Odpowiedzialność bywa niejasna</li><li>Follow-up jest nierówny</li><li>Wiedza o wyniku jest rozproszona</li></ul></div><div class="arrow">→</div><div class="state target"><span class="badge built">Target operating model</span><h3 class="en">Attention flows to what matters</h3><h3 class="pl">Uwaga trafia tam, gdzie ma znaczenie</h3><ul class="list en"><li>Triage separates noise from signal</li><li>Relevant owner is explicit</li><li>SLA begins at a defined state</li><li>Follow-up becomes visible</li><li>Outcome evidence feeds attribution</li></ul><ul class="list pl"><li>Triage oddziela szum od sygnału</li><li>Właściciel jest jednoznaczny</li><li>SLA zaczyna się w określonym momencie</li><li>Follow-up staje się widoczny</li><li>Dowód rezultatu zasila atrybucję</li></ul></div></div></div></section><section class="section" id="product"><div class="wrap"><div class="head"><div><div class="kicker">05 · Why Mission Control</div></div><div class="en"><h2>Transform without breaking the core.</h2><p>Mission Control Room was designed as a parallel intelligence, decision-support and experimentation layer. The point was not to create a shadow CRM. The point was to learn quickly, safely and concretely enough to improve whichever enterprise system ultimately became the long-term home.</p></div><div class="pl"><h2>Transformować bez destabilizowania core.</h2><p>Mission Control Room powstał jako równoległa warstwa intelligence, wsparcia decyzji i eksperymentowania. Nie chodziło o zbudowanie shadow CRM. Chodziło o szybkie i bezpieczne uczenie się oraz dostarczenie konkretnych wymagań dla systemu, który docelowo miał przejąć tę funkcję.</p></div></div><div class="layers"><div class="layer"><div class="label">Intake</div><div class="desc en">API / JSON, CSV / batch, configurable field mapping, multiple upstream sources.</div><div class="desc pl">API / JSON, CSV / batch, konfigurowalne mapowanie pól, wiele źródeł.</div><span class="badge built">Implemented</span></div><div class="layer"><div class="label">Preparation</div><div class="desc en">Data quality, normalisation, language, spam / non-business filtering, source context.</div><div class="desc pl">Jakość danych, normalizacja, język, filtrowanie spamu i ruchu niebiznesowego, kontekst źródła.</div><span class="badge built">Implemented</span></div><div class="layer"><div class="label">Interpretation</div><div class="desc en">Service, sector, geography, role, relationship context and discrepancy signals.</div><div class="desc pl">Usługa, sektor, geografia, rola, kontekst relacji i sygnały niespójności.</div><span class="badge built">Implemented</span></div><div class="layer"><div class="label">Qualification</div><div class="desc en">Relevance, priority, fit, confidence, urgency, recommended owner and rationale.</div><div class="desc pl">Istotność, priorytet, dopasowanie, pewność, pilność, rekomendowany właściciel i uzasadnienie.</div><span class="badge built">Implemented</span></div><div class="layer"><div class="label">Human review</div><div class="desc en">Reasoning, confidence, missing information, approve / override and contextual feedback.</div><div class="desc pl">Uzasadnienie, poziom pewności, brakujące informacje, approve / override i feedback kontekstowy.</div><span class="badge built">Implemented</span></div><div class="layer"><div class="label">Output + learning</div><div class="desc en">Approved decision records, export, feedback, conversion evidence and recurring improvement signals.</div><div class="desc pl">Zatwierdzone decyzje, eksport, feedback, dowody konwersji i sygnały do kolejnych usprawnień.</div><span class="badge built">Implemented</span></div><div class="layer"><div class="label">Enterprise integration</div><div class="desc en">Translate validated fields, rules, edge cases and UX requirements back into the long-term enterprise architecture.</div><div class="desc pl">Przenieść zweryfikowane pola, zasady, edge cases i wymagania UX do docelowej architektury enterprise.</div><span class="badge next">Roadmap / integration</span></div></div></div></section><section class="section" id="control"><div class="wrap"><div class="head"><div><div class="kicker">06 · Human Control Room</div></div><div class="en"><h2>AI prepares and recommends. Humans retain authority over consequential decisions.</h2><p>For a reviewer, a score alone is not useful. The system has to expose enough context to understand the recommendation, challenge it and improve the process.</p></div><div class="pl"><h2>AI przygotowuje i rekomenduje. Człowiek zachowuje kontrolę nad istotnymi decyzjami.</h2><p>Dla reviewera sama punktacja jest mało użyteczna. System musi pokazać wystarczająco dużo kontekstu, aby można było zrozumieć rekomendację, zakwestionować ją i ulepszyć proces.</p></div></div><div class="control"><div class="controlGrid"><div class="controlScreen"><small>CONTROL ROOM / REVIEW</small><div class="row"><small>System inference</small><b>Commercial inquiry, high relevance</b></div><div class="row"><small>Why</small><b>Service intent + company context + geography + prior signal</b></div><div class="row"><small>Confidence</small><b>Visible, not hidden behind the model</b></div><div class="row"><small>Missing context</small><b>Flagged before the decision is final</b></div><div class="actions"><span class="action primary">Approve</span><span class="action">Override</span><span class="action">Add context</span><span class="action">Link records</span></div></div><div class="g2"><article class="card"><div class="mini">Explainability</div><h3 class="en">Reasoning before action</h3><h3 class="pl">Uzasadnienie przed działaniem</h3><p class="en">The reviewer sees signals, rationale, confidence and missing information rather than a black-box decision.</p><p class="pl">Reviewer widzi sygnały, uzasadnienie, pewność i brakujące informacje zamiast decyzji black-box.</p></article><article class="card"><div class="mini">Feedback</div><h3 class="en">Override becomes learning data</h3><h3 class="pl">Override staje się danymi do uczenia</h3><p class="en">Corrections create evidence about taxonomy, routing and edge cases.</p><p class="pl">Korekty dostarczają wiedzy o taksonomii, routingu i edge cases.</p></article><article class="card"><div class="mini">Governance</div><h3 class="en">Authority remains explicit</h3><h3 class="pl">Odpowiedzialność pozostaje jawna</h3><p class="en">Consequential decisions are reviewable, traceable and attached to human ownership.</p><p class="pl">Istotne decyzje są reviewable, traceable i powiązane z ludzką odpowiedzialnością.</p></article><article class="card"><div class="mini">Optionality</div><h3 class="en">The learning survives the tool</h3><h3 class="pl">Wiedza pozostaje niezależnie od narzędzia</h3><p class="en">Validated fields, logic, edge cases and UX requirements remain useful even if the final platform changes.</p><p class="pl">Zweryfikowane pola, logika, edge cases i wymagania UX zachowują wartość nawet po zmianie platformy.</p></article></div></div></div></div></section><section class="section" id="attribution"><div class="wrap"><div class="head"><div><div class="kicker">07 · Attribution</div></div><div class="en"><h2>The system does not need to replace the CRM to improve attribution.</h2><p>Its job is to preserve the evidence chain across boundaries and reveal where that chain breaks.</p></div><div class="pl"><h2>System nie musi zastąpić CRM, żeby poprawić atrybucję.</h2><p>Jego rolą jest zachowanie łańcucha dowodowego ponad granicami systemów i pokazanie, w którym miejscu ten łańcuch się urywa.</p></div></div><div class="chain"><div class="node"><b>Inquiry</b><small>source</small></div><div class="node"><b>Qualification</b><small>signal</small></div><div class="node"><b>Owner</b><small>accountability</small></div><div class="node"><b>Follow-up</b><small>action</small></div><div class="node"><b>Opportunity</b><small>commercial state</small></div><div class="node"><b>Outcome</b><small>result</small></div><div class="node"><b>Revenue evidence</b><small>attribution</small></div></div><div class="g3" style="margin-top:22px"><article class="card" style="background:var(--lime);border-color:#c9e34e"><div class="mini" style="color:#364100">Behavioural design</div><h3 class="en">Not every missing integration is technical.</h3><h3 class="pl">Nie każda brakująca integracja jest techniczna.</h3><p class="en" style="color:#3e481e">If outcome reporting only creates admin work, people avoid it. The operating model therefore needs recognition and usefulness for commercial teams, not only cleaner marketing reports.</p><p class="pl" style="color:#3e481e">Jeśli raportowanie wyniku oznacza wyłącznie dodatkową administrację, ludzie będą go unikać. Model działania musi więc dawać wartość również zespołom komercyjnym.</p></article><article class="card"><div class="mini">Carrot method</div><h3 class="en">Make contribution visible</h3><h3 class="pl">Pokazać wkład</h3><p class="en">Conversion feedback, visible outcomes and recognition help close data gaps that another API cannot.</p><p class="pl">Feedback o konwersji, widoczne rezultaty i uznanie pomagają zamknąć luki danych, których nie naprawi kolejne API.</p></article><article class="card"><div class="mini">Operating truth</div><h3 class="en">Attribution is a process design problem</h3><h3 class="pl">Atrybucja jest problemem projektowania procesu</h3><p class="en">If source, ownership, action and outcome are not captured consistently, no dashboard can reconstruct the truth later.</p><p class="pl">Jeżeli źródło, odpowiedzialność, działanie i wynik nie są konsekwentnie rejestrowane, żaden dashboard nie odtworzy później prawdy.</p></article></div></div></section><section class="section" id="proof"><div class="wrap"><div class="head"><div><div class="kicker">08 · Red-team proof</div></div><div class="en"><h2>What a sceptical stakeholder should be able to challenge.</h2><p>A strong case study should survive scrutiny. These are the questions the design had to answer, not hide.</p></div><div class="pl"><h2>Co powinien móc zakwestionować sceptyczny stakeholder.</h2><p>Dobre case study musi wytrzymać krytykę. To pytania, na które projekt musiał odpowiedzieć, a nie je ukrywać.</p></div></div><div class="redteam"><article class="challenge"><div class="role">Revenue leader</div><h3>“Where is the commercial outcome?”</h3><p>Answer with a traceable inquiry-to-outcome chain, not lead volume.</p></article><article class="challenge"><div class="role">Enterprise architect</div><h3>“Is this a shadow CRM?”</h3><p>No. It is an experimentation and intelligence layer designed to inform the long-term core architecture.</p></article><article class="challenge"><div class="role">Data leader</div><h3>“Can you prove causality?”</h3><p>The design distinguishes evidence from inference and does not turn intended benefits into realised metrics.</p></article><article class="challenge"><div class="role">Operator</div><h3>“Does this create more admin?”</h3><p>The design goal is to reduce noise, clarify ownership and make feedback useful to the people producing it.</p></article></div><div class="claims" style="margin-top:22px"><div class="claim"><span class="badge hist">Historical evidence</span><p class="en">Manual qualification, regional capability building, Power BI measurement and executive case studies demonstrated material commercial value before Mission Control Room existed.</p><p class="pl">Manualna kwalifikacja, regionalny model działania, pomiar Power BI i case studies dla kadry zarządzającej wykazały istotną wartość biznesową jeszcze przed powstaniem Mission Control Room.</p></div><div class="claim"><span class="badge built">Implemented</span><p class="en">Mission Control provides an independent AI-enabled layer for ingestion, qualification, review, routing logic, feedback, analytics and controlled experimentation.</p><p class="pl">Mission Control zapewnia niezależną warstwę AI do ingestowania danych, kwalifikacji, review, logiki routingu, feedbacku, analityki i kontrolowanego eksperymentowania.</p></div><div class="claim"><span class="badge next">Roadmap</span><p class="en">Enterprise-scale production integration and long-term system-of-record decisions remain architecture choices, not claims of completed deployment.</p><p class="pl">Integracja enterprise na skalę produkcyjną i decyzje o docelowym systemie record pozostają wyborami architektonicznymi, a nie deklaracją ukończonego wdrożenia.</p></div></div></div></section><section class="section" id="learn"><div class="wrap"><div class="head"><div><div class="kicker">09 · What this case demonstrates</div></div><div class="en"><h2>The software is only one layer of the work.</h2><p>The deeper capability is connecting business transformation, revenue operations, behavioural design, data, MarTech, AI and governance into one operating system.</p></div><div class="pl"><h2>Oprogramowanie jest tylko jedną warstwą tej pracy.</h2><p>Głębsza kompetencja polega na połączeniu transformacji biznesowej, Revenue Operations, behavioural design, danych, MarTech, AI i governance w jeden model działania.</p></div></div><div class="skills"><span class="skill">Business transformation</span><span class="skill">Operating-model design</span><span class="skill">Revenue Operations</span><span class="skill">Attribution</span><span class="skill">Salesforce / SFMC</span><span class="skill">Power BI</span><span class="skill">Human-in-the-loop AI</span><span class="skill">Agentic workflows</span><span class="skill">Change management</span><span class="skill">Data & signal modelling</span><span class="skill">Integration strategy</span><span class="skill">Governance</span><span class="skill">Hands-on prototyping</span></div></div></section></main><footer class="footer"><div class="wrap foot"><div><div class="eyebrow">Case Study | Eliza Bingul</div><div class="en"><h2 style="margin-top:18px">The most important part was not the AI pipeline.</h2><p class="lead">It was learning how to make an invisible commercial process visible, measurable and improvable. Once the operating model became clear, AI could accelerate it.</p></div><div class="pl"><h2 style="margin-top:18px">Najważniejszy nie był pipeline AI.</h2><p class="lead">Najważniejsze było zrozumienie, jak niewidoczny proces biznesowy uczynić widocznym, mierzalnym i możliwym do poprawy. Dopiero wtedy AI mogło go przyspieszyć.</p></div></div><div><a class="cta" href="https://www.linkedin.com/in/elizabingul/" target="_blank" rel="noopener noreferrer">LinkedIn →</a></div></div></footer><script>(()=>{const body=document.body,en=document.getElementById('enBtn'),pl=document.getElementById('plBtn');const setLang=lang=>{body.dataset.lang=lang;document.documentElement.lang=lang;en.classList.toggle('active',lang==='en');pl.classList.toggle('active',lang==='pl');en.setAttribute('aria-pressed',String(lang==='en'));pl.setAttribute('aria-pressed',String(lang==='pl'));localStorage.setItem('mcr-lang',lang)};en.addEventListener('click',()=>setLang('en'));pl.addEventListener('click',()=>setLang('pl'));const saved=localStorage.getItem('mcr-lang');if(saved==='pl')setLang('pl');const nav=[...document.querySelectorAll('[data-section]')],sections=nav.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{const top=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(top)nav.forEach(a=>a.classList.toggle('active',a.dataset.section===top.target.id))},{rootMargin:'-24% 0px -62% 0px',threshold:[0,.2,.5]});sections.forEach(s=>io.observe(s))}const progress=document.getElementById('progress');const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?Math.min(100,scrollY/max*100):0)+'%'};addEventListener('scroll',update,{passive:true});update()})();</script></body></html>
-<!-- responsive-production-publish-2026-09-15 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-lang="en">
+<div class="progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap top-main">
+    <div class="brand">
+      <strong>Mission Control Room</strong>
+      <span>Case Study | Eliza Bingul</span>
+    </div>
+    <div class="lang-switch" aria-label="Language">
+      <button class="active" data-lang-btn="en" aria-pressed="true">EN</button>
+      <button data-lang-btn="pl" aria-pressed="false">PL</button>
+    </div>
+  </div>
+  <div class="nav-row">
+    <nav class="wrap nav" aria-label="Case study sections">
+      <a href="#challenge"><span class="lang-en inline">01 Challenge</span><span class="lang-pl inline">01 Wyzwanie</span></a>
+      <a href="#human"><span class="lang-en inline">02 Human prototype</span><span class="lang-pl inline">02 Prototyp ludzki</span></a>
+      <a href="#measurement"><span class="lang-en inline">03 Measurement</span><span class="lang-pl inline">03 Pomiar</span></a>
+      <a href="#operating"><span class="lang-en inline">04 Operating model</span><span class="lang-pl inline">04 Model operacyjny</span></a>
+      <a href="#mcr">05 Mission Control Room</a>
+      <a href="#human-ai"><span class="lang-en inline">06 Human + AI</span><span class="lang-pl inline">06 Człowiek + AI</span></a>
+      <a href="#results"><span class="lang-en inline">07 Results</span><span class="lang-pl inline">07 Wyniki</span></a>
+      <a href="#learnings"><span class="lang-en inline">08 Learnings</span><span class="lang-pl inline">08 Wnioski</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">People × Data × AI × Commercial impact</div>
+        <div class="lang-en">
+          <h1>From Noise to Measurable Revenue.</h1>
+          <p class="hero-lead">Building a B2B inquiry-to-revenue operating system.</p>
+          <p class="hero-copy">Mission Control Room did not start as an AI project. It started with a business question: were valuable opportunities disappearing because the organisation could not reliably distinguish signal from noise, assign ownership, close the loop and measure commercial outcomes?</p>
+        </div>
+        <div class="lang-pl">
+          <h1>Od szumu do mierzalnego przychodu.</h1>
+          <p class="hero-lead">Budowa systemu operacyjnego od zapytania B2B do wyniku biznesowego.</p>
+          <p class="hero-copy">Mission Control Room nie zaczynał się jako projekt AI. Zaczynał się od pytania biznesowego: czy wartościowe szanse znikają, ponieważ organizacja nie potrafi niezawodnie odróżnić sygnału od szumu, przypisać odpowiedzialności, domknąć procesu i zmierzyć efektu komercyjnego?</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#challenge"><span class="lang-en inline">Explore the story ↓</span><span class="lang-pl inline">Zobacz historię ↓</span></a>
+          <a class="btn" href="#mcr">Mission Control Room</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Signal to value visual">
+        <div class="signal-board">
+          <div class="signal-tag">Inquiry → Evidence → Action</div>
+          <div class="signal-title"><span class="lang-en inline">A clearer path from fragmented signals to measurable outcomes.</span><span class="lang-pl inline">Czytelna droga od rozproszonych sygnałów do mierzalnych wyników.</span></div>
+          <div class="flow-mini">
+            <div class="row"><div class="icon">01</div><div class="flow-copy"><b><span class="lang-en inline">Capture</span><span class="lang-pl inline">Zbieranie</span></b><small><span class="lang-en inline">Bring fragmented inquiries into one view.</span><span class="lang-pl inline">Zbierz rozproszone zapytania w jednym widoku.</span></small></div><span class="signal-tag">signal</span></div>
+            <div class="row"><div class="icon">02</div><div class="flow-copy"><b><span class="lang-en inline">Qualify</span><span class="lang-pl inline">Kwalifikacja</span></b><small><span class="lang-en inline">Assess relevance, context and potential.</span><span class="lang-pl inline">Oceń trafność, kontekst i potencjał.</span></small></div><span class="signal-tag">context</span></div>
+            <div class="row"><div class="icon">03</div><div class="flow-copy"><b><span class="lang-en inline">Route</span><span class="lang-pl inline">Przekazanie</span></b><small><span class="lang-en inline">Get the right opportunity to the right owner.</span><span class="lang-pl inline">Przekaż właściwą szansę do właściwej osoby.</span></small></div><span class="signal-tag">action</span></div>
+            <div class="row"><div class="icon">04</div><div class="flow-copy"><b><span class="lang-en inline">Measure</span><span class="lang-pl inline">Pomiar</span></b><small><span class="lang-en inline">Link outcomes back to the original inquiry.</span><span class="lang-pl inline">Połącz wynik z pierwotnym zapytaniem.</span></small></div><span class="signal-tag">evidence</span></div>
+          </div>
+        </div>
+        <div class="hero-note"><span class="lang-en inline">AI was the accelerator, not the starting point.</span><span class="lang-pl inline">AI było akceleratorem, nie punktem startowym.</span></div>
+      </div>
+    </div>
+
+    <div class="evidence-strip">
+      <div class="evidence-item"><b><span class="lang-en inline">Multi-market</span><span class="lang-pl inline">Wiele rynków</span></b><span><span class="lang-en inline">A regional operating problem, not a single-channel campaign.</span><span class="lang-pl inline">Regionalny problem operacyjny, nie pojedyncza kampania.</span></span></div>
+      <div class="evidence-item"><b><span class="lang-en inline">Seven-figure evidence</span><span class="lang-pl inline">Dowody siedmiocyfrowej wartości</span></b><span><span class="lang-en inline">Executive case studies connected marketing-generated inquiries with material commercial outcomes.</span><span class="lang-pl inline">Case studies dla kadry zarządzającej połączyły zapytania marketingowe z istotnymi wynikami komercyjnymi.</span></span></div>
+      <div class="evidence-item"><b>Human-in-the-loop</b><span><span class="lang-en inline">AI supports consequential decisions; people retain authority.</span><span class="lang-pl inline">AI wspiera decyzje o znaczeniu biznesowym; ludzie zachowują kontrolę.</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="challenge">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">01</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>The problem existed long before AI.</h2><p>The organisation already had powerful technology. The problem was the gap between systems, ownership, decisions and outcomes.</p></div>
+        <div class="lang-pl"><h2>Problem istniał dużo wcześniej niż AI.</h2><p>Organizacja miała już zaawansowane technologie. Problemem była luka pomiędzy systemami, odpowiedzialnością, decyzjami i wynikami.</p></div>
+      </div>
+    </div>
+
+    <div class="editorial-grid">
+      <div class="editorial-card">
+        <p class="section-no"><span class="lang-en inline">The challenge</span><span class="lang-pl inline">Wyzwanie</span></p>
+        <p class="big-line"><span class="lang-en inline">Noise does not mean no value.</span><span class="lang-pl inline">Szum nie oznacza braku wartości.</span></p>
+        <p class="muted"><span class="lang-en inline">High volumes of weak, irrelevant or incorrectly routed inquiries made the channel easy to dismiss. The strategic shift was to stop judging the channel by average quality and start finding commercially meaningful signals hidden within the total volume.</span><span class="lang-pl inline">Duża liczba słabych, nietrafnych lub źle przekierowanych zapytań sprawiała, że kanał łatwo było uznać za niewartościowy. Zmiana polegała na odejściu od oceny kanału przez pryzmat średniej jakości i skupieniu się na wyszukiwaniu wartościowych sygnałów ukrytych w całym wolumenie.</span></p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem"><div class="icon">↯</div><h3><span class="lang-en inline">Fragmented inputs</span><span class="lang-pl inline">Rozproszone wejścia</span></h3><p><span class="lang-en inline">CRM, marketing automation, websites, email, spreadsheets and local processes.</span><span class="lang-pl inline">CRM, marketing automation, strony, e-mail, arkusze i procesy lokalne.</span></p></div>
+        <div class="problem"><div class="icon">◎</div><h3><span class="lang-en inline">Unclear ownership</span><span class="lang-pl inline">Niejasna odpowiedzialność</span></h3><p><span class="lang-en inline">Who qualifies, who acts and when the SLA starts were not always obvious.</span><span class="lang-pl inline">Nie zawsze było jasne kto kwalifikuje, kto działa i kiedy zaczyna się SLA.</span></p></div>
+        <div class="problem"><div class="icon">◌</div><h3><span class="lang-en inline">Scattered evidence</span><span class="lang-pl inline">Rozproszone dowody</span></h3><p><span class="lang-en inline">Source, follow-up, opportunity and outcome could live in different places.</span><span class="lang-pl inline">Źródło, follow-up, szansa i wynik mogły znajdować się w różnych systemach.</span></p></div>
+        <div class="problem"><div class="icon">↗</div><h3><span class="lang-en inline">Hidden value</span><span class="lang-pl inline">Ukryta wartość</span></h3><p><span class="lang-en inline">Important opportunities could disappear inside a noisy channel.</span><span class="lang-pl inline">Wartościowe szanse mogły ginąć w szumie informacyjnym.</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="human">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">02</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Before automation: the human intelligence layer.</h2><p>The first prototype was operational, not technical. Human review created the evidence needed to understand the signal.</p></div>
+        <div class="lang-pl"><h2>Przed automatyzacją: ludzka warstwa inteligencji.</h2><p>Pierwszy prototyp był operacyjny, nie techniczny. Ręczna kwalifikacja stworzyła wiedzę potrzebną do rozumienia sygnału.</p></div>
+      </div>
+    </div>
+
+    <div class="process" aria-label="Human prototype process">
+      <div class="step"><div class="n">01</div><b><span class="lang-en inline">Manual review</span><span class="lang-pl inline">Ręczny przegląd</span></b><p><span class="lang-en inline">Inspect incoming inquiries.</span><span class="lang-pl inline">Przegląd wpływających zapytań.</span></p></div>
+      <div class="step"><div class="n">02</div><b><span class="lang-en inline">Identify value</span><span class="lang-pl inline">Identyfikacja wartości</span></b><p><span class="lang-en inline">Spot signals that distinguish real potential from noise.</span><span class="lang-pl inline">Wyszukanie sygnałów odróżniających potencjał od szumu.</span></p></div>
+      <div class="step"><div class="n">03</div><b><span class="lang-en inline">Nudge / escalate</span><span class="lang-pl inline">Nudge / eskalacja</span></b><p><span class="lang-en inline">Help important inquiries reach the right people.</span><span class="lang-pl inline">Pomoc w dotarciu ważnych zapytań do właściwych osób.</span></p></div>
+      <div class="step"><div class="n">04</div><b><span class="lang-en inline">Follow up</span><span class="lang-pl inline">Follow-up</span></b><p><span class="lang-en inline">Keep commercially meaningful conversations moving.</span><span class="lang-pl inline">Utrzymanie tempa rozmów o potencjale biznesowym.</span></p></div>
+      <div class="step"><div class="n">05</div><b><span class="lang-en inline">Evidence</span><span class="lang-pl inline">Dowody</span></b><p><span class="lang-en inline">Capture what happened and what mattered.</span><span class="lang-pl inline">Zapisanie rezultatu i kluczowych sygnałów.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="measurement">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">03</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Measurement changed the conversation.</h2><p>Power BI reporting moved the discussion from activity and volume toward inquiry quality, handling state, conversion and commercial outcomes where evidence existed.</p></div>
+        <div class="lang-pl"><h2>Pomiar zmienił rozmowę.</h2><p>Raportowanie Power BI przesunęło dyskusję z aktywności i wolumenu w kierunku jakości zapytań, stanu obsługi, konwersji i wyników komercyjnych tam, gdzie istniały dowody.</p></div>
+      </div>
+    </div>
+
+    <div class="evidence-ledger">
+      <div class="ledger">
+        <p class="section-no"><span class="lang-en inline">Evidence ledger</span><span class="lang-pl inline">Rejestr dowodów</span></p>
+        <div class="ledger-row"><b><span class="lang-en inline">Geography</span><span class="lang-pl inline">Geografia</span></b><p><span class="lang-en inline">Compare inquiry patterns and handling across markets.</span><span class="lang-pl inline">Porównanie wzorców zapytań i obsługi między rynkami.</span></p></div>
+        <div class="ledger-row"><b><span class="lang-en inline">Service / team</span><span class="lang-pl inline">Usługa / zespół</span></b><p><span class="lang-en inline">Understand where demand appeared and who owned the next action.</span><span class="lang-pl inline">Zrozumienie gdzie pojawiał się popyt i kto odpowiadał za kolejny krok.</span></p></div>
+        <div class="ledger-row"><b><span class="lang-en inline">Lead quality</span><span class="lang-pl inline">Jakość leadów</span></b><p><span class="lang-en inline">Separate total volume from commercially meaningful signals.</span><span class="lang-pl inline">Oddzielenie całkowitego wolumenu od sygnałów o znaczeniu biznesowym.</span></p></div>
+        <div class="ledger-row"><b><span class="lang-en inline">Outcome</span><span class="lang-pl inline">Wynik</span></b><p><span class="lang-en inline">Connect source to opportunity and commercial evidence where the chain could be verified.</span><span class="lang-pl inline">Połączenie źródła z szansą i wynikiem komercyjnym tam, gdzie łańcuch można było zweryfikować.</span></p></div>
+      </div>
+      <aside class="statement">
+        <div class="quote"><span class="lang-en inline">Executive case studies connected marketing-generated inquiries to seven-figure commercial outcomes.</span><span class="lang-pl inline">Case studies dla kadry zarządzającej połączyły zapytania marketingowe z siedmiocyfrowymi wynikami komercyjnymi.</span></div>
+        <small><span class="lang-en inline">Public-safe evidence statement. No client names, opportunity IDs or confidential commercial details.</span><span class="lang-pl inline">Publiczne, bezpieczne sformułowanie. Bez nazw klientów, ID szans i poufnych szczegółów komercyjnych.</span></small>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="operating">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">04</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>The operating model made the signal actionable.</h2><p>Automation could not fix ambiguous ownership. The real transformation clarified qualification, routing, follow-up, escalation and accountability.</p></div>
+        <div class="lang-pl"><h2>Model operacyjny zamienił sygnał w działanie.</h2><p>Automatyzacja nie mogła naprawić niejasnej odpowiedzialności. Prawdziwa transformacja uporządkowała kwalifikację, routing, follow-up, eskalację i accountability.</p></div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="state">
+        <p class="section-no"><span class="lang-en inline">Before</span><span class="lang-pl inline">Przed</span></p>
+        <h3><span class="lang-en inline">Attention spread across everything.</span><span class="lang-pl inline">Uwaga rozproszona na wszystko.</span></h3>
+        <ul>
+          <li><span class="lang-en inline">All inquiries competed for manual attention.</span><span class="lang-pl inline">Wszystkie zapytania konkurowały o ręczną uwagę.</span></li>
+          <li><span class="lang-en inline">Ownership and follow-up could be inconsistent.</span><span class="lang-pl inline">Odpowiedzialność i follow-up mogły być niespójne.</span></li>
+          <li><span class="lang-en inline">Attribution was difficult to reconstruct later.</span><span class="lang-pl inline">Atrybucję trudno było odtworzyć po czasie.</span></li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="state target">
+        <p class="section-no"><span class="lang-en inline">Target</span><span class="lang-pl inline">Cel</span></p>
+        <h3><span class="lang-en inline">Human attention focused on what mattered.</span><span class="lang-pl inline">Ludzka uwaga skupiona na tym, co ważne.</span></h3>
+        <ul>
+          <li><span class="lang-en inline">Inquiry → triage → owner → follow-up.</span><span class="lang-pl inline">Zapytanie → triage → owner → follow-up.</span></li>
+          <li><span class="lang-en inline">SLA and escalation principles became explicit.</span><span class="lang-pl inline">Zasady SLA i eskalacji stały się jawne.</span></li>
+          <li><span class="lang-en inline">Opportunity and outcome evidence fed measurement.</span><span class="lang-pl inline">Dowody dotyczące szans i wyników wracały do pomiaru.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="principles" style="margin-top:18px">
+      <div class="principle"><div class="icon">01</div><h3><span class="lang-en inline">Clear ownership</span><span class="lang-pl inline">Jasna odpowiedzialność</span></h3><p><span class="lang-en inline">A valuable inquiry needs a named next action, not a queue.</span><span class="lang-pl inline">Wartościowe zapytanie potrzebuje konkretnego kolejnego działania, nie kolejki.</span></p></div>
+      <div class="principle"><div class="icon">02</div><h3><span class="lang-en inline">Consistent qualification</span><span class="lang-pl inline">Spójna kwalifikacja</span></h3><p><span class="lang-en inline">Shared principles improve comparability across teams and markets.</span><span class="lang-pl inline">Wspólne zasady poprawiają porównywalność między zespołami i rynkami.</span></p></div>
+      <div class="principle"><div class="icon">03</div><h3><span class="lang-en inline">Feedback loop</span><span class="lang-pl inline">Pętla feedbacku</span></h3><p><span class="lang-en inline">Human outcomes become inputs for future decisions.</span><span class="lang-pl inline">Rezultaty pracy ludzi stają się wejściem dla kolejnych decyzji.</span></p></div>
+      <div class="principle"><div class="icon">04</div><h3><span class="lang-en inline">Behaviour matters</span><span class="lang-pl inline">Zachowanie ma znaczenie</span></h3><p><span class="lang-en inline">Not every data gap is solved by another API.</span><span class="lang-pl inline">Nie każdą lukę danych rozwiązuje kolejny API.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mcr">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">05</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Mission Control Room: a parallel intelligence layer.</h2><p>A separate experimentation and decision-support layer made it possible to learn quickly without destabilising core enterprise workflows.</p></div>
+        <div class="lang-pl"><h2>Mission Control Room: równoległa warstwa inteligencji.</h2><p>Oddzielna warstwa eksperymentowania i wsparcia decyzji pozwalała uczyć się szybko bez destabilizowania głównych procesów korporacyjnych.</p></div>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <div class="diagram-title"><span class="lang-en inline">Fragmented systems → Mission Control Room → business evidence</span><span class="lang-pl inline">Rozproszone systemy → Mission Control Room → dowody biznesowe</span></div>
+      <div class="arch">
+        <div class="stack">
+          <div class="node"><b>CRM / marketing automation</b><small><span class="lang-en inline">Inquiry, account, campaign and relationship context.</span><span class="lang-pl inline">Kontekst zapytania, konta, kampanii i relacji.</span></small></div>
+          <div class="node"><b>Website / forms / email</b><small><span class="lang-en inline">Direct incoming demand and source context.</span><span class="lang-pl inline">Bezpośredni popyt i kontekst źródła.</span></small></div>
+          <div class="node"><b>Spreadsheets / local processes</b><small><span class="lang-en inline">Operational evidence and local knowledge.</span><span class="lang-pl inline">Dowody operacyjne i wiedza lokalna.</span></small></div>
+        </div>
+
+        <div class="core">
+          <div class="section-no">Mission Control Room</div>
+          <h3><span class="lang-en inline">Parallel intelligence & experimentation layer</span><span class="lang-pl inline">Równoległa warstwa inteligencji i eksperymentowania</span></h3>
+          <div class="core-flow">
+            <span>Capture</span><span>Prepare</span><span>Enrich</span><span>Interpret</span><span>Qualify</span><span>Review</span><span>Route</span><span>Learn</span>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="node"><b><span class="lang-en inline">Human decision</span><span class="lang-pl inline">Decyzja człowieka</span></b><small><span class="lang-en inline">Approve, override, add context, link records.</span><span class="lang-pl inline">Zatwierdzenie, override, kontekst, łączenie rekordów.</span></small></div>
+          <div class="node"><b><span class="lang-en inline">Approved output</span><span class="lang-pl inline">Zatwierdzony output</span></b><small><span class="lang-en inline">CRM, BI, workflow or marketing destinations.</span><span class="lang-pl inline">CRM, BI, workflow lub marketing automation.</span></small></div>
+          <div class="node"><b><span class="lang-en inline">Evidence chain</span><span class="lang-pl inline">Łańcuch dowodów</span></b><small>Inquiry → Qualification → Owner → Opportunity → Outcome</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="human-ai">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">06</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>AI prepares and recommends. Humans retain authority.</h2><p>The architecture separates specialist tasks and keeps consequential decisions under human control.</p></div>
+        <div class="lang-pl"><h2>AI przygotowuje i rekomenduje. Ludzie zachowują kontrolę.</h2><p>Architektura rozdziela wyspecjalizowane zadania i pozostawia decyzje o znaczeniu biznesowym pod kontrolą człowieka.</p></div>
+      </div>
+    </div>
+
+    <div class="control-grid">
+      <div class="human-ai-balance" aria-label="Human and AI collaboration visual">
+        <div class="balance-side human-side">
+          <div class="lang-en">
+            <div class="balance-kicker">Human layer</div>
+            <h3>Reviewers & market knowledge</h3>
+            <ul><li>Industry expertise</li><li>Customer and market context</li><li>Nuanced judgement</li><li>Relationship insight</li><li>Strategic fit assessment</li></ul>
+          </div>
+          <div class="lang-pl">
+            <div class="balance-kicker">Warstwa ludzka</div>
+            <h3>Reviewerzy i wiedza rynkowa</h3>
+            <ul><li>Ekspertyza branżowa</li><li>Kontekst klienta i rynku</li><li>Ocena niuansów</li><li>Wiedza o relacjach</li><li>Ocena dopasowania strategicznego</li></ul>
+          </div>
+        </div>
+        <div class="control-core" aria-label="Human control actions"><span>Validate</span><span>Interpret</span><span>Decide</span></div>
+        <div class="balance-side ai-side">
+          <div class="lang-en">
+            <div class="balance-kicker">AI layer</div>
+            <h3>AI assistance & structured workflows</h3>
+            <ul><li>Summarise and structure inquiries</li><li>Classify and enrich context</li><li>Prioritise opportunities</li><li>Recommend routing</li><li>Surface confidence and gaps</li></ul>
+          </div>
+          <div class="lang-pl">
+            <div class="balance-kicker">Warstwa AI</div>
+            <h3>Wsparcie AI i uporządkowane workflow</h3>
+            <ul><li>Podsumowanie i strukturyzacja zapytań</li><li>Klasyfikacja i wzbogacanie kontekstu</li><li>Priorytetyzacja szans</li><li>Rekomendacja routingu</li><li>Pokazanie confidence i luk</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="governance">
+        <p class="section-no"><span class="lang-en inline">Human Control Room</span><span class="lang-pl inline">Human Control Room</span></p>
+        <div class="gov-row"><div class="icon">✓</div><div><b><span class="lang-en inline">Explain the inference</span><span class="lang-pl inline">Wyjaśnij wniosek</span></b><p><span class="lang-en inline">Reasoning, confidence, signal visibility and missing information.</span><span class="lang-pl inline">Uzasadnienie, confidence, widoczność sygnałów i brakujące informacje.</span></p></div></div>
+        <div class="gov-row"><div class="icon">↺</div><div><b><span class="lang-en inline">Approve or override</span><span class="lang-pl inline">Zatwierdź lub nadpisz</span></b><p><span class="lang-en inline">The reviewer can accept, correct or add market context.</span><span class="lang-pl inline">Reviewer może zaakceptować, poprawić lub dodać kontekst rynkowy.</span></p></div></div>
+        <div class="gov-row"><div class="icon">!</div><div><b><span class="lang-en inline">Surface discrepancies</span><span class="lang-pl inline">Pokaż rozbieżności</span></b><p><span class="lang-en inline">Edge cases and uncertainty are visible rather than hidden.</span><span class="lang-pl inline">Przypadki brzegowe i niepewność są widoczne zamiast ukryte.</span></p></div></div>
+        <div class="gov-row"><div class="icon">◎</div><div><b><span class="lang-en inline">Close the loop</span><span class="lang-pl inline">Domknij pętlę</span></b><p><span class="lang-en inline">Outcome and conversion evidence can inform future decisions.</span><span class="lang-pl inline">Wynik i dane konwersji mogą zasilać kolejne decyzje.</span></p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">07</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Separate demonstrated outcomes from system capability and future intent.</h2><p>The case is strongest when evidence is explicit about what was historically demonstrated, what Mission Control already supports and what remains an intended enterprise outcome.</p></div>
+        <div class="lang-pl"><h2>Rozdzielamy wyniki udowodnione, możliwości systemu i przyszłe cele.</h2><p>Case study jest najmocniejsze wtedy, gdy jasno pokazuje co zostało historycznie udowodnione, co Mission Control już potrafi, a co pozostaje planowanym rezultatem enterprise.</p></div>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result"><div class="icon">↗</div><h3><span class="lang-en inline">Commercial evidence</span><span class="lang-pl inline">Dowody komercyjne</span></h3><p><span class="lang-en inline">Executive examples connected inquiries to material, seven-figure commercial outcomes.</span><span class="lang-pl inline">Przykłady dla kadry zarządzającej połączyły zapytania z istotnymi, siedmiocyfrowymi wynikami komercyjnymi.</span></p></div>
+      <div class="result"><div class="icon">◎</div><h3><span class="lang-en inline">Clearer ownership</span><span class="lang-pl inline">Jaśniejsza odpowiedzialność</span></h3><p><span class="lang-en inline">Qualification, routing, follow-up and escalation became explicit operating concerns.</span><span class="lang-pl inline">Kwalifikacja, routing, follow-up i eskalacja stały się jawnymi elementami modelu operacyjnego.</span></p></div>
+      <div class="result"><div class="icon">◍</div><h3><span class="lang-en inline">Reusable logic</span><span class="lang-pl inline">Logika wielokrotnego użytku</span></h3><p><span class="lang-en inline">Process maps, taxonomies, routing rules and edge cases remain valuable even if the final platform changes.</span><span class="lang-pl inline">Mapy procesu, taksonomie, reguły routingu i edge cases zachowują wartość nawet jeśli końcowa platforma się zmieni.</span></p></div>
+      <div class="result"><div class="icon">AI</div><h3><span class="lang-en inline">Safer experimentation</span><span class="lang-pl inline">Bezpieczniejsze eksperymentowanie</span></h3><p><span class="lang-en inline">The parallel layer supports learning without requiring immediate changes to the core production stack.</span><span class="lang-pl inline">Równoległa warstwa wspiera naukę bez konieczności natychmiastowych zmian w produkcyjnym stacku.</span></p></div>
+    </div>
+
+    <table class="status-table">
+      <thead><tr><th>Status</th><th><span class="lang-en inline">What it means</span><span class="lang-pl inline">Co to oznacza</span></th><th><span class="lang-en inline">Examples in this case</span><span class="lang-pl inline">Przykłady w tym case</span></th></tr></thead>
+      <tbody>
+        <tr><td><span class="status demo"><span class="lang-en inline">Demonstrated</span><span class="lang-pl inline">Udowodnione</span></span></td><td><span class="lang-en inline">Historical evidence exists.</span><span class="lang-pl inline">Istnieją historyczne dowody.</span></td><td><span class="lang-en inline">Inquiry quality measurement, business-outcome case studies, operating capability and attribution evidence.</span><span class="lang-pl inline">Pomiar jakości zapytań, case studies wyników biznesowych, capability operacyjne i dowody atrybucji.</span></td></tr>
+        <tr><td><span class="status built"><span class="lang-en inline">Built capability</span><span class="lang-pl inline">Zbudowana capability</span></span></td><td><span class="lang-en inline">Mission Control supports the workflow as a decision-support layer.</span><span class="lang-pl inline">Mission Control wspiera workflow jako warstwa decision support.</span></td><td><span class="lang-en inline">Ingestion, preparation, enrichment, interpretation, qualification, human review, outputs, learning and analytics.</span><span class="lang-pl inline">Ingestion, przygotowanie, enrichment, interpretacja, kwalifikacja, human review, outputy, uczenie i analytics.</span></td></tr>
+        <tr><td><span class="status intended"><span class="lang-en inline">Intended outcome</span><span class="lang-pl inline">Planowany rezultat</span></span></td><td><span class="lang-en inline">Future enterprise effect; not presented as already realised.</span><span class="lang-pl inline">Przyszły efekt enterprise; nie jest przedstawiany jako już osiągnięty.</span></td><td><span class="lang-en inline">Shorter end-to-end SLA, less operational noise, broader production integration and sustained closed-loop attribution.</span><span class="lang-pl inline">Krótsze end-to-end SLA, mniej szumu operacyjnego, szersza integracja produkcyjna i trwała closed-loop attribution.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section alt" id="learnings">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">08</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>What the transformation taught me.</h2><p>The enduring value is not only the software. It is validated process knowledge that makes future change safer and faster.</p></div>
+        <div class="lang-pl"><h2>Czego nauczyła mnie ta transformacja.</h2><p>Trwałą wartością nie jest tylko software. To zweryfikowana wiedza procesowa, dzięki której kolejne zmiany mogą być szybsze i bezpieczniejsze.</p></div>
+      </div>
+    </div>
+
+    <div class="learning-grid">
+      <div class="learning"><div class="icon">01</div><h3><span class="lang-en inline">Start with the operating model</span><span class="lang-pl inline">Zacznij od modelu operacyjnego</span></h3><p><span class="lang-en inline">Lead qualification is an operating-model problem before it is an AI problem.</span><span class="lang-pl inline">Kwalifikacja leadów jest najpierw problemem modelu operacyjnego, dopiero potem AI.</span></p></div>
+      <div class="learning"><div class="icon">02</div><h3><span class="lang-en inline">Design attribution in</span><span class="lang-pl inline">Projektuj atrybucję od początku</span></h3><p><span class="lang-en inline">Attribution works better when it is part of the process, not an afterthought.</span><span class="lang-pl inline">Atrybucja działa lepiej, gdy jest częścią procesu, a nie dodatkiem po fakcie.</span></p></div>
+      <div class="learning"><div class="icon">03</div><h3><span class="lang-en inline">Protect human authority</span><span class="lang-pl inline">Chroń kontrolę człowieka</span></h3><p><span class="lang-en inline">Reviewers need reasoning, confidence and context, not just a score.</span><span class="lang-pl inline">Reviewer potrzebuje uzasadnienia, confidence i kontekstu, nie tylko score.</span></p></div>
+      <div class="learning"><div class="icon">04</div><h3><span class="lang-en inline">Experiments create reusable knowledge</span><span class="lang-pl inline">Eksperymenty tworzą wiedzę wielokrotnego użytku</span></h3><p><span class="lang-en inline">Even if the final platform changes, validated rules, exceptions and workflow requirements remain valuable.</span><span class="lang-pl inline">Nawet jeśli końcowa platforma się zmieni, zweryfikowane reguły, wyjątki i wymagania workflow pozostają wartościowe.</span></p></div>
+    </div>
+
+    <div class="capabilities">
+      <span>Business transformation</span><span>AI / GenAI opportunity discovery</span><span>Revenue Operations</span><span>Attribution design</span><span>CRM / MarTech architecture</span><span>Human-in-the-loop AI</span><span>Agentic workflows</span><span>Data & signal modelling</span><span>Change management</span><span>Power BI</span><span>Integration strategy</span><span>Governance & auditability</span><span>Hands-on delivery</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="section-no">Mission Control Room · Case Study | Eliza Bingul</div>
+      <div class="lang-en"><h2>The most important part was not the AI pipeline.</h2><p>It was learning how to make an invisible commercial process visible, measurable and improvable. Once the operating model became clear, AI could accelerate it.</p></div>
+      <div class="lang-pl"><h2>Najważniejsza część nie była pipeline'em AI.</h2><p>Najważniejsze było nauczenie się, jak niewidoczny proces komercyjny uczynić widocznym, mierzalnym i możliwym do ulepszania. Kiedy model operacyjny stał się jasny, AI mogło go przyspieszyć.</p></div>
+    </div>
+    <div>
+      <a class="btn" href="#top"><span class="lang-en inline">Back to top ↑</span><span class="lang-pl inline">Do góry ↑</span></a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>

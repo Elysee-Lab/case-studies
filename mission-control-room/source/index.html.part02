@@ -1,0 +1,63 @@
+        <p class="big-line"><span class="lang-en inline">Noise does not mean no value.</span><span class="lang-pl inline">Szum nie oznacza braku wartości.</span></p>
+        <p class="muted"><span class="lang-en inline">High volumes of weak, irrelevant or incorrectly routed inquiries made the channel easy to dismiss. The strategic shift was to stop judging the channel by average quality and start finding commercially meaningful signals hidden within the total volume.</span><span class="lang-pl inline">Duża liczba słabych, nietrafnych lub źle przekierowanych zapytań sprawiała, że kanał łatwo było uznać za niewartościowy. Zmiana polegała na odejściu od oceny kanału przez pryzmat średniej jakości i skupieniu się na wyszukiwaniu wartościowych sygnałów ukrytych w całym wolumenie.</span></p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem"><div class="icon">↯</div><h3><span class="lang-en inline">Fragmented inputs</span><span class="lang-pl inline">Rozproszone wejścia</span></h3><p><span class="lang-en inline">CRM, marketing automation, websites, email, spreadsheets and local processes.</span><span class="lang-pl inline">CRM, marketing automation, strony, e-mail, arkusze i procesy lokalne.</span></p></div>
+        <div class="problem"><div class="icon">◎</div><h3><span class="lang-en inline">Unclear ownership</span><span class="lang-pl inline">Niejasna odpowiedzialność</span></h3><p><span class="lang-en inline">Who qualifies, who acts and when the SLA starts were not always obvious.</span><span class="lang-pl inline">Nie zawsze było jasne kto kwalifikuje, kto działa i kiedy zaczyna się SLA.</span></p></div>
+        <div class="problem"><div class="icon">◌</div><h3><span class="lang-en inline">Scattered evidence</span><span class="lang-pl inline">Rozproszone dowody</span></h3><p><span class="lang-en inline">Source, follow-up, opportunity and outcome could live in different places.</span><span class="lang-pl inline">Źródło, follow-up, szansa i wynik mogły znajdować się w różnych systemach.</span></p></div>
+        <div class="problem"><div class="icon">↗</div><h3><span class="lang-en inline">Hidden value</span><span class="lang-pl inline">Ukryta wartość</span></h3><p><span class="lang-en inline">Important opportunities could disappear inside a noisy channel.</span><span class="lang-pl inline">Wartościowe szanse mogły ginąć w szumie informacyjnym.</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="human">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">02</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Before automation: the human intelligence layer.</h2><p>The first prototype was operational, not technical. Human review created the evidence needed to understand the signal.</p></div>
+        <div class="lang-pl"><h2>Przed automatyzacją: ludzka warstwa inteligencji.</h2><p>Pierwszy prototyp był operacyjny, nie techniczny. Ręczna kwalifikacja stworzyła wiedzę potrzebną do rozumienia sygnału.</p></div>
+      </div>
+    </div>
+
+    <div class="process" aria-label="Human prototype process">
+      <div class="step"><div class="n">01</div><b><span class="lang-en inline">Manual review</span><span class="lang-pl inline">Ręczny przegląd</span></b><p><span class="lang-en inline">Inspect incoming inquiries.</span><span class="lang-pl inline">Przegląd wpływających zapytań.</span></p></div>
+      <div class="step"><div class="n">02</div><b><span class="lang-en inline">Identify value</span><span class="lang-pl inline">Identyfikacja wartości</span></b><p><span class="lang-en inline">Spot signals that distinguish real potential from noise.</span><span class="lang-pl inline">Wyszukanie sygnałów odróżniających potencjał od szumu.</span></p></div>
+      <div class="step"><div class="n">03</div><b><span class="lang-en inline">Nudge / escalate</span><span class="lang-pl inline">Nudge / eskalacja</span></b><p><span class="lang-en inline">Help important inquiries reach the right people.</span><span class="lang-pl inline">Pomoc w dotarciu ważnych zapytań do właściwych osób.</span></p></div>
+      <div class="step"><div class="n">04</div><b><span class="lang-en inline">Follow up</span><span class="lang-pl inline">Follow-up</span></b><p><span class="lang-en inline">Keep commercially meaningful conversations moving.</span><span class="lang-pl inline">Utrzymanie tempa rozmów o potencjale biznesowym.</span></p></div>
+      <div class="step"><div class="n">05</div><b><span class="lang-en inline">Evidence</span><span class="lang-pl inline">Dowody</span></b><p><span class="lang-en inline">Capture what happened and what mattered.</span><span class="lang-pl inline">Zapisanie rezultatu i kluczowych sygnałów.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="measurement">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">03</div>
+      <div class="section-intro">
+        <div class="lang-en"><h2>Measurement changed the conversation.</h2><p>Power BI reporting moved the discussion from activity and volume toward inquiry quality, handling state, conversion and commercial outcomes where evidence existed.</p></div>
+        <div class="lang-pl"><h2>Pomiar zmienił rozmowę.</h2><p>Raportowanie Power BI przesunęło dyskusję z aktywności i wolumenu w kierunku jakości zapytań, stanu obsługi, konwersji i wyników komercyjnych tam, gdzie istniały dowody.</p></div>
+      </div>
+    </div>
+
+    <div class="evidence-ledger">
+      <div class="ledger">
+        <p class="section-no"><span class="lang-en inline">Evidence ledger</span><span class="lang-pl inline">Rejestr dowodów</span></p>
+        <div class="ledger-row"><b><span class="lang-en inline">Geography</span><span class="lang-pl inline">Geografia</span></b><p><span class="lang-en inline">Compare inquiry patterns and handling across markets.</span><span class="lang-pl inline">Porównanie wzorców zapytań i obsługi między rynkami.</span></p></div>
+        <div class="ledger-row"><b><span class="lang-en inline">Service / team</span><span class="lang-pl inline">Usługa / zespół</span></b><p><span class="lang-en inline">Understand where demand appeared and who owned the next action.</span><span class="lang-pl inline">Zrozumienie gdzie pojawiał się popyt i kto odpowiadał za kolejny krok.</span></p></div>
+        <div class="ledger-row"><b><span class="lang-en inline">Lead quality</span><span class="lang-pl inline">Jakość leadów</span></b><p><span class="lang-en inline">Separate total volume from commercially meaningful signals.</span><span class="lang-pl inline">Oddzielenie całkowitego wolumenu od sygnałów o znaczeniu biznesowym.</span></p></div>
+        <div class="ledger-row"><b><span class="lang-en inline">Outcome</span><span class="lang-pl inline">Wynik</span></b><p><span class="lang-en inline">Connect source to opportunity and commercial evidence where the chain could be verified.</span><span class="lang-pl inline">Połączenie źródła z szansą i wynikiem komercyjnym tam, gdzie łańcuch można było zweryfikować.</span></p></div>
+      </div>
+      <aside class="statement">
+        <div class="quote"><span class="lang-en inline">Executive case studies connected marketing-generated inquiries to seven-figure commercial outcomes.</span><span class="lang-pl inline">Case studies dla kadry zarządzającej połączyły zapytania marketingowe z siedmiocyfrowymi wynikami komercyjnymi.</span></div>
+        <small><span class="lang-en inline">Public-safe evidence statement. No client names, opportunity IDs or confidential commercial details.</span><span class="lang-pl inline">Publiczne, bezpieczne sformułowanie. Bez nazw klientów, ID szans i poufnych szczegółów komercyjnych.</span></small>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="operating">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-no">04</div>
