@@ -1,0 +1,27 @@
+  .nav a{flex:0 0 auto;font-size:.78rem}
+  .hero{padding:64px 0 56px}
+  h1{font-size:clamp(3.3rem,17vw,5.1rem)}
+  h2{font-size:clamp(2.6rem,13vw,4rem)}
+  .hero-grid{gap:36px}
+  .hero-visual{min-height:0}
+  .hero-note{width:auto;transform:none;margin:12px 0 0}
+  .evidence-strip{grid-template-columns:1fr}
+  .section{padding:76px 0}
+  .section-head{gap:16px}
+  .problem-grid,.principles,.results-grid,.learning-grid,.process{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg);min-height:40px}
+  .ledger-row{grid-template-columns:1fr;gap:4px}
+  .human-ai-balance{grid-template-columns:1fr;min-height:0}
+  .balance-side{padding:30px 24px;min-height:300px}
+  .balance-side:before{inset:20px;border-radius:36px}
+  .control-core{flex-direction:row;flex-wrap:wrap;border-inline:0;border-block:1px solid var(--line);padding:18px}
+  .control-core span{width:auto;min-width:88px}
+  .status-table{display:block;overflow:auto}
+  .image-caption{display:block}
+  .footer{padding-bottom:72px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
